@@ -1,0 +1,10 @@
+insert into leases (id, owner_id , renter_id, created_at , term_length, total_cost) values (1, 1, 3, '8/22/2020', 1, '$6.23');
+insert into leases (id, owner_id , renter_id, created_at , term_length, total_cost) values (2, 1, 4, '5/27/2020', 2, '$1.93');
+insert into leases (id, owner_id , renter_id, created_at , term_length, total_cost) values (3, 2, 3, '5/18/2020', 3, '$1.67');
+insert into leases (id, owner_id , renter_id, created_at , term_length, total_cost) values (4, 2, 4, '8/17/2020', 4, '$4.48');
+insert into leases (id, owner_id , renter_id, created_at , term_length, total_cost) values (5, 1, 4, '9/1/2020', 5, '$6.83');
+insert into leases (id, owner_id , renter_id, created_at , term_length, total_cost) values (6, 1, 3, '11/29/2019', 6, '$4.86');
+insert into leases (id, owner_id , renter_id, created_at , term_length, total_cost) values (7, 1, 4, '2/27/2020', 7, '$2.30');
+insert into leases (id, owner_id , renter_id, created_at , term_length, total_cost) values (8, 2, 3, '2/14/2020', 8, '$8.92');
+insert into leases (id, owner_id , renter_id, created_at , term_length, total_cost) values (9, 1, 4, '10/5/2019', 9, '$4.16');
+insert into leases (id, owner_id , renter_id, created_at , term_length, total_cost) values (10, 1, 3, '7/6/2020', 10, '$2.49');
