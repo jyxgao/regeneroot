@@ -20,7 +20,7 @@
     "ejs": "^2.6.2",
     "express": "^4.17.1",
     "morgan": "^1.9.1",
-    "pg": "^6.4.2",
+    "pg": "^8.3.3",
     "pg-native": "^3.0.0"
   },
   "devDependencies": {
