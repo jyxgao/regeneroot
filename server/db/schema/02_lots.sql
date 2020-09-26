@@ -13,6 +13,7 @@ CREATE TABLE lots
   suggested_term INTEGER NOT NULL DEFAULT 12,
   condition_rating INTEGER,
   available_date DATE NOT NULL DEFAULT NOW(),
+  lot_type VARCHAR(255) NOT NULL,
   lot_description TEXT NOT NULL,
   is_leased BOOLEAN NOT NULL DEFAULT FALSE,
   street_address VARCHAR(255) NOT NULL,
