@@ -3,6 +3,7 @@ const router = express.Router();
 
 const { addNewLot, deleteLotById, updateLotById } = require("../lib/lot-mod");
 
+module.exports = function(router, database) {
 // create new lot
 router.post("/lots", (req, res) => {
   const userId = req.session.userId;
@@ -40,4 +41,6 @@ router.post("/lots/:lot_id", (req, res) => {
     res.json({error: err.message})
   })
 });
-module.exports = router;
+
+  return router;
+}

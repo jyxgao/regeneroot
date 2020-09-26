@@ -16,59 +16,60 @@ const {
   getAllLotsByCity,
 } = require("../lib/lot-queries");
 
-router.get("/lots", (req, res) => {
-  getAllLotsByMostRecent()
-    .then((data) => {
-      res.json({ data });
-    })
-    .catch((err) => {
-      res.json({ error: err.message });
-    });
-});
+module.exports = function (router, database) {
+  router.get("/lots", (req, res) => {
+    getAllLotsByMostRecent()
+      .then((data) => {
+        res.json({ data });
+      })
+      .catch((err) => {
+        res.json({ error: err.message });
+      });
+  });
 
-router.get("/lots/:lot_id", (req, res) => {
-  const lotId = req.params.lot_id;
+  router.get("/lots/:lot_id", (req, res) => {
+    const lotId = req.params.lot_id;
 
-  getLotByLotId(lotId)
-    .then((data) => {
-      res.json({ data });
-    })
-    .catch((err) => {
-      res.json({ error: err.message });
-    });
-});
+    getLotByLotId(lotId)
+      .then((data) => {
+        res.json({ data });
+      })
+      .catch((err) => {
+        res.json({ error: err.message });
+      });
+  });
 
-router.get("/lots/owned", (req, res) => {
-  const userId = req.session.user_id;
-  getAllLotsByOwnerId(userId)
-    .then((data) => {
-      res.json({ data });
-    })
-    .catch((err) => {
-      res.json({ error: err.message });
-    });
-});
+  router.get("/lots/owned", (req, res) => {
+    const userId = req.session.user_id;
+    getAllLotsByOwnerId(userId)
+      .then((data) => {
+        res.json({ data });
+      })
+      .catch((err) => {
+        res.json({ error: err.message });
+      });
+  });
 
-router.get("/lots/leased", (req, res) => {
-  const userId = req.session.user_id;
-  getAllLotsByRenterId(userId)
-    .then((data) => {
-      res.json({ data });
-    })
-    .catch((err) => {
-      res.json({ error: err.message });
-    });
-});
+  router.get("/lots/leased", (req, res) => {
+    const userId = req.session.user_id;
+    getAllLotsByRenterId(userId)
+      .then((data) => {
+        res.json({ data });
+      })
+      .catch((err) => {
+        res.json({ error: err.message });
+      });
+  });
 
-router.get("/lots/cities/:city", (req, res) => {
-  const city = req.params.city;
-  getAllLotsByCity(city)
-    .then((data) => {
-      res.json({ data });
-    })
-    .catch((err) => {
-      res.json({ error: err.message });
-    });
-});
-
-module.exports = router;
+  router.get("/lots/cities/:city", (req, res) => {
+    const city = req.params.city;
+    getAllLotsByCity(city)
+      .then((data) => {
+        res.json({ data });
+      })
+      .catch((err) => {
+        res.json({ error: err.message });
+      });
+  });
+  return router;
+};
