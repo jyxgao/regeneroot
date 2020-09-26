@@ -8,17 +8,9 @@
 const express = require("express");
 const router = express.Router();
 
-const {
-  getAllLotsByMostRecent,
-  getLotByLotId,
-  getAllLotsByOwnerId,
-  getAllLotsByRenterId,
-  getAllLotsByCity,
-} = require("../lib/lot-queries");
-
 module.exports = function (router, database) {
   router.get("/lots", (req, res) => {
-    getAllLotsByMostRecent()
+    database.getAllLotsByMostRecent()
       .then((data) => {
         res.json({ data });
       })
@@ -30,7 +22,7 @@ module.exports = function (router, database) {
   router.get("/lots/:lot_id", (req, res) => {
     const lotId = req.params.lot_id;
 
-    getLotByLotId(lotId)
+    database.getLotByLotId(lotId)
       .then((data) => {
         res.json({ data });
       })
@@ -41,7 +33,7 @@ module.exports = function (router, database) {
 
   router.get("/lots/owned", (req, res) => {
     const userId = req.session.user_id;
-    getAllLotsByOwnerId(userId)
+    database.getAllLotsByOwnerId(userId)
       .then((data) => {
         res.json({ data });
       })
@@ -52,7 +44,7 @@ module.exports = function (router, database) {
 
   router.get("/lots/leased", (req, res) => {
     const userId = req.session.user_id;
-    getAllLotsByRenterId(userId)
+    database.getAllLotsByRenterId(userId)
       .then((data) => {
         res.json({ data });
       })
@@ -63,9 +55,49 @@ module.exports = function (router, database) {
 
   router.get("/lots/cities/:city", (req, res) => {
     const city = req.params.city;
-    getAllLotsByCity(city)
+    database.getAllLotsByCity(city)
       .then((data) => {
         res.json({ data });
+      })
+      .catch((err) => {
+        res.json({ error: err.message });
+      });
+  });
+
+  // create new lot
+  router.post("/lots", (req, res) => {
+    const userId = req.session.userId;
+    database.addNewLot({ ...req.body, owner_id: userId })
+      .then((data) => {
+        res.send({ data });
+      })
+      .catch((err) => {
+        res.json({ error: err.message });
+      });
+  });
+
+  // delete lot
+  router.post("/lots/:lot_id/delete", (req, res) => {
+    const userId = req.session.userId;
+    const lotId = req.params.lot_id;
+
+    database.deleteLotById(lotId)
+      .then((data) => {
+        res.send({ data });
+      })
+      .catch((err) => {
+        res.json({ error: err.message });
+      });
+  });
+
+  // update lot
+  router.post("/lots/:lot_id", (req, res) => {
+    const userId = req.session.userId;
+    const lotId = req.params.lot_id;
+
+    updateLotById(lotId, req.body)
+      .then((data) => {
+        res.send({ data });
       })
       .catch((err) => {
         res.json({ error: err.message });

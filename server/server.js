@@ -1,3 +1,7 @@
+const database = require('./lib/database');
+const apiRoutes = require('./routes/apiRoutes');
+const userRoutes = require('./routes/userRoutes');
+
 // load .env data into process.env
 require('dotenv').config();
 
@@ -16,10 +20,10 @@ app.use(cookieSession({
 }));
 
 // PG database client/connection setup
-const { Pool } = require('pg');
-const dbParams = require('./lib/db.js');
-const db = new Pool(dbParams);
-db.connect();
+// const { Pool } = require('pg');
+// const dbParams = require('./lib/db.js');
+// const db = new Pool(dbParams);
+// db.connect();
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -31,19 +35,24 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
+// api endpoints
+const apiRouter = express.Router();
+apiRoutes(apiRouter, database);
+app.use('/api', apiRouter)
 
-const usersRoutes = require("./routes/users");
-const lotsAPIRoutes = require("./routes/lotsAPI");
-const lotsRoutes = require("./routes/lots");
 
+// /user/endpoints
+const userRouter = express.Router();
+userRoutes(userRouter, database);
+app.use('/users', userRouter);
 
 // API routes
-app.use("/api/", usersRoutes(db));
-app.use("/api/", lotsAPIRoutes(db));
+// app.use("/api/", usersRoutes(db));
+// app.use("/api/", lotsAPIRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
-// createa and update lots
-app.use("/", lotsRoutes(db));
+// // createa and update lots
+// app.use("/", lotsRoutes(db));
 
 // Home page
 // Warning: avoid creating more routes in this file!
