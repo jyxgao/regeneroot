@@ -19,6 +19,8 @@ CREATE TABLE lots
   city VARCHAR(255) NOT NULL,
   country VARCHAR(255) NOT NULL,
   post_code VARCHAR(255) NOT NULL,
+  lat DECIMAL(8,6),
+  long DECIMAL(9,6),
   created_at TIMESTAMP NOT NULL,
   is_active BOOLEAN NOT NULL DEFAULT TRUE
 );
