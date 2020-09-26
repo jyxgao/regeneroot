@@ -2,7 +2,7 @@ const pool = require("./db");
 
 // get all lots order by most recent
 const getAllLotsByMostRecent = function (limit = 10) {
-  const values = [limit];
+  const queryParams = [limit];
 
   return pool
     .query(
@@ -13,7 +13,7 @@ const getAllLotsByMostRecent = function (limit = 10) {
     ORDER BY created_at DESC
     LIMIT $1;
     `,
-      values
+      queryParams
     )
     .then((res) => {
       return res.rows;
@@ -45,7 +45,7 @@ const getLotByLotId = function(lotId) {
 
 // get all lots by owner order by most recent
 const getAllLotsByOwnerId = function (userId, limit = 10) {
-  const values = [userId, limit];
+  const queryParams = [userId, limit];
 
   return pool
     .query(
@@ -58,7 +58,7 @@ const getAllLotsByOwnerId = function (userId, limit = 10) {
     ORDER BY created_at DESC
     LIMIT $2;
     `,
-      values
+      queryParams
     )
     .then((res) => {
       return res.rows;
@@ -70,7 +70,7 @@ const getAllLotsByOwnerId = function (userId, limit = 10) {
 
 // get all lots leased by renter order by most recent
 const getAllLotsByRenterId = function (userId, limit = 10) {
-  const values = [userId, limit];
+  const queryParams = [userId, limit];
 
   return pool
     .query(
@@ -83,7 +83,7 @@ const getAllLotsByRenterId = function (userId, limit = 10) {
     ORDER BY created_at DESC
     LIMIT $2
   `,
-      values
+      queryParams
     )
     .then((res) => {
       return res.rows;
@@ -95,7 +95,7 @@ const getAllLotsByRenterId = function (userId, limit = 10) {
 
 // get all lots by city name and order by most recent
 const getAllLotsByCity = function (cityName, limit = 10) {
-  const values = [cityName, limit];
+  const queryParams = [cityName, limit];
 
   return pool
     .query(
@@ -107,7 +107,7 @@ const getAllLotsByCity = function (cityName, limit = 10) {
     ORDER BY created_at DESC
     LIMIT $2;
   `,
-      values
+      queryParams
     )
     .then((res) => {
       return res.rows;
