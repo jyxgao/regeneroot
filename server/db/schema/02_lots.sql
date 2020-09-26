@@ -22,6 +22,6 @@ CREATE TABLE lots
   post_code VARCHAR(255) NOT NULL,
   lat DECIMAL(8,6),
   long DECIMAL(9,6),
-  created_at TIMESTAMP NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
   is_active BOOLEAN NOT NULL DEFAULT TRUE
 );

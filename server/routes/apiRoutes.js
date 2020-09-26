@@ -70,8 +70,10 @@ module.exports = function (router, database) {
   // create new lot
   router.post("/lots", (req, res) => {
     const userId = req.session.user_id;
+    console.log(req.body)
+    const lot = {...req.body, owner_id: userId }
     const images = [req.body.images];
-    database.addNewLot({ ...req.body, owner_id: userId }, images)
+    database.addNewLot(lot, images)
       .then((data) => {
         // if frontend wants data:
         res.send({ data });

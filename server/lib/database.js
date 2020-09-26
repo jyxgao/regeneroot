@@ -129,8 +129,8 @@ exports.getAllLotsByCity = getAllLotsByCity;
 
 // add new lot to lots
 const addNewLot = function (lot, imageArr) {
+  console.log(lot)
   const queryParams = [
-    lot.owner_id,
     lot.title,
     lot.size,
     lot.cost_per_month,
@@ -149,12 +149,12 @@ const addNewLot = function (lot, imageArr) {
     lot.long,
     lot.created_at,
     lot.is_active,
+    lot.owner_id
   ];
   return pool
     .query(
       `
     INSERT INTO lots (
-      owner_id,
       title,
       size,
       cost_per_month,
@@ -167,12 +167,13 @@ const addNewLot = function (lot, imageArr) {
       is_leased,
       street_address,
       city,
-      counry,
+      country,
       post_code,
       lat,
       long,
       created_at,
-      is_active
+      is_active,
+      owner_id
     )
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19)
     RETURNING *, id AS lot_id;
