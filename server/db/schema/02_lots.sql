@@ -5,7 +5,7 @@ CASCADE;
 CREATE TABLE lots
 (
   id SERIAL PRIMARY KEY NOT NULL,
-  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  owner_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   title VARCHAR(255) NOT NULL,
   size INTEGER NOT NULL,
   cost_per_month NUMERIC(12, 2) NOT NULL DEFAULT 0.00,
@@ -13,6 +13,7 @@ CREATE TABLE lots
   suggested_term INTEGER NOT NULL DEFAULT 12,
   condition_rating INTEGER,
   available_date DATE NOT NULL DEFAULT NOW(),
+  lot_type VARCHAR(255) NOT NULL,
   lot_description TEXT NOT NULL,
   is_leased BOOLEAN NOT NULL DEFAULT FALSE,
   street_address VARCHAR(255) NOT NULL,

@@ -1,10 +1,10 @@
-insert into messages (id, owner_id , renter_id, lot_id, text_body, created_at) values (1, 1, 3, 1, 'Burmese black mountain tortoise', '1/16/2020');
+insert into messages (id, owner_id , renter_id, lot_id, text_body, created_at) values (1, 1, 3, 7, 'Burmese black mountain tortoise', '1/16/2020');
 insert into messages (id, owner_id , renter_id, lot_id, text_body, created_at) values (2, 2, 3, 2, 'Praying mantis (unidentified)', '11/18/2019');
-insert into messages (id, owner_id , renter_id, lot_id, text_body, created_at) values (3, 1, 4, 3, 'Emerald-spotted wood dove', '2/27/2020');
+insert into messages (id, owner_id , renter_id, lot_id, text_body, created_at) values (3, 1, 4, 7, 'Emerald-spotted wood dove', '2/27/2020');
 insert into messages (id, owner_id , renter_id, lot_id, text_body, created_at) values (4, 2, 4, 4, 'Pelican, great white', '9/30/2019');
-insert into messages (id, owner_id , renter_id, lot_id, text_body, created_at) values (5, 1, 4, 5, 'Pintail, bahama', '5/25/2020');
+insert into messages (id, owner_id , renter_id, lot_id, text_body, created_at) values (5, 2, 4, 5, 'Pintail, bahama', '5/25/2020');
 insert into messages (id, owner_id , renter_id, lot_id, text_body, created_at) values (6, 2, 3, 6, 'Penguin, magellanic', '5/19/2020');
-insert into messages (id, owner_id , renter_id, lot_id, text_body, created_at) values (7, 1, 3, 7, 'Toddy cat', '9/20/2020');
+insert into messages (id, owner_id , renter_id, lot_id, text_body, created_at) values (7, 1, 3, 9, 'Toddy cat', '9/20/2020');
 insert into messages (id, owner_id , renter_id, lot_id, text_body, created_at) values (8, 2, 4, 8, 'Platypus', '3/20/2020');
-insert into messages (id, owner_id , renter_id, lot_id, text_body, created_at) values (9, 1, 3, 9, 'Pigeon, wood', '3/16/2020');
-insert into messages (id, owner_id , renter_id, lot_id, text_body, created_at) values (10, 1, 4, 10, 'Common ringtail', '2/19/2020');
+insert into messages (id, owner_id , renter_id, lot_id, text_body, created_at) values (9, 2, 3, 9, 'Pigeon, wood', '3/16/2020');
+insert into messages (id, owner_id , renter_id, lot_id, text_body, created_at) values (10, 2, 4, 10, 'Common ringtail', '2/19/2020');
