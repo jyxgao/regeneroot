@@ -58,7 +58,7 @@ const getAllLotsByOwnerId = function (userId, limit = 10) {
     FROM lots
     JOIN users ON lots.owner_id = users.id
     JOIN images ON lots.id = lot_id
-    WHERE users.id = $1
+    WHERE owner_id = $1
     ORDER BY created_at DESC
     LIMIT $2;
     `,
@@ -81,13 +81,13 @@ const getAllLotsByRenterId = function (userId, limit = 10) {
   return pool
     .query(
       `
-    SELECT *,
+    SELECT *, leases.id AS lease_id
     FROM leases
     JOIN lots ON leases.lot_id = lots.id
-    JOIN images ON lots.id = lot_id
+    JOIN images ON lots.id = images.lot_id
     WHERE leases.renter_id = $1
-    ORDER BY created_at DESC
-    LIMIT $2
+    ORDER BY leases.created_at DESC
+    LIMIT $2;
   `,
       queryParams
     )
@@ -204,7 +204,8 @@ const addNewLot = function (lot, imageArr) {
 exports.addNewLot = addNewLot;
 
 // delete lot by Id
-const deleteLotById = function (lotId) {
+const deleteLotById = function (userId, lotId) {
+
   return pool
     .query(
       `
