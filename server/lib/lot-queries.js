@@ -24,7 +24,7 @@ const getAllLotsByMostRecent = function (limit = 10) {
 };
 
 // get single lot by lot Id
-const getLotByLotId = function (lotId) {
+const getLotByLotId = function(lotId) {
   return pool
     .query(
       `
@@ -78,6 +78,7 @@ const getAllLotsByRenterId = function (userId, limit = 10) {
     SELECT *,
     FROM leases
     JOIN lots ON leases.lot_id = lots.id
+    JOIN images ON lots.id = lot_id
     WHERE leases.renter_id = $1
     ORDER BY created_at DESC
     LIMIT $2
