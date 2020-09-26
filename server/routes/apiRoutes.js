@@ -54,7 +54,9 @@ module.exports = function (router, database) {
   });
 
   router.get("/lots/cities/:city", (req, res) => {
-    const city = req.params.city;
+    let city = req.params.city;
+    city = city[0].toUpperCase() + city.slice(1);
+
     database.getAllLotsByCity(city)
       .then((data) => {
         res.json({ data });
@@ -64,12 +66,16 @@ module.exports = function (router, database) {
       });
   });
 
+  // NEED IMAGES
   // create new lot
   router.post("/lots", (req, res) => {
-    const userId = req.session.userId;
+    const userId = req.session.user_id;
     database.addNewLot({ ...req.body, owner_id: userId })
       .then((data) => {
+        // if frontend wants data:
         res.send({ data });
+        // else:
+        // console.log(data)
       })
       .catch((err) => {
         res.json({ error: err.message });
@@ -78,12 +84,15 @@ module.exports = function (router, database) {
 
   // delete lot
   router.post("/lots/:lot_id/delete", (req, res) => {
-    const userId = req.session.userId;
+    const userId = req.session.user_id;
     const lotId = req.params.lot_id;
 
     database.deleteLotById(lotId)
       .then((data) => {
-        res.send({ data });
+        // if frontend wants data:
+        // res.send({ data });
+        // else:
+        console.log(data);
       })
       .catch((err) => {
         res.json({ error: err.message });
@@ -92,12 +101,15 @@ module.exports = function (router, database) {
 
   // update lot
   router.post("/lots/:lot_id", (req, res) => {
-    const userId = req.session.userId;
+    const userId = req.session.user_id;
     const lotId = req.params.lot_id;
 
     updateLotById(lotId, req.body)
       .then((data) => {
+        // if frontend wants data:
         res.send({ data });
+        // else:
+        // console.log(data)
       })
       .catch((err) => {
         res.json({ error: err.message });

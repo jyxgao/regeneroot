@@ -1,4 +1,4 @@
-const pool  = require("./db");
+const pool = require("./db");
 
 // get all lots order by most recent
 const getAllLotsByMostRecent = function (limit = 10) {
@@ -282,3 +282,24 @@ const updateLotById = function (lotId, lot) {
 };
 
 exports.updateLotById = updateLotById;
+
+const getUserById = function (userId) {
+  return pool
+    .query(
+      `SELECT * FROM users
+    WHERE id = $1;
+    `,
+      [userId]
+    )
+    .then((res) => {
+      if (res) {
+        return res.rows[0];
+      }
+      return null;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+exports.getUserById = getUserById;
