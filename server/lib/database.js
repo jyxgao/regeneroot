@@ -304,10 +304,7 @@ const getUserById = function (userId) {
       [userId]
     )
     .then((res) => {
-      if (res) {
-        return res.rows[0];
-      }
-      return null;
+      return res.rows[0];
     })
     .catch((err) => {
       console.log(err);
@@ -315,3 +312,54 @@ const getUserById = function (userId) {
 };
 
 exports.getUserById = getUserById;
+
+// search API
+const getAllLotsByQuery = function (options, limit = 10) {
+  const queryParams = [];
+
+  let queryString = `
+  SELECT *
+  FROM lots
+  JOIN images ON lots.id = lot_id
+`;
+
+  if (options.city) {
+    queryParams.push(`%${options.city}%`);
+    queryString += ` AND lots.city LIKE $${queryParams.length}`;
+  }
+
+  if (options.country) {
+    queryParams.push(`%${options.country}%`);
+    queryString += ` AND lots.country LIKE $${queryParams.length}`;
+  }
+
+  if (options.minimum_size) {
+    queryParams.push(options.minimum_size);
+    queryString += ` AND lots.size >= $${queryParams.length}`;
+  }
+
+  if (options.maximum_size) {
+    queryParams.push(options.maximum_size);
+    queryString += ` AND lots.size <= $${queryParams.length}`;
+  }
+
+  queryString += ` ORDER BY lots.created_at DESC`
+  queryParams.push(limit);
+  queryString += `
+  LIMIT $${queryParams.length};
+  `;
+
+  console.log("queryString", queryString)
+  console.log("queryParams", queryParams)
+
+  return pool
+    .query(queryString, queryParams)
+    .then((res) => {
+      return res.rows;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+exports.getAllLotsByQuery = getAllLotsByQuery;

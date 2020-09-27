@@ -1,64 +1,22 @@
-/*
- * All routes for Widgets are defined here
- * Since this file is loaded in server.js into api/widgets,
- *   these routes are mounted onto /widgets
- * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
- */
-
 const express = require("express");
 const router = express.Router();
 
 module.exports = function (router, database) {
+  router.get("/lots/search", (req, res) => {
+    database
+      .getAllLotsByQuery(req.query)
+      .then((data) => {
+        res.json({ data });
+      })
+      .catch((err) => {
+        res.json({ err: err.message });
+      });
+  });
 
   router.get("/lots/owned", (req, res) => {
     const userId = req.session.user_id;
-    console.log(userId)
-    database.getAllLotsByOwnerId(userId)
-    .then((data) => {
-      res.json({ data });
-    })
-    .catch((err) => {
-      res.json({ error: err.message });
-    });
-  });
-
-  router.get("/lots/leased", (req, res) => {
-    const userId = req.session.user_id;
-    database.getAllLotsByRenterId(userId)
-    .then((data) => {
-      res.json({ data });
-    })
-    .catch((err) => {
-      res.json({ error: err.message });
-    });
-  });
-  router.get("/lots/:lot_id", (req, res) => {
-    const lotId = req.params.lot_id;
-
-    database.getLotByLotId(lotId)
-    .then((data) => {
-      res.json({ data });
-    })
-    .catch((err) => {
-      res.json({ error: err.message });
-    });
-  });
-
-  router.get("/lots/cities/:city", (req, res) => {
-    let city = req.params.city;
-    city = city[0].toUpperCase() + city.slice(1);
-
-    database.getAllLotsByCity(city)
-    .then((data) => {
-      res.json({ data });
-    })
-    .catch((err) => {
-      res.json({ error: err.message });
-    });
-  });
-
-  router.get("/lots", (req, res) => {
-    database.getAllLotsByMostRecent()
+    database
+      .getAllLotsByOwnerId(userId)
       .then((data) => {
         res.json({ data });
       })
@@ -66,17 +24,68 @@ module.exports = function (router, database) {
         res.json({ error: err.message });
       });
   });
-  // NEED IMAGES
+
+  router.get("/lots/leased", (req, res) => {
+    const userId = req.session.user_id;
+    database
+      .getAllLotsByRenterId(userId)
+      .then((data) => {
+        res.json({ data });
+      })
+      .catch((err) => {
+        res.json({ error: err.message });
+      });
+  });
+  router.get("/lots/:lot_id", (req, res) => {
+    const lotId = req.params.lot_id;
+
+    database
+      .getLotByLotId(lotId)
+      .then((data) => {
+        res.json({ data });
+      })
+      .catch((err) => {
+        res.json({ error: err.message });
+      });
+  });
+
+  router.get("/lots/cities/:city", (req, res) => {
+    let city = req.params.city;
+
+    database
+      .getAllLotsByCity(city)
+      .then((data) => {
+        res.json({ data });
+      })
+      .catch((err) => {
+        res.json({ error: err.message });
+      });
+  });
+
+  router.get("/lots", (req, res) => {
+    database
+      .getAllLotsByMostRecent()
+      .then((data) => {
+        res.json({ data });
+      })
+      .catch((err) => {
+        res.json({ error: err.message });
+      });
+  });
+
   // create new lot
   router.post("/lots", (req, res) => {
     const userId = req.session.user_id;
-
+    const city = req.body.city.toLowerCase();
+    const country = req.body.country.toLowerCase();
+    const post_code = req.body.post_code.replace(/ /g, "");
     const images = req.body.images;
     delete req.body.images;
 
-    const lot = {...req.body, owner_id: userId }
+    const lot = { ...req.body, city, post_code, country, owner_id: userId };
 
-    database.addNewLot(lot, images)
+    database
+      .addNewLot(lot, images)
       .then((data) => {
         // if frontend wants data:
         res.send({ data });
@@ -90,14 +99,14 @@ module.exports = function (router, database) {
 
   // actually delete lot record
   router.post("/lots/:lot_id/delete", (req, res) => {
-
     const userId = req.session.user_id;
     const lotId = req.params.lot_id;
     if (!userId) {
       res.send({ message: "You are not logged in" });
       return;
     }
-    database.deleteLotById(userId, lotId)
+    database
+      .deleteLotById(userId, lotId)
       .then((data) => {
         res.send({});
       })
@@ -125,5 +134,6 @@ module.exports = function (router, database) {
         res.json({ error: err.message });
       });
   });
+
   return router;
 };
