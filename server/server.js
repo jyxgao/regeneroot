@@ -46,11 +46,6 @@ const userRouter = express.Router();
 userRoutes(userRouter, database);
 app.use('/users', userRouter);
 
-// API routes
-// app.use("/api/", usersRoutes(db));
-// app.use("/api/", lotsAPIRoutes(db));
-// Note: mount other resources here, using the same pattern above
-
 // // createa and update lots
 // app.use("/", lotsRoutes(db));
 

@@ -129,7 +129,7 @@ exports.getAllLotsByCity = getAllLotsByCity;
 
 // add new lot to lots
 const addNewLot = function (lot, imageArr) {
-  console.log(lot)
+  console.log(lot);
   const queryParams = [
     lot.title,
     lot.size,
@@ -149,7 +149,7 @@ const addNewLot = function (lot, imageArr) {
     lot.long,
     lot.created_at,
     lot.is_active,
-    lot.owner_id
+    lot.owner_id,
   ];
   return pool
     .query(
@@ -181,20 +181,12 @@ const addNewLot = function (lot, imageArr) {
       queryParams
     )
     .then((res) => {
+      console.log(imageArr);
+
       const lotId = res.rows[0].lot_id;
-      for (const image of imageArr) {
-        return pool
-          .query(
-            `
-          INSERT INTO images (lot_id, image_url)
-          VALUES ($1, $2)
-          RETURNING *;
-        `,
-            [lotId, image]
-          )
-          .then((res) => {
-            return res.rows;
-          });
+
+      for (let image of imageArr) {
+        addImage(lotId, image);
       }
     })
     .catch((err) => {
@@ -204,9 +196,27 @@ const addNewLot = function (lot, imageArr) {
 
 exports.addNewLot = addNewLot;
 
+const addImage = function (lotId, imageUrl) {
+  return pool
+    .query(
+      `
+  INSERT INTO images (lot_id, image_url)
+  VALUES ($1, $2)
+  RETURNING *;
+`,
+      [lotId, imageUrl]
+    )
+    .then((res) => {
+      return res.rows;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+exports.addImage = addImage;
+
 // delete lot by Id
 const deleteLotById = function (userId, lotId) {
-
   return pool
     .query(
       `

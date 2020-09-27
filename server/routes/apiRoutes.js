@@ -70,9 +70,12 @@ module.exports = function (router, database) {
   // create new lot
   router.post("/lots", (req, res) => {
     const userId = req.session.user_id;
-    console.log(req.body)
+
+    const images = req.body.images;
+    delete req.body.images;
+
     const lot = {...req.body, owner_id: userId }
-    const images = [req.body.images];
+
     database.addNewLot(lot, images)
       .then((data) => {
         // if frontend wants data:
@@ -107,7 +110,10 @@ module.exports = function (router, database) {
   router.post("/lots/:lot_id", (req, res) => {
     const userId = req.session.user_id;
     const lotId = req.params.lot_id;
-
+    if (!userId) {
+      res.send({ message: "You are not logged in" });
+      return;
+    }
     updateLotById(lotId, req.body)
       .then((data) => {
         // if frontend wants data:
