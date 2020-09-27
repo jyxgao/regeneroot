@@ -1,5 +1,5 @@
 const pool = require("./db");
-
+const { convertToNested } = require('./helper-functions')
 // get all lots order by most recent
 const getAllLotsByMostRecent = function (limit = 10) {
   const queryParams = [limit];
@@ -38,7 +38,7 @@ const getLotByLotId = function (lotId) {
       [lotId]
     )
     .then((res) => {
-      return res.rows;
+      return convertToNested(res.rows);
     })
     .catch((err) => {
       console.log(err);
@@ -65,6 +65,7 @@ const getAllLotsByOwnerId = function (userId, limit = 10) {
       queryParams
     )
     .then((res) => {
+      console.log(res.rows)
       return res.rows;
     })
     .catch((err) => {
@@ -256,7 +257,7 @@ const updateLotById = function (lotId, lot, imageArr) {
     lot.is_active,
     lotId,
   ];
-  console.log(queryParams);
+
   return pool
     .query(
       `
@@ -286,7 +287,7 @@ const updateLotById = function (lotId, lot, imageArr) {
     )
     .then((res) => {
       const lotId = res.rows[0].lot_id;
-
+      console.log(imageArr)
       for (let image of imageArr) {
         updateImage(lotId, image);
       }

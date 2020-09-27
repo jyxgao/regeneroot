@@ -84,6 +84,11 @@ module.exports = function (router, database) {
 
     const lot = { ...req.body, city, post_code, country, owner_id: userId };
 
+    if (!userId) {
+      res.send({ message: "You are not logged in" });
+      return;
+    }
+
     database
       .addNewLot(lot, images)
       .then((data) => {
