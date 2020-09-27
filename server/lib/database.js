@@ -181,8 +181,6 @@ const addNewLot = function (lot, imageArr) {
       queryParams
     )
     .then((res) => {
-      console.log(imageArr);
-
       const lotId = res.rows[0].lot_id;
 
       for (let image of imageArr) {
@@ -237,7 +235,7 @@ const deleteLotById = function (userId, lotId) {
 exports.deleteLotById = deleteLotById;
 
 // edit lot by Id
-const updateLotById = function (lotId, lot) {
+const updateLotById = function (lotId, lot, imageArr) {
   const queryParams = [
     lot.title,
     lot.size,
@@ -258,6 +256,7 @@ const updateLotById = function (lotId, lot) {
     lot.is_active,
     lotId,
   ];
+  console.log(queryParams);
   return pool
     .query(
       `
@@ -280,10 +279,36 @@ const updateLotById = function (lotId, lot) {
     lat = $15,
     long = $16,
     is_active = $17
-    WHERE lots_id = $18
-    RETURNING *;
+    WHERE lots.id = $18
+    RETURNING *, id AS lot_id;
     `,
-      [queryParams]
+      queryParams
+    )
+    .then((res) => {
+      const lotId = res.rows[0].lot_id;
+
+      for (let image of imageArr) {
+        updateImage(lotId, image);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+exports.updateLotById = updateLotById;
+
+const updateImage = function (lotId, imageUrl) {
+  return pool
+    .query(
+      `
+  UPDATE images
+  SET
+  image_url = $1
+  WHERE lot_id = $2
+  RETURNING *;
+`,
+      [imageUrl, lotId]
     )
     .then((res) => {
       return res.rows;
@@ -293,7 +318,7 @@ const updateLotById = function (lotId, lot) {
     });
 };
 
-exports.updateLotById = updateLotById;
+exports.updateImage = updateImage;
 
 const getUserById = function (userId) {
   return pool
@@ -343,14 +368,11 @@ const getAllLotsByQuery = function (options, limit = 10) {
     queryString += ` AND lots.size <= $${queryParams.length}`;
   }
 
-  queryString += ` ORDER BY lots.created_at DESC`
+  queryString += ` ORDER BY lots.created_at DESC`;
   queryParams.push(limit);
   queryString += `
   LIMIT $${queryParams.length};
   `;
-
-  console.log("queryString", queryString)
-  console.log("queryParams", queryParams)
 
   return pool
     .query(queryString, queryParams)

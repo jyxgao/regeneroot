@@ -118,12 +118,19 @@ module.exports = function (router, database) {
   // update lot
   router.post("/lots/:lot_id", (req, res) => {
     const userId = req.session.user_id;
-    const lotId = req.params.lot_id;
+    const lotId = parseInt(req.params.lot_id);
+    const city = req.body.city.toLowerCase();
+    const country = req.body.country.toLowerCase();
+    const post_code = req.body.post_code.replace(/ /g, "");
+    const images = req.body.images;
+    delete req.body.images;
+
+    const lot = { ...req.body, city, post_code, country };
     if (!userId) {
       res.send({ message: "You are not logged in" });
       return;
     }
-    updateLotById(lotId, req.body)
+    database.updateLotById(lotId, lot, images)
       .then((data) => {
         // if frontend wants data:
         res.send({ data });
