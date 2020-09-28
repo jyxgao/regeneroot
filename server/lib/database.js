@@ -417,6 +417,9 @@ const getAllLotsByQuery = function (options, limit = 10) {
     .then((res) => {
       return addImagesToLot(res.rows);
     })
+    .then((res) => {
+      return convertCoordsToObject(res);
+    })
     .catch((err) => {
       console.log(err);
     });
