@@ -9,8 +9,8 @@ const convertLotToNested = function (rows) {
     }
     lot = rows[0];
     delete lot["image_url"];
-    lot["image_url"] = imageArr;
-    return lot;
+    lot.images = imageArr;
+    return [lot];
   }
   return [];
 };
@@ -62,24 +62,25 @@ exports.addImagesToLot = addImagesToLot;
 
 const convertCoordsToObject = function (lots) {
   let convertedLots = [];
+  if (lots.length) {
+    for (let lot of lots) {
+      let convertedLot = {};
+      // add location key to lot objs that contains lat and long obj
+      lot.location = { lat: lot.lat, lng: lot.long };
 
-  for (let lot of lots) {
-    let convertedLot = {};
-    // add location key to lot objs that contains lat and long obj
-    lot.location = { lat: lot.lat, lng: lot.long };
-
-    // iterate through keys of lot
-    for (let key in lot) {
-      // eliminate lat and long keys by copying the others
-      if (key !== 'lat' || key !== 'long') {
-        convertedLot[key] = lot[key];
+      // iterate through keys of lot
+      for (let key in lot) {
+        // eliminate lat and long keys by copying the others
+        if (key !== "lat" || key !== "long") {
+          convertedLot[key] = lot[key];
+        }
       }
-    };
-    convertedLots.push(convertedLot);
-
+      convertedLots.push(convertedLot);
+    }
+    console.log(convertedLots);
+    return convertedLots;
   }
-  console.log(convertedLots)
-  return convertedLots;
+  return [];
 };
 
 exports.convertCoordsToObject = convertCoordsToObject;

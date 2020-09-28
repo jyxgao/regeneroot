@@ -22,15 +22,13 @@ const getAllLotsByMostRecent = function (limit = 10) {
       return addImagesToLot(res.rows);
     })
     .then((res) => {
-      return convertCoordsToObject(res)
+      return convertCoordsToObject(res);
     })
     .catch((err) => {
       console.log(err);
       // throw err
     });
 };
-
-
 
 /*
 alice: "x returns a promise (called p)"
@@ -46,7 +44,6 @@ bob: "if it resolves, to what value does it resolve?"
         opt2: whatever the promise you returned would resolve to
 bob: "if it rejects, to what value does it reject?"
 */
-
 
 exports.getAllLotsByMostRecent = getAllLotsByMostRecent;
 
@@ -64,6 +61,9 @@ const getLotByLotId = function (lotId) {
     )
     .then((res) => {
       return convertLotToNested(res.rows);
+    })
+    .then((res) => {
+      return convertCoordsToObject(res);
     })
     .catch((err) => {
       console.log(err);
@@ -91,6 +91,9 @@ const getAllLotsByOwnerId = function (userId, limit = 10) {
     .then((res) => {
       return addImagesToLot(res.rows);
     })
+    .then((res) => {
+      return convertCoordsToObject(res);
+    })
     .catch((err) => {
       console.log(err);
     });
@@ -117,6 +120,9 @@ const getAllLotsByRenterId = function (userId, limit = 10) {
     .then((res) => {
       return addImagesToLot(res.rows);
     })
+    .then((res) => {
+      return convertCoordsToObject(res);
+    })
     .catch((err) => {
       console.log(err);
     });
@@ -141,6 +147,9 @@ const getAllLotsByCity = function (cityName, limit = 10) {
     )
     .then((res) => {
       return addImagesToLot(res.rows);
+    })
+    .then((res) => {
+      return convertCoordsToObject(res);
     })
     .catch((err) => {
       console.log(err);
