@@ -107,7 +107,6 @@ const getAllLotsByCity = function (cityName, limit = 10) {
       `
     SELECT *, lots.id AS lot_id
     FROM lots
-    JOIN images ON lots.id = lot_id
     WHERE city = $1
     ORDER BY created_at DESC
     LIMIT $2;
@@ -115,7 +114,7 @@ const getAllLotsByCity = function (cityName, limit = 10) {
       queryParams
     )
     .then((res) => {
-      return res.rows;
+      return addImagesToLot(res.rows);
     })
     .catch((err) => {
       console.log(err);
@@ -340,29 +339,36 @@ const getAllLotsByQuery = function (options, limit = 10) {
   const queryParams = [];
 
   let queryString = `
-  SELECT *
+  SELECT *, lots.id AS lot_id
   FROM lots
-  JOIN images ON lots.id = lot_id
 `;
+  for (const option in options) {
+    if (!queryParams.length){
+      queryString += `WHERE `
+    } else {
+      queryString += `AND `
+    }
+
+  }
 
   if (options.city) {
     queryParams.push(`%${options.city}%`);
-    queryString += ` AND lots.city LIKE $${queryParams.length}`;
+    queryString += `lots.city LIKE $${queryParams.length}`;
   }
 
   if (options.country) {
     queryParams.push(`%${options.country}%`);
-    queryString += ` AND lots.country LIKE $${queryParams.length}`;
+    queryString += `lots.country LIKE $${queryParams.length}`;
   }
 
   if (options.minimum_size) {
     queryParams.push(options.minimum_size);
-    queryString += ` AND lots.size >= $${queryParams.length}`;
+    queryString += `lots.size >= $${queryParams.length}`;
   }
 
   if (options.maximum_size) {
     queryParams.push(options.maximum_size);
-    queryString += ` AND lots.size <= $${queryParams.length}`;
+    queryString += `lots.size <= $${queryParams.length}`;
   }
 
   queryString += ` ORDER BY lots.created_at DESC`;
@@ -374,7 +380,7 @@ const getAllLotsByQuery = function (options, limit = 10) {
   return pool
     .query(queryString, queryParams)
     .then((res) => {
-      return res.rows;
+      return addImagesToLot(res.rows);
     })
     .catch((err) => {
       console.log(err);

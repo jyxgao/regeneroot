@@ -3,14 +3,16 @@ const pool = require("./db");
 const convertLotToNested = function (rows) {
   let lot = {};
   let imageArr = [];
-
-  for (let row of rows) {
-    imageArr.push(row["image_url"]);
+  if (rows.length) {
+    for (let row of rows) {
+      imageArr.push(row["image_url"]);
+    }
+    lot = rows[0];
+    delete lot["image_url"];
+    lot["image_url"] = imageArr;
+    return lot;
   }
-  lot = rows[0];
-  delete lot["image_url"];
-  lot["image_url"] = imageArr;
-  return lot;
+  return [];
 };
 
 exports.convertLotToNested = convertLotToNested;
@@ -35,7 +37,6 @@ const addImagesToLot = function (lots) {
       )
       .then((res) => {
         let lotsWithImages = [];
-        console.log(res.rows);
         for (let lot of lots) {
           for (let image of res.rows) {
             if (lot.lot_id === image.lot_id) {
