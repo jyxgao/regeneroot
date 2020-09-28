@@ -1,5 +1,9 @@
 const pool = require("./db");
-const { convertLotToNested, addImagesToLot } = require('./helper-functions')
+const {
+  convertLotToNested,
+  addImagesToLot,
+  convertCoordsToObject,
+} = require("./helper-functions");
 // get all lots order by most recent
 const getAllLotsByMostRecent = function (limit = 10) {
   const queryParams = [limit];
@@ -7,20 +11,39 @@ const getAllLotsByMostRecent = function (limit = 10) {
   return pool
     .query(
       `
-    SELECT *, lots.id AS lot_id
-    FROM lots
-    ORDER BY created_at DESC
-    LIMIT $1;
-    `,
+      SELECT *, lots.id AS lot_id
+      FROM lots
+      ORDER BY created_at DESC
+      LIMIT $1;
+      `,
       queryParams
     )
     .then((res) => {
       return addImagesToLot(res.rows);
     })
+    .then((res) => {
+      return convertCoordsToObject(res);
+    })
     .catch((err) => {
       console.log(err);
+      // throw err
     });
 };
+
+/*
+alice: "x returns a promise (called p)"
+    (for opt1/opt2, assume that x is a .then)
+    (opt1 is: the .then callback returned non-promise (incl undefined))
+    (opt2 is: the .then callback returned a promise)
+bob: "what time-or-event causes p to resolve/reject?"
+        opt1: ASAP (i.e. when the parent promise resolves, plus 1ms)
+        opt2: when the returned promise resolves
+bob: "under what circumstances does p resolve (under what does it reject)"
+bob: "if it resolves, to what value does it resolve?"
+        opt1: whatever you returned
+        opt2: whatever the promise you returned would resolve to
+bob: "if it rejects, to what value does it reject?"
+*/
 
 exports.getAllLotsByMostRecent = getAllLotsByMostRecent;
 
@@ -38,6 +61,9 @@ const getLotByLotId = function (lotId) {
     )
     .then((res) => {
       return convertLotToNested(res.rows);
+    })
+    .then((res) => {
+      return convertCoordsToObject(res);
     })
     .catch((err) => {
       console.log(err);
@@ -65,6 +91,9 @@ const getAllLotsByOwnerId = function (userId, limit = 10) {
     .then((res) => {
       return addImagesToLot(res.rows);
     })
+    .then((res) => {
+      return convertCoordsToObject(res);
+    })
     .catch((err) => {
       console.log(err);
     });
@@ -91,6 +120,9 @@ const getAllLotsByRenterId = function (userId, limit = 10) {
     .then((res) => {
       return addImagesToLot(res.rows);
     })
+    .then((res) => {
+      return convertCoordsToObject(res);
+    })
     .catch((err) => {
       console.log(err);
     });
@@ -115,6 +147,9 @@ const getAllLotsByCity = function (cityName, limit = 10) {
     )
     .then((res) => {
       return addImagesToLot(res.rows);
+    })
+    .then((res) => {
+      return convertCoordsToObject(res);
     })
     .catch((err) => {
       console.log(err);
@@ -282,7 +317,7 @@ const updateLotById = function (lotId, lot, imageArr) {
     )
     .then((res) => {
       const lotId = res.rows[0].lot_id;
-      console.log(imageArr)
+      // console.log(imageArr);
       for (let image of imageArr) {
         updateImage(lotId, image);
       }
@@ -343,31 +378,33 @@ const getAllLotsByQuery = function (options, limit = 10) {
   SELECT *, lots.id AS lot_id
   FROM lots
 `;
-  for (const option in options) {
-    if (!queryParams.length){
-      queryString += `WHERE `
-    } else {
-      queryString += `AND `
-    }
-  }
+  // for (const option in options) {
+  //   if (!queryParams.length) {
+  //     queryString += `WHERE `;
+  //   }
+  // }
   if (options.city) {
     queryParams.push(`%${options.city}%`);
-    queryString += `lots.city LIKE $${queryParams.length}`;
+    queryString += queryParams.length === 1 ? `WHERE ` : `AND `;
+    queryString += `lots.city LIKE $${queryParams.length} `;
   }
 
   if (options.country) {
     queryParams.push(`%${options.country}%`);
-    queryString += `lots.country LIKE $${queryParams.length}`;
+    queryString += queryParams.length === 1 ? `WHERE ` : `AND `;
+    queryString += `lots.country LIKE $${queryParams.length} `;
   }
 
   if (options.minimum_size) {
     queryParams.push(options.minimum_size);
-    queryString += `lots.size >= $${queryParams.length}`;
+    queryString += queryParams.length === 1 ? `WHERE ` : `AND `
+    queryString += `lots.size >= $${queryParams.length} `;
   }
 
   if (options.maximum_size) {
     queryParams.push(options.maximum_size);
-    queryString += `lots.size <= $${queryParams.length}`;
+    queryString += queryParams.length === 1 ? `WHERE ` : `AND `
+    queryString += `lots.size <= $${queryParams.length} `;
   }
 
   queryString += ` ORDER BY lots.created_at DESC`;
@@ -376,11 +413,15 @@ const getAllLotsByQuery = function (options, limit = 10) {
   LIMIT $${queryParams.length};
   `;
 
-  console.log(queryString)
+  console.log(queryString);
+
   return pool
     .query(queryString, queryParams)
     .then((res) => {
       return addImagesToLot(res.rows);
+    })
+    .then((res) => {
+      return convertCoordsToObject(res);
     })
     .catch((err) => {
       console.log(err);
