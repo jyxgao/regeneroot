@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 
 module.exports = function (router, database) {
-
   router.get("/login/:id", (req, res) => {
     req.session.user_id = req.params.id;
     res.redirect("/");
@@ -23,15 +22,23 @@ module.exports = function (router, database) {
           return;
         }
 
-        res.send({ user: { id: userId, name: user.name, email: user.email } });
+        res.send({
+          user: {
+            id: userId,
+            first_name: user.first_name,
+            last_name: user.last_name,
+            username: user.username,
+            email: user.email,
+          },
+        });
       })
       .catch((err) => res.send({ error: err.message }));
   });
 
-  router.post('/logout', (req, res) => {
+  router.post("/logout", (req, res) => {
     req.session = null;
     res.send({});
-  })
+  });
 
   return router;
 };

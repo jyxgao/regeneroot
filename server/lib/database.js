@@ -319,8 +319,9 @@ exports.updateImage = updateImage;
 const getUserById = function (userId) {
   return pool
     .query(
-      `SELECT * FROM users
-    WHERE id = $1;
+      `SELECT first_name, last_name, username, email
+      FROM users
+      WHERE id = $1;
     `,
       [userId]
     )
@@ -348,9 +349,7 @@ const getAllLotsByQuery = function (options, limit = 10) {
     } else {
       queryString += `AND `
     }
-
   }
-
   if (options.city) {
     queryParams.push(`%${options.city}%`);
     queryString += `lots.city LIKE $${queryParams.length}`;
@@ -377,6 +376,7 @@ const getAllLotsByQuery = function (options, limit = 10) {
   LIMIT $${queryParams.length};
   `;
 
+  console.log(queryString)
   return pool
     .query(queryString, queryParams)
     .then((res) => {
