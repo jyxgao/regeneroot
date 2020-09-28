@@ -37,14 +37,14 @@ export default function LotList(props) {
  return (
   <ul>
    {database.map((lot) => (
-    <li>
+  
       <LotListItem
           key={lot.id}
           name= {lot.title}
           lotDescription = {lot.lot_description}
           url={lot.images}
         />
-    </li> 
+
     )
   )}
 </ul>
