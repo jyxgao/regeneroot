@@ -77,7 +77,6 @@ const convertCoordsToObject = function (lots) {
       }
       convertedLots.push(convertedLot);
     }
-    console.log(convertedLots);
     return convertedLots;
   }
   return [];

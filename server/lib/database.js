@@ -317,7 +317,7 @@ const updateLotById = function (lotId, lot, imageArr) {
     )
     .then((res) => {
       const lotId = res.rows[0].lot_id;
-      console.log(imageArr);
+      // console.log(imageArr);
       for (let image of imageArr) {
         updateImage(lotId, image);
       }
@@ -378,31 +378,33 @@ const getAllLotsByQuery = function (options, limit = 10) {
   SELECT *, lots.id AS lot_id
   FROM lots
 `;
-  for (const option in options) {
-    if (!queryParams.length) {
-      queryString += `WHERE `;
-    } else {
-      queryString += `AND `;
-    }
-  }
+  // for (const option in options) {
+  //   if (!queryParams.length) {
+  //     queryString += `WHERE `;
+  //   }
+  // }
   if (options.city) {
     queryParams.push(`%${options.city}%`);
-    queryString += `lots.city LIKE $${queryParams.length}`;
+    queryString += queryParams.length === 1 ? `WHERE ` : `AND `;
+    queryString += `lots.city LIKE $${queryParams.length} `;
   }
 
   if (options.country) {
     queryParams.push(`%${options.country}%`);
-    queryString += `lots.country LIKE $${queryParams.length}`;
+    queryString += queryParams.length === 1 ? `WHERE ` : `AND `;
+    queryString += `lots.country LIKE $${queryParams.length} `;
   }
 
   if (options.minimum_size) {
     queryParams.push(options.minimum_size);
-    queryString += `lots.size >= $${queryParams.length}`;
+    queryString += queryParams.length === 1 ? `WHERE ` : `AND `
+    queryString += `lots.size >= $${queryParams.length} `;
   }
 
   if (options.maximum_size) {
     queryParams.push(options.maximum_size);
-    queryString += `lots.size <= $${queryParams.length}`;
+    queryString += queryParams.length === 1 ? `WHERE ` : `AND `
+    queryString += `lots.size <= $${queryParams.length} `;
   }
 
   queryString += ` ORDER BY lots.created_at DESC`;
@@ -412,6 +414,7 @@ const getAllLotsByQuery = function (options, limit = 10) {
   `;
 
   console.log(queryString);
+
   return pool
     .query(queryString, queryParams)
     .then((res) => {
