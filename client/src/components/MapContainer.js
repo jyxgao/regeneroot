@@ -2,36 +2,30 @@ import React, { useState } from 'react';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import Geocoder from 'hooks/Geocoder';
 
-const MapContainer = () => {
+const MapContainer = (lotsArr) => {
 
   const [ selected, setSelected ] = useState({});
   
-  const onSelect = item => {
-    setSelected(item);
+  const onSelect = lotItem => {
+    setSelected(lotItem);
   }
 
 
   const locations = [
     {
-      name: "2100 208 Street",
-      location: { 
+      title: "2100 208 Street",
         lat: 49.140780,
-        lng: -122.650860
-      },
+        long: -122.650860
     },
     {
-      name: "21479 Smith Crescent",
-      location: { 
+      title: "21479 Smith Crescent",
         lat: 49.1329347,
-        lng: -122.6294548
-      },
+        long: -122.6294548
     },
     {
-      name: "5910 216 St",
-      location: { 
+      title: "5910 216 St",
         lat: 49.109517,
-        lng: -122.6260083
-      },
+        long: -122.6260083
     }
   ];
 
@@ -39,24 +33,32 @@ const MapContainer = () => {
     height: "100vh",
     width: "100%"};
   
-  const defaultCenter = {
-    lat: 49.1329347, lng: -122.6294548
+  const center = {
+    lat: -3.745,
+    lng: -38.523
+  };
+
+  const mapCenter = function() {
+    const centerResult= {lat: 0, lng: 0};
+    for (let lot in lots) {
+
+    }
   }
   
   return (
     <LoadScript
-    googleMapsApiKey='AIzaSyAyesbQMyKVVbBgKVi2g6VX7mop2z96jBo'>
+    googleMapsApiKey='AIzaSyCjqFrGN1SaG-eVnBng96yWxwUnZFWFTjw'>
      <GoogleMap
           mapContainerStyle={mapStyles}
           zoom={11}
-          center={defaultCenter}>
+          center={mapCenter}>
         {
-            locations.map(item => {
+            locations.map(lotItem => {
               return (
-              <Marker key={item.name} 
-                position={item.location}
+              <Marker key={lotItem.title} 
+                position={lotItem.location}
                 onClick={() => {
-                  onSelect(item)
+                  onSelect(lotItem)
                   Geocoder()
                 }}
               />
@@ -71,7 +73,7 @@ const MapContainer = () => {
               clickable={true}
               onCloseClick={() => setSelected({})}
             >
-              <p>{selected.name}</p>
+              <p>{selected.title}</p>
             </InfoWindow>
             )
          }
