@@ -59,3 +59,10 @@ const addImagesToLot = function (lots) {
 };
 
 exports.addImagesToLot = addImagesToLot;
+
+const convertCoordsToObject = function (lots) {
+
+
+};
+
+exports.convertCoordsToObject = convertCoordsToObject;
