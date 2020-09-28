@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.css';
-import Form from './components/ui/Form'
-import LotList from './components/ui/LotList'
-import SearchBar from './components/ui/SearchBar'
-
+import Form from './components/ui/Form';
+import LotList from './components/ui/LotList';
+import SearchBar from './components/ui/SearchBar';
+import Error from './components/ui/Error'
 function App() {
   return (
     <div className="App">
@@ -11,7 +11,7 @@ function App() {
       {/* <LotListItem /> */}
       {/* <ImgList /> */}
       {/* <Form /> */}
-      <SearchBar />
+      <Error />
     </div>
   );
 }
