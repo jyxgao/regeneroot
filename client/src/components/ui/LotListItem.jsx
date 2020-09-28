@@ -13,7 +13,7 @@ export default function LotListItem (props) {
     <div>
       <div>{props.name}</div>
       <div>{props.lotDescription}</div>
-      <ImgList url={props.url}/>
+      <ImgList urls={props.url}/>
     </div>
   )
 }

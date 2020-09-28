@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
 import Form from './components/ui/Form'
-import LotListItem from './components/ui/LotListItem'
-import Img from './components/ui/Img'
+import LotList from './components/ui/LotList'
+
 function App() {
   return (
     <div className="App">
@@ -10,7 +10,7 @@ function App() {
       {/* <LotListItem /> */}
       {/* <ImgList /> */}
       {/* <Form /> */}
-      <Img />
+      <LotList />
     </div>
   );
 }
