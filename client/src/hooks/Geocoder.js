@@ -40,7 +40,7 @@ export default function Geocoder() {
     "image_url": "http://dummyimage.com/131x145.jpg/dddddd/000000"
   }
   
-  const APIkey = 'AIzaSyCjqFrGN1SaG-eVnBng96yWxwUnZFWFTjw';
+  const APIkey = process.env.GOOLE_API_KEY;
   
   const addressString = function(lotObj) {
     const addressEsc = encodeURI(lotObj.street_address + " " + lotObj.city + " " + lotObj.country + " " + lotObj.post_code);

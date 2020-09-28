@@ -4,10 +4,10 @@ import Geocoder from 'hooks/Geocoder';
 
 const MapContainer = () => {
 
-  const [ selected, setSelected ] = useState({});
+  const [ selectedLot, setSelectedLot ] = useState({});
   
   const onSelect = lotItem => {
-    setSelected(lotItem);
+    setSelectedLot(lotItem);
   }
 
 
@@ -26,7 +26,7 @@ const MapContainer = () => {
     {
       title: "5910 216 St",
       location: {lat: 49.109517,
-        lng: -122.6260083}
+      lng: -122.6260083}
     }
   ];
 
@@ -37,7 +37,7 @@ const MapContainer = () => {
     // const defaultCenter = {
     //   lat: 49.140780, lng: -122.650860
     // }
-  
+
 
   const mapCenter = function(lots) {
     const centerResult= {lat: lots[0].location.lat, lng: lots[0].location.lng};
@@ -47,10 +47,14 @@ const MapContainer = () => {
     }
     return centerResult;
   }
+
   
+  let googleKey = `${process.env.GOOGLE_API_KEY}`
+  console.log(googleKey);
+
   return (
     <LoadScript
-    googleMapsApiKey='AIzaSyCjqFrGN1SaG-eVnBng96yWxwUnZFWFTjw'>
+    googleMapsApiKey= {process.env.GOOGLE_API_KEY}>
      <GoogleMap
           mapContainerStyle={mapStyles}
           zoom={11}
@@ -69,14 +73,14 @@ const MapContainer = () => {
             })
          }
         {
-            selected.location && 
+            selectedLot.location && 
             (
               <InfoWindow
-              position={selected.location}
+              position={selectedLot.location}
               clickable={true}
-              onCloseClick={() => setSelected({})}
+              onCloseClick={() => setSelectedLot({})}
             >
-              <p>{selected.title}</p>
+              <p>{selectedLot.title}</p>
             </InfoWindow>
             )
          }
