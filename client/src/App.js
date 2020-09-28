@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Form from './components/ui/Form'
 import LotList from './components/ui/LotList'
+import SearchBar from './components/ui/SearchBar'
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
       {/* <LotListItem /> */}
       {/* <ImgList /> */}
       {/* <Form /> */}
-      <LotList />
+      <SearchBar />
     </div>
   );
 }
