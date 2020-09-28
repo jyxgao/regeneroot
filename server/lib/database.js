@@ -1,5 +1,5 @@
 const pool = require("./db");
-const { convertToNested } = require('./helper-functions')
+const { convertLotToNested, addImagesToLot } = require('./helper-functions')
 // get all lots order by most recent
 const getAllLotsByMostRecent = function (limit = 10) {
   const queryParams = [limit];
@@ -9,14 +9,13 @@ const getAllLotsByMostRecent = function (limit = 10) {
       `
     SELECT *, lots.id AS lot_id
     FROM lots
-    JOIN images ON lots.id = lot_id
     ORDER BY created_at DESC
     LIMIT $1;
     `,
       queryParams
     )
     .then((res) => {
-      return res.rows;
+      return addImagesToLot(res.rows);
     })
     .catch((err) => {
       console.log(err);
@@ -38,7 +37,7 @@ const getLotByLotId = function (lotId) {
       [lotId]
     )
     .then((res) => {
-      return convertToNested(res.rows);
+      return convertLotToNested(res.rows);
     })
     .catch((err) => {
       console.log(err);
@@ -57,7 +56,6 @@ const getAllLotsByOwnerId = function (userId, limit = 10) {
     SELECT *, lots.id AS lot_id
     FROM lots
     JOIN users ON lots.owner_id = users.id
-    JOIN images ON lots.id = lot_id
     WHERE owner_id = $1
     ORDER BY created_at DESC
     LIMIT $2;
@@ -65,8 +63,7 @@ const getAllLotsByOwnerId = function (userId, limit = 10) {
       queryParams
     )
     .then((res) => {
-      console.log(res.rows)
-      return res.rows;
+      return addImagesToLot(res.rows);
     })
     .catch((err) => {
       console.log(err);
@@ -85,7 +82,6 @@ const getAllLotsByRenterId = function (userId, limit = 10) {
     SELECT *, leases.id AS lease_id
     FROM leases
     JOIN lots ON leases.lot_id = lots.id
-    JOIN images ON lots.id = images.lot_id
     WHERE leases.renter_id = $1
     ORDER BY leases.created_at DESC
     LIMIT $2;
@@ -93,7 +89,7 @@ const getAllLotsByRenterId = function (userId, limit = 10) {
       queryParams
     )
     .then((res) => {
-      return res.rows;
+      return addImagesToLot(res.rows);
     })
     .catch((err) => {
       console.log(err);
