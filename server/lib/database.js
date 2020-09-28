@@ -81,7 +81,6 @@ const getAllLotsByOwnerId = function (userId, limit = 10) {
       `
     SELECT *, lots.id AS lot_id
     FROM lots
-    JOIN users ON lots.owner_id = users.id
     WHERE owner_id = $1
     ORDER BY created_at DESC
     LIMIT $2;
@@ -108,7 +107,7 @@ const getAllLotsByRenterId = function (userId, limit = 10) {
   return pool
     .query(
       `
-    SELECT *, leases.id AS lease_id
+    SELECT *, leases.id AS lease_id, leases.created_at AS time_leased
     FROM leases
     JOIN lots ON leases.lot_id = lots.id
     WHERE leases.renter_id = $1
