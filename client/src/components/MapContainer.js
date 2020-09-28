@@ -41,7 +41,7 @@ const MapContainer = (lotsArr) => {
   const mapCenter = function() {
     const centerResult= {lat: 0, lng: 0};
     for (let lot in lots) {
-
+      centerResults.lat = (lot.lat + centerResults.lat)/2
     }
   }
   
