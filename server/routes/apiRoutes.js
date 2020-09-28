@@ -66,6 +66,7 @@ module.exports = function (router, database) {
     database
       .getAllLotsByMostRecent()
       .then((data) => {
+        console.log(data)
         res.json({ data });
       })
       .catch((err) => {
