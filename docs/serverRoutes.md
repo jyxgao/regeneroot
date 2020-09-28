@@ -52,7 +52,7 @@
     > GET /api/lots/search?maximum_size=${1000}
 
 5. #### Chaining multiple queries    
-    #### * Search query chain is in construction*
+    > GET /api/lots/search?city=${city}&maximum_size=${1000}
 
 <p>&nbsp;</p>
 
