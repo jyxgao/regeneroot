@@ -6,8 +6,9 @@ import useInitializer from "hooks/Initializer";
 import LotForm from './components/Lot/LotForm';
 import LotList from './components/Lot/LotList';
 
+import SearchBarItem from './components/SearchBar/SearchBarItem'
 //UI Tests
-import Button from './components/UI/Button'
+import { Button } from 'evergreen-ui'
 
 function App() {
   const {
@@ -22,7 +23,7 @@ function App() {
       {/* <Form /> */}
       {/* <LotList />
       <LotForm /> */}
-      <Button />
+      <SearchBarItem />
     </div>
       {/* {console.log(state.lots)} */}
       {/* <MapContainer lots={state.lots}/>  */}
