@@ -412,7 +412,7 @@ const getAllLotsByQuery = function (options, limit = 10) {
   LIMIT $${queryParams.length};
   `;
 
-  console.log(queryString);
+  // console.log(queryString);
 
   return pool
     .query(queryString, queryParams)

@@ -66,7 +66,6 @@ module.exports = function (router, database) {
     database
       .getAllLotsByMostRecent()
       .then((data) => {
-        console.log(data)
         res.json({ data });
       })
       .catch((err) => {
@@ -130,6 +129,8 @@ module.exports = function (router, database) {
     const post_code = req.body.post_code.replace(/ /g, "");
     const images = req.body.images;
     delete req.body.images;
+
+    console.log(req.body)
 
     const lot = { ...req.body, owner_id: userId, city, post_code, country };
     if (!userId) {

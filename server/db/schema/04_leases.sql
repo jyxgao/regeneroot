@@ -7,7 +7,7 @@ CREATE TABLE leases
   lot_id INTEGER REFERENCES lots(id) ON DELETE CASCADE NOT NULL,
   owner_id INTEGER REFERENCES users(id) ON DELETE CASCADE NOT NULL,
   renter_id INTEGER REFERENCES users(id) ON DELETE CASCADE NOT NULL,
-  created_at TIMESTAMP NOT NULL,
+  created_at TIMESTAMP DEFAULT current_timestamp,
   term_length INTEGER NOT NULL,
   total_cost NUMERIC(12, 2) NOT NULL DEFAULT 0.00
 );
