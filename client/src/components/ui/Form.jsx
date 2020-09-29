@@ -38,17 +38,6 @@ export default function Form(props) {
     const value = target.type === 'checkbox' ? target.checked : target.value;
     setIsleased(value)
   }
-  // function handlePhotoUpload(event) {
-  //   let files = event.target.files;
-  //   // console.log("files",files[0])
-  //   let reader = new FileReader();
-  //   reader.readAsDataURL(files[0])
-  //   reader.readAsDataURL(files[0])
-  //   reader.onload = (event) => {
-  //     console.warn("img data", event.target.result)
-  //   }
-  //   // setPhoto([...event.target.value])
-  // }
  function handleSubmit(event) {
 
    axios.post('/api/lots', {
@@ -66,9 +55,11 @@ export default function Form(props) {
       city,
       country,
       post_code: postCode,
-      created_at: created
+      created_at: created,
+      is_active: true,
+      images: ["https://www.google.com/url?sa=i&url=https%3A%2F%2Fcloudfour.com%2Fexamples%2Fimg-currentsrc%2F&psig=AOvVaw1mveMqKOFyRUQ6UYnN6T3W&ust=1601429150390000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCLDby8-ajewCFQAAAAAdAAAAABAD"]
    })
-   .then(res => console.log(res))
+   .then(res => console.log(res.data))
    .catch(error => console.log(error))
 
 

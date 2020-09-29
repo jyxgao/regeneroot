@@ -13,8 +13,8 @@ function App() {
       Hello World! This is a change. Here we gosdfdfs
       {/* <LotListItem /> */}
       {/* <ImgList /> */}
-      <Form />
-      {/* <LotList /> */}
+      {/* <Form /> */}
+      <LotList />
     </div>
       <MapContainer/> 
     </main>
