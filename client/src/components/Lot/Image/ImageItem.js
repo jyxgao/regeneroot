@@ -1,8 +1,10 @@
 import React from "react";
 
-export default function Img (props) {
+const Image = (props) => {
   return (
     <img  src={props.url}/>
   )
 
 }
+
+export default Image;

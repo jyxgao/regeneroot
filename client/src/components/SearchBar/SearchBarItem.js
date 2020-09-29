@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-export default function SearchBar() {
+const SearchBarItem = () => {
   const [value, setValue] = useState("");
   return (
     <section>
@@ -18,3 +18,5 @@ export default function SearchBar() {
   )
 
 }
+
+export default SearchBarItem;
