@@ -10,7 +10,7 @@ export default function useInitializer() {
   
   //Initialize all data from database into state
   useEffect(() => {
-    axios.get("/api/lots")
+    axios.get("/api/lots/cities/edmonton")
       .then((res) => {
       setState(prev => ({ ...prev, lots: [...res.data.data]}));
       })

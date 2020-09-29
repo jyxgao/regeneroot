@@ -10,6 +10,8 @@ const MapContainer = (props) => {
     setSelectedLot(lotItem);
   }
 
+  
+
 
   // const locations = [
   //   {
@@ -40,18 +42,22 @@ const MapContainer = (props) => {
 
 
   const mapCenter = function(lots) {
-    const centerResult= {lat: lots[0].location.lat, lng: lots[0].location.lng};
+    const centerResult= {lat: Number(lots[0].location.lat), lng: Number(lots[0].location.lng)};
     for (let lot of lots) {
-      centerResult.lat = (lot.location.lat + centerResult.lat)/2
-      centerResult.lng = (lot.location.lng + centerResult.lng)/2
+      centerResult.lat = (Number(lot.location.lat) + centerResult.lat)/2
+      centerResult.lng = (Number(lot.location.lng) + centerResult.lng)/2
     }
     return centerResult;
   }
+
+
 
   if (!props.lots.length) {
     //can return loading icon istead
     return null;
   }
+
+  console.log(typeof props.lots[0].location.lat)
 
   return (
     <LoadScript
