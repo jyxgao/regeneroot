@@ -1,12 +1,15 @@
 const express = require("express");
 const router = express.Router();
 
+//routes documentation
+
 module.exports = function (router, database) {
+  //
   router.get("/lots/search", (req, res) => {
     database
       .getAllLotsByQuery(req.query)
       .then((data) => {
-        res.json({ data });
+        res.json(data);
       })
       .catch((err) => {
         res.json({ err: err.message });
@@ -18,7 +21,7 @@ module.exports = function (router, database) {
     database
       .getAllLotsByOwnerId(userId)
       .then((data) => {
-        res.json({ data });
+        res.json(data);
       })
       .catch((err) => {
         res.json({ error: err.message });
@@ -30,7 +33,7 @@ module.exports = function (router, database) {
     database
       .getAllLotsByRenterId(userId)
       .then((data) => {
-        res.json({ data });
+        res.json(data);
       })
       .catch((err) => {
         res.json({ error: err.message });
@@ -42,7 +45,7 @@ module.exports = function (router, database) {
     database
       .getLotByLotId(lotId)
       .then((data) => {
-        res.json({ data });
+        res.json(data);
       })
       .catch((err) => {
         res.json({ error: err.message });
@@ -55,7 +58,7 @@ module.exports = function (router, database) {
     database
       .getAllLotsByCity(city)
       .then((data) => {
-        res.json({ data });
+        res.json(data);
       })
       .catch((err) => {
         res.json({ error: err.message });
@@ -66,7 +69,7 @@ module.exports = function (router, database) {
     database
       .getAllLotsByMostRecent()
       .then((data) => {
-        res.json({ data });
+        res.json(data);
       })
       .catch((err) => {
         res.json({ error: err.message });
@@ -93,7 +96,7 @@ module.exports = function (router, database) {
       .addNewLot(lot, images)
       .then((data) => {
         // if frontend wants data:
-        res.send({ data });
+        res.send(data);
         // else:
         // res.send({});
       })
@@ -137,10 +140,11 @@ module.exports = function (router, database) {
       res.send({ message: "You are not logged in" });
       return;
     }
-    database.updateLotById(lotId, lot, images)
+    database
+      .updateLotById(lotId, lot, images)
       .then((data) => {
         // if frontend wants data:
-        res.send({ data });
+        res.send(data);
         // else:
         // res.send({});
       })
