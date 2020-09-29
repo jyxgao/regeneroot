@@ -2,8 +2,8 @@ import React from 'react';
 import './App.css';
 import MapContainer from "components/MapContainer";
 
-import Form from './components/ui/Form';
-import LotList from './components/ui/LotList';
+import Form from './components/Lot/LotForm';
+import LotList from './components/Lot/LotList';
 // import SearchBar from './components/ui/SearchBar';
 // import Error from './components/ui/Error'
 function App() {

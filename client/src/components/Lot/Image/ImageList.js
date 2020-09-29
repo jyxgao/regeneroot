@@ -1,14 +1,15 @@
 import React from 'react';
-import Img from './Img'
+import ImageItem from './ImageItem'
 
-export default function ImgList(props) {
+const ImageList = (props) => {
     return (
       <ul>
         {props.urls && props.urls.map((url) => (
-            <Img key={url} url={url}/>
+            <ImageItem key={url} url={url}/>
           )
         )}
       </ul>
     )
 }
 
+export default ImageList;
