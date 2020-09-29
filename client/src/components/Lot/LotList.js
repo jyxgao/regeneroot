@@ -1,8 +1,8 @@
 import React from "react";
+import axios from "axios";
 import LotListItem from "./LotListItem";
-import axios from "axios"
 
-export default function LotList(props) {
+const LotList = (props) => {
   const [database, setDatabase] = React.useState([]);
   // const [state, setState] = React.useState({
   //   id: null,
@@ -27,29 +27,23 @@ export default function LotList(props) {
   // })
 
   React.useEffect(() => {
-    axios.get('/api/lots')
-    .then(res => {
-      setDatabase(res.data.data)
-    })
-  }, [])
-   
-  
- return (
-  <ul>
-   {database.map((lot) => (
-    <li>
-      <LotListItem
+    axios.get("/api/lots").then((res) => {
+      setDatabase(res.data.data);
+    });
+  }, []);
+
+  return (
+    <ul>
+      {database.map((lot) => (
+        <LotListItem
           key={lot.id}
-          name= {lot.title}
-          lotDescription = {lot.lot_description}
+          name={lot.title}
+          lotDescription={lot.lot_description}
           url={lot.images}
         />
-    </li> 
-    )
-  )}
-</ul>
- )
- 
+      ))}
+    </ul>
+  );
+};
 
-
-} 
+export default LotList;

@@ -3,10 +3,10 @@ import './App.css';
 import MapContainer from "components/MapContainer";
 import useInitializer from "hooks/Initializer";
 
-import Form from './components/ui/Form';
-import LotList from './components/ui/LotList';
-import SearchBar from './components/ui/SearchBar';
-import Error from './components/ui/Error'
+import Form from './components/Lot/LotForm';
+import LotList from './components/Lot/LotList';
+// import SearchBar from './components/ui/SearchBar';
+// import Error from './components/ui/Error'
 function App() {
   const {
     state
@@ -19,7 +19,7 @@ function App() {
       {/* <LotListItem /> */}
       {/* <ImgList /> */}
       {/* <Form /> */}
-      <Error />
+      <LotList />
     </div>
       {console.log(state.lots)}
       <MapContainer lots={state.lots}/> 

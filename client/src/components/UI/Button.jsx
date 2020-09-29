@@ -1,10 +1,11 @@
 import React from "react";
-var classnames = require('classnames');
+import classnames from "classnames";
 
-export default function Button(props) {
+const Button = (props) => {
   return (
     <button
       // className={buttonClass}
+      type={props.type}
       onClick={props.onClick}
       disabled={props.disabled}
     >
@@ -12,3 +13,5 @@ export default function Button(props) {
     </button>
   );
 }
+
+export default Button;
