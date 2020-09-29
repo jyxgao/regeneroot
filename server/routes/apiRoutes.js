@@ -130,7 +130,7 @@ module.exports = function (router, database) {
     const images = req.body.images;
     delete req.body.images;
 
-    console.log(req.body)
+    // console.log(req.body)
 
     const lot = { ...req.body, owner_id: userId, city, post_code, country };
     if (!userId) {
