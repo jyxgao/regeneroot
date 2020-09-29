@@ -5,5 +5,6 @@ CREATE TABLE images
 (
   id SERIAL PRIMARY KEY NOT NULL,
   lot_id INTEGER REFERENCES lots(id) ON DELETE CASCADE NOT NULL,
-  image_url VARCHAR(255) NOT NULL
+  image_url VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT current_timestamp
 );
