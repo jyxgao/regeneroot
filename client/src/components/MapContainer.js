@@ -2,33 +2,35 @@ import React, { useState } from 'react';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import Geocoder from 'hooks/Geocoder';
 
-const MapContainer = () => {
+const MapContainer = (props) => {
 
-  const [ selected, setSelected ] = useState({});
+  const [ selectedLot, setSelectedLot ] = useState({});
   
   const onSelect = lotItem => {
-    setSelected(lotItem);
+    setSelectedLot(lotItem);
   }
 
+  
 
-  const locations = [
-    {
-      title: "2100 208 Street",
-      location: {lat: 49.140780,
-        lng: -122.650860}
+
+  // const locations = [
+  //   {
+  //     title: "2100 208 Street",
+  //     location: {lat: 49.140780,
+  //       lng: -122.650860}
         
-    },
-    {
-      title: "21479 Smith Crescent",
-      location: {lat: 49.1329347,
-        lng: -122.6294548}
-    },
-    {
-      title: "5910 216 St",
-      location: {lat: 49.109517,
-        lng: -122.6260083}
-    }
-  ];
+  //   },
+  //   {
+  //     title: "21479 Smith Crescent",
+  //     location: {lat: 49.1329347,
+  //       lng: -122.6294548}
+  //   },
+  //   {
+  //     title: "5910 216 St",
+  //     location: {lat: 49.109517,
+  //     lng: -122.6260083}
+  //   }
+  // ];
 
   const mapStyles = {        
     height: "100vh",
@@ -37,26 +39,35 @@ const MapContainer = () => {
     // const defaultCenter = {
     //   lat: 49.140780, lng: -122.650860
     // }
-  
+
 
   const mapCenter = function(lots) {
-    const centerResult= {lat: lots[0].location.lat, lng: lots[0].location.lng};
+    const centerResult= {lat: Number(lots[0].location.lat), lng: Number(lots[0].location.lng)};
     for (let lot of lots) {
-      centerResult.lat = (lot.location.lat + centerResult.lat)/2
-      centerResult.lng = (lot.location.lng + centerResult.lng)/2
+      centerResult.lat = (Number(lot.location.lat) + centerResult.lat)/2
+      centerResult.lng = (Number(lot.location.lng) + centerResult.lng)/2
     }
     return centerResult;
   }
-  
+
+
+
+  if (!props.lots.length) {
+    //can return loading icon istead
+    return null;
+  }
+
+  console.log(typeof props.lots[0].location.lat)
+
   return (
     <LoadScript
-    googleMapsApiKey='AIzaSyCjqFrGN1SaG-eVnBng96yWxwUnZFWFTjw'>
+    googleMapsApiKey= {process.env.REACT_APP_GOOGLE_API_KEY}>
      <GoogleMap
           mapContainerStyle={mapStyles}
           zoom={11}
-          center={mapCenter(locations)}>
+          center={mapCenter(props.lots)}>
         {
-            locations.map(lotItem => {
+            props.lots.map(lotItem => {
               return (
               <Marker key={lotItem.title} 
                 position={lotItem.location}
@@ -69,14 +80,14 @@ const MapContainer = () => {
             })
          }
         {
-            selected.location && 
+            selectedLot.location && 
             (
               <InfoWindow
-              position={selected.location}
+              position={selectedLot.location}
               clickable={true}
-              onCloseClick={() => setSelected({})}
+              onCloseClick={() => setSelectedLot({})}
             >
-              <p>{selected.title}</p>
+              <p>{selectedLot.title}</p>
             </InfoWindow>
             )
          }

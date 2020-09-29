@@ -1,5 +1,11 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Setup Instructions
+
+1. Duplicate env.example 
+2. Rename to .env
+3. Get new key from google API
+
 ## Available Scripts
 
 In the project directory, you can run:

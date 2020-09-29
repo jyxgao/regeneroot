@@ -15,6 +15,10 @@ import axios from "axios";
 
 export default function Geocoder() {
 
+  const [state, setState] = useState({
+    lots: [],
+  });
+
   const lotObj = {
     "id": 5,
     "owner_id": 4,
@@ -40,7 +44,7 @@ export default function Geocoder() {
     "image_url": "http://dummyimage.com/131x145.jpg/dddddd/000000"
   }
   
-  const APIkey = 'AIzaSyCjqFrGN1SaG-eVnBng96yWxwUnZFWFTjw';
+  const APIkey = process.env.GOOLE_API_KEY;
   
   const addressString = function(lotObj) {
     const addressEsc = encodeURI(lotObj.street_address + " " + lotObj.city + " " + lotObj.country + " " + lotObj.post_code);
@@ -56,7 +60,10 @@ export default function Geocoder() {
       setState(prev => ({ ...prev, lat: {...geoObj.data.results[0].geometry.location.lat}, prev, long: {...geoObj.data.results[0].geometry.location.lng}}));
     });
   }, []);
+  return {state};
 }
+
+
 
 
   // return axios.get(addressString(lotObj))

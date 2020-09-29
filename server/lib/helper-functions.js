@@ -66,7 +66,10 @@ const convertCoordsToObject = function (lots) {
     for (let lot of lots) {
       let convertedLot = {};
       // add location key to lot objs that contains lat and long obj
-      lot.location = { lat: lot.lat, lng: lot.long };
+      const newLat = Number(lot.lat);
+      const newLong = Number(lot.long);
+      lot.location = { lat: newLat, lng: newLong };
+
 
       // iterate through keys of lot
       for (let key in lot) {
