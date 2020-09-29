@@ -72,7 +72,6 @@ const LotForm = (props) => {
         city,
         country,
         post_code: postCode,
-        // created_at: created,
         is_active: true,
         images: [
           "https://www.google.com/url?sa=i&url=https%3A%2F%2Fcloudfour.com%2Fexamples%2Fimg-currentsrc%2F&psig=AOvVaw1mveMqKOFyRUQ6UYnN6T3W&ust=1601429150390000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCLDby8-ajewCFQAAAAAdAAAAABAD",
