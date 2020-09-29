@@ -131,7 +131,7 @@ module.exports = function (router, database) {
     const images = req.body.images;
     delete req.body.images;
 
-    const lot = { ...req.body, city, post_code, country };
+    const lot = { ...req.body, owner_id: userId, city, post_code, country };
     if (!userId) {
       res.send({ message: "You are not logged in" });
       return;
