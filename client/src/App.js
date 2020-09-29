@@ -5,8 +5,10 @@ import useInitializer from "hooks/Initializer";
 
 import LotForm from './components/Lot/LotForm';
 import LotList from './components/Lot/LotList';
-// import SearchBar from './components/ui/SearchBar';
-// import Error from './components/ui/Error'
+
+//UI Tests
+import Button from './components/UI/Button'
+
 function App() {
   const {
     state
@@ -15,15 +17,15 @@ function App() {
   return (
     <main>
     <div className="App">
-      Hello World! This is a change. Here we gosdfdfs
       {/* <LotListItem /> */}
       {/* <ImgList /> */}
       {/* <Form /> */}
-      <LotList />
-      <LotForm />
+      {/* <LotList />
+      <LotForm /> */}
+      <Button />
     </div>
       {/* {console.log(state.lots)} */}
-      <MapContainer lots={state.lots}/> 
+      {/* <MapContainer lots={state.lots}/>  */}
     </main>
   );
 }
