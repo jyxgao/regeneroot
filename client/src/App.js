@@ -4,8 +4,8 @@ import MapContainer from "components/MapContainer";
 
 import Form from './components/ui/Form';
 import LotList from './components/ui/LotList';
-import SearchBar from './components/ui/SearchBar';
-import Error from './components/ui/Error'
+// import SearchBar from './components/ui/SearchBar';
+// import Error from './components/ui/Error'
 function App() {
   return (
     <main>
@@ -14,7 +14,7 @@ function App() {
       {/* <LotListItem /> */}
       {/* <ImgList /> */}
       {/* <Form /> */}
-      <Error />
+      <LotList />
     </div>
       <MapContainer/> 
     </main>

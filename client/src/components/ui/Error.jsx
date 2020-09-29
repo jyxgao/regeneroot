@@ -8,7 +8,7 @@ export default function Error(props) {
         <h3>{props.message}</h3>
       </section>
       <img
-        src="images/close.png"
+        src=""
         alt="Close"
         onClick={props.onClose}
       />

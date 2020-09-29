@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from './Button';
-
+import axios from "axios";
 
 export default function Form(props) {
   
@@ -19,10 +19,12 @@ export default function Form(props) {
   const [country, setCountry] = React.useState("");
   const [postCode, setPostCode] = React.useState("");
   const [created, setCreated] = React.useState(new Date().toLocaleString().slice(0, 9));
-  const [photo, setPhoto] = React.useState([]); //??
-
+  // const [photo, setPhoto] = React.useState([]); //??
+  const lot = {title, size, costPerMonth, isIrrigated, term,rating, availableDate,  type, lotDescription, isLeased, street, city, country, postCode, created} 
   function validate() {
-    console.log("{", title, size, costPerMonth, isIrrigated, term,rating, availableDate,  type, lotDescription, isLeased, street, city, country, postCode, created+ "}")
+    // console.log("{", title, size, costPerMonth, isIrrigated, term,rating, availableDate,  type, lotDescription, isLeased, street, city, country, postCode, created+ "}")
+    console.log(lot)
+    // props.onSave(lot)
     // onSave(title, size, costPerMonth, isIrrigated, term,rating, availableDate,  lotType, lotDescription, isLeased, street, city, country, postCode, created);
   }
   function handleInputIrrigateChange(event) {
@@ -36,20 +38,36 @@ export default function Form(props) {
     const value = target.type === 'checkbox' ? target.checked : target.value;
     setIsleased(value)
   }
-  function handlePhotoUpload(event) {
-    let files = event.target.files;
-    // console.log("files",files[0])
-    let reader = new FileReader();
-    reader.readAsDataURL(files[0])
-    reader.readAsDataURL(files[0])
-    reader.onload = (event) => {
-      console.warn("img data", event.target.result)
-    }
-  }
- 
+ function handleSubmit(event) {
+
+   axios.post('/api/lots', {
+      owner_id: 1,
+      title, size, 
+      cost_per_month: costPerMonth,
+      is_irrigated: isIrrigated,
+      suggested_term: term,
+      condition_rating: rating,
+      available_date: availableDate,
+      lot_type: type,
+      lot_description: lotDescription,
+      is_leased: isLeased,
+      street_address: street,
+      city,
+      country,
+      post_code: postCode,
+      created_at: created,
+      is_active: true,
+      images: ["https://www.google.com/url?sa=i&url=https%3A%2F%2Fcloudfour.com%2Fexamples%2Fimg-currentsrc%2F&psig=AOvVaw1mveMqKOFyRUQ6UYnN6T3W&ust=1601429150390000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCLDby8-ajewCFQAAAAAdAAAAABAD"]
+   })
+   .then(res => console.log(res.data))
+   .catch(error => console.log(error))
+
+
+   event.preventDefault();
+ }
   return (
     <section>
-      <form autoComplete="off" onSubmit={event => event.preventDefault()}>
+      <form autoComplete="off" onSubmit={handleSubmit}>
       <h1>Add New Lot</h1>
         <label>
           Title:
@@ -136,15 +154,17 @@ export default function Form(props) {
          {created}
         </label>
         <br />
-        <label>
+        {/* <label>
           photo:
-            <input name="photo" type="file" onChange={(event)=> handlePhotoUpload(event)} />  
+            <input name="photo" type="file" value={photo} multiple onChange={handlePhotoUpload} />  
             {/* for the photo only can print document content but can not grab data into the object now */}
-        </label>
-      </form> 
-      <Button onClick={validate}>
+        {/* </label> */} 
+      
+        <Button type="submit">
         Submit
       </Button> 
+      </form> 
+
     </section>
   );
 }
