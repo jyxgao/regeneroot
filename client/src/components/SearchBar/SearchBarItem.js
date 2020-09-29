@@ -23,7 +23,7 @@ const SearchBarItem = () => {
         axios
           .get("/api/lots/search" + query)
           .then((data) => {
-            console.log(data)
+            console.log(data.data.data)
           })
           // .then((data) => {
           //   const loadedLots = [];
