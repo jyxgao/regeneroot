@@ -3,7 +3,7 @@ import './App.css';
 import MapContainer from "components/MapContainer";
 import useInitializer from "hooks/Initializer";
 
-import Form from './components/Lot/LotForm';
+import LotForm from './components/Lot/LotForm';
 import LotList from './components/Lot/LotList';
 // import SearchBar from './components/ui/SearchBar';
 // import Error from './components/ui/Error'
@@ -20,8 +20,9 @@ function App() {
       {/* <ImgList /> */}
       {/* <Form /> */}
       <LotList />
+      <LotForm />
     </div>
-      {console.log(state.lots)}
+      {/* {console.log(state.lots)} */}
       <MapContainer lots={state.lots}/> 
     </main>
   );
