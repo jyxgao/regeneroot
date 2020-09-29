@@ -21,7 +21,6 @@ function App() {
       {/* <Form /> */}
       <LotList />
     </div>
-      {console.log(state.lots)}
       <MapContainer lots={state.lots}/> 
     </main>
   );
