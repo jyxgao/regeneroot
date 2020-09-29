@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import Geocoder from 'hooks/Geocoder';
 
-const MapContainer = () => {
+const MapContainer = (props) => {
 
   const [ selectedLot, setSelectedLot ] = useState({});
   
@@ -11,24 +11,24 @@ const MapContainer = () => {
   }
 
 
-  const locations = [
-    {
-      title: "2100 208 Street",
-      location: {lat: 49.140780,
-        lng: -122.650860}
+  // const locations = [
+  //   {
+  //     title: "2100 208 Street",
+  //     location: {lat: 49.140780,
+  //       lng: -122.650860}
         
-    },
-    {
-      title: "21479 Smith Crescent",
-      location: {lat: 49.1329347,
-        lng: -122.6294548}
-    },
-    {
-      title: "5910 216 St",
-      location: {lat: 49.109517,
-      lng: -122.6260083}
-    }
-  ];
+  //   },
+  //   {
+  //     title: "21479 Smith Crescent",
+  //     location: {lat: 49.1329347,
+  //       lng: -122.6294548}
+  //   },
+  //   {
+  //     title: "5910 216 St",
+  //     location: {lat: 49.109517,
+  //     lng: -122.6260083}
+  //   }
+  // ];
 
   const mapStyles = {        
     height: "100vh",
@@ -48,19 +48,20 @@ const MapContainer = () => {
     return centerResult;
   }
 
-  
-  let googleKey = `${process.env.GOOGLE_API_KEY}`
-  console.log(googleKey);
+  if (!props.lots.length) {
+    //can return loading icon istead
+    return null;
+  }
 
   return (
     <LoadScript
-    googleMapsApiKey= {process.env.GOOGLE_API_KEY}>
+    googleMapsApiKey= {process.env.REACT_APP_GOOGLE_API_KEY}>
      <GoogleMap
           mapContainerStyle={mapStyles}
           zoom={11}
-          center={mapCenter(locations)}>
+          center={mapCenter(props.lots)}>
         {
-            locations.map(lotItem => {
+            props.lots.map(lotItem => {
               return (
               <Marker key={lotItem.title} 
                 position={lotItem.location}
