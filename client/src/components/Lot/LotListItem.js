@@ -1,5 +1,5 @@
-import React from 'react';
-import ImageList from './Image/ImageList'
+import React from "react";
+import ImageList from "./Image/ImageList";
 
 const LotListItem = (props) => {
   // const lots = {
@@ -11,10 +11,13 @@ const LotListItem = (props) => {
   return (
     <div>
       <div>{props.name}</div>
+      <div>{props.title}</div>
+      <div>{props.city}</div>
       <div>{props.lotDescription}</div>
-      <ImageList urls={props.url}/>
+      <ImageList imageUrls={props.imageUrls} />
+      {}
     </div>
-  )
-}
+  );
+};
 
 export default LotListItem;

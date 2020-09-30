@@ -4,7 +4,7 @@ import ImageItem from './ImageItem'
 const ImageList = (props) => {
     return (
       <ul>
-        {props.urls && props.urls.map((url) => (
+        {props.imageUrls && props.imageUrls.map((url) => (
             <ImageItem key={url} url={url}/>
           )
         )}

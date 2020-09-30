@@ -23,7 +23,7 @@ const SearchBarItem = () => {
         axios
           .get("/api/lots/search" + query)
           .then((data) => {
-            console.log(data.data.data)
+            console.log(data.data)
           })
           // .then((data) => {
           //   const loadedLots = [];
@@ -36,7 +36,7 @@ const SearchBarItem = () => {
             // }
           // });
       }
-    }, 500);
+    }, 1000);
     // clean up timer before next run
     return () => {
       clearTimeout(timer);
