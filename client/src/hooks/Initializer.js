@@ -8,13 +8,12 @@ export default function useInitializer() {
     lots: []
   });
   
-  //Initialize all data from database into state
+  //Start with intial lot search
   useEffect(() => {
-    axios.get("/api/lots/cities/edmonton")
+    axios.get("/api/lots")
       .then((res) => {
       setState(prev => ({ ...prev, lots: [...res.data.data]}));
       })
   }, []);
-
   return {state}
 }
