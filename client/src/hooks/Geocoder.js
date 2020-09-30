@@ -13,38 +13,38 @@ import axios from "axios";
 
 
 
-export default function Geocoder() {
+export default function Geocoder(lotObj) {
 
   const [state, setState] = useState({
     lots: [],
   });
 
-  const lotObj = {
-    "id": 5,
-    "owner_id": 4,
-    "title": "Northland",
-    "size": 458,
-    "cost_per_month": "33.00",
-    "is_irrigated": false,
-    "suggested_term": 18,
-    "condition_rating": 4,
-    "available_date": "2020-08-10T00:00:00.000Z",
-    "lot_type": "commercial",
-    "lot_description": "In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.",
-    "is_leased": true,
-    "street_address": "1903 Parsons Rd NW",
-    "city": "Edmonton",
-    "country": "Canada",
-    "post_code": "T6N1H5",
-    "lat": null,
-    "long": null,
-    "created_at": "2020-07-10T00:00:00.000Z",
-    "is_active": false,
-    "lot_id": 5,
-    "image_url": "http://dummyimage.com/131x145.jpg/dddddd/000000"
-  }
+  // const lotObj = {
+  //   "id": 5,
+  //   "owner_id": 4,
+  //   "title": "Northland",
+  //   "size": 458,
+  //   "cost_per_month": "33.00",
+  //   "is_irrigated": false,
+  //   "suggested_term": 18,
+  //   "condition_rating": 4,
+  //   "available_date": "2020-08-10T00:00:00.000Z",
+  //   "lot_type": "commercial",
+  //   "lot_description": "In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.",
+  //   "is_leased": true,
+  //   "street_address": "1903 Parsons Rd NW",
+  //   "city": "Edmonton",
+  //   "country": "Canada",
+  //   "post_code": "T6N1H5",
+  //   "lat": null,
+  //   "long": null,
+  //   "created_at": "2020-07-10T00:00:00.000Z",
+  //   "is_active": false,
+  //   "lot_id": 5,
+  //   "image_url": "http://dummyimage.com/131x145.jpg/dddddd/000000"
+  // }
   
-  const APIkey = process.env.GOOLE_API_KEY;
+  const APIkey = process.env.REACT_APP_GOOGLE_API_KEY;
   
   const addressString = function(lotObj) {
     const addressEsc = encodeURI(lotObj.street_address + " " + lotObj.city + " " + lotObj.country + " " + lotObj.post_code);
@@ -57,6 +57,8 @@ export default function Geocoder() {
   useEffect(() => {
     axios.get(addressString(lotObj))
       .then((geoObj) => {
+        // debugger
+        console.log(geoObj);
       setState(prev => ({ ...prev, lat: {...geoObj.data.results[0].geometry.location.lat}, prev, long: {...geoObj.data.results[0].geometry.location.lng}}));
     });
   }, []);
@@ -66,16 +68,7 @@ export default function Geocoder() {
 
 
 
-  // return axios.get(addressString(lotObj))
-  //   .then((data) => {
-  //   return data;
-  //   })
-  //   .then(data => {
-  //     const lat = data.data.results[0].geometry.location.lat;
-  //     const long = data.data.results[0].geometry.location.lng;
-  //     console.log(`lat, long: ${lat}, ${long}`);
-  //   })
-  // }
+
 
 
 
@@ -102,7 +95,7 @@ export default function Geocoder() {
 // }
 
 // function getLatLong(address) {
-//   const geocoder = new google.maps.Geocoder();
+//   const geocoder = new window.google.maps.Geocoder();
 //   const result = "";
 //   geocoder.geocode( { 'address': address, 'region': 'uk' }, function(results, status) {
 //        if (status == google.maps.GeocoderStatus.OK) {

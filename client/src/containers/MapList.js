@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import MapContainer from "../components/MapContainer";
+import LotForm from "../components/Lot/LotForm";
 import SmallLotItem from "../components/Lot/SmallLotItem";
 import { SearchInput, Spinner, Pane } from "evergreen-ui";
 
