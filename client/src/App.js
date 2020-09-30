@@ -1,33 +1,23 @@
-import React from 'react';
-import './App.css';
-import MapContainer from "components/MapContainer";
-import useInitializer from "hooks/Initializer";
+import React from "react";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import axios from "axios";
+import "./App.css";
+import Home from "./containers/Home";
+import MapList from "./containers/MapList";
 
-import LotForm from './components/Lot/LotForm';
-import LotList from './components/Lot/LotList';
-
-import SearchBarItem from './components/SearchBar/SearchBarItem'
-//UI Tests
-import { Button } from 'evergreen-ui'
-
-function App() {
-  const {
-    state
-  } = useInitializer();
-
+const App = () => {
   return (
-    <main>
-    <div className="App">
-      {/* <LotListItem /> */}
-      {/* <ImgList /> */}
-      {/* <Form /> */}
-      {/* <LotList />*/
-      <LotForm />}
-      <SearchBarItem />
+    <div>
+      <Router>
+          <Route path="/">
+            <Home />
+          </Route>
+          <Route path="/mapview">
+            <MapList />
+          </Route>
+      </Router>
     </div>
-      <MapContainer lots={state.lots}/> 
-    </main>
   );
-}
+};
 
 export default App;

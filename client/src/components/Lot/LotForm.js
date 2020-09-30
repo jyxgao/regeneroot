@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import Button from "../UI/Button";
 // import { data } from "cypress/types/jquery";
@@ -14,21 +14,21 @@ const addressString = function(lotObj) {
 }
 
 const LotForm = (props) => {
-  const [title, setTitle] = React.useState("");
-  const [size, setSize] = React.useState("");
-  const [costPerMonth, setCostPerMonth] = React.useState("");
-  const [isIrrigated, setIsIrrigated] = React.useState(false);
-  const [term, setTerm] = React.useState("");
-  const [rating, setRating] = React.useState("");
-  const [availableDate, setAvailableDate] = React.useState("");
-  const [type, setType] = React.useState("");
-  const [lotDescription, setLotDescription] = React.useState("");
-  const [isLeased, setIsleased] = React.useState(false);
-  const [street, setStreet] = React.useState("");
-  const [city, setCity] = React.useState("");
-  const [country, setCountry] = React.useState("");
-  const [postCode, setPostCode] = React.useState("");
-  const [created, setCreated] = React.useState(
+  const [title, setTitle] = useState("");
+  const [size, setSize] = useState("");
+  const [costPerMonth, setCostPerMonth] = useState("");
+  const [isIrrigated, setIsIrrigated] = useState(false);
+  const [term, setTerm] = useState("");
+  const [rating, setRating] = useState("");
+  const [availableDate, setAvailableDate] = useState("");
+  const [type, setType] = useState("");
+  const [lotDescription, setLotDescription] = useState("");
+  const [isLeased, setIsleased] = useState(false);
+  const [street, setStreet] = useState("");
+  const [city, setCity] = useState("");
+  const [country, setCountry] = useState("");
+  const [postCode, setPostCode] = useState("");
+  const [created, setCreated] = useState(
     new Date().toLocaleString().slice(0, 9)
   );
   // const [photo, setPhoto] = React.useState([]); //??
