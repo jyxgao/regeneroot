@@ -8,7 +8,7 @@ import useInitializer from "hooks/Initializer";
 import LotListItem from "./components/Lot/LotListItem";
 
 //UI Tests
-import { SearchInput } from "evergreen-ui";
+import { SearchInput, Spinner, Pane } from "evergreen-ui";
 
 const App = () => {
   //searchterm state -> triggers axios.get
@@ -36,15 +36,14 @@ const App = () => {
       axios.get("/api/lots/owned"),
       axios.get("/api/lots/leased"),
     ]).then((response) => {
-        setState((prev) => ({
-          ...prev,
-          lots: response[0].data,
-          user: response[1].data,
-          owned: response[2].data,
-          leased: response[3].data,
-        }));
-      }
-    );
+      setState((prev) => ({
+        ...prev,
+        lots: response[0].data,
+        user: response[1].data,
+        owned: response[2].data,
+        leased: response[3].data,
+      }));
+    });
   }, []);
 
   useEffect(() => {
@@ -54,38 +53,28 @@ const App = () => {
       // this is dependent on evergreen-ui library ^5.1.2
       // const inputValue = inputRef.current.children[1].value;
       // console.log(inputRef.current.children[1].value)
-      console.log(inputRef.current)
       // if (enteredCity === inputRef) {
-        let query = "?";
-        // const query = enteredCity.length === 0 ? "" : `?city=${enteredCity}`;
-        if (enteredCity.length > 0) {
-          query += `city=${enteredCity}&`
-        }
-        if (enteredMinSize.length > 0) {
-          query += `minimum_size=${enteredMinSize}&`
-        }
-        if (enteredMaxSize.length > 0) {
-          query += `maximum_size=${enteredMaxSize}&`
-        }
+      let query = "?";
+      if (enteredCity.length > 0) {
+        setIsLoading(true);
+        query += `city=${enteredCity}&`;
+      }
+      if (enteredMinSize.length > 0) {
+        setIsLoading(true);
+        query += `minimum_size=${enteredMinSize}&`;
+      }
+      if (enteredMaxSize.length > 0) {
+        setIsLoading(true);
+        query += `maximum_size=${enteredMaxSize}&`;
+      }
 
-        axios.get("/api/lots/search" + query).then((response) => {
-          console.log(response.data);
-          setState((prev) => ({
-            ...prev,
-            lots: response.data,
-          }));
-        });
-        // .then((data) => {
-        //   const loadedLots = [];
-        //   console.log(data);
-        // for (const key in data) {
-        //   // loadedLots.push({
-
-        //   // })
-
-        // }
-        // });
-      // }
+      axios.get("/api/lots/search" + query).then((response) => {
+        setIsLoading(false);
+        setState((prev) => ({
+          ...prev,
+          lots: response.data,
+        }));
+      });
     }, 1000);
     // clean up timer before next run
     return () => {
@@ -123,6 +112,16 @@ const App = () => {
             onChange={(e) => setEnteredMaxSize(e.target.value)}
           />
         </div>
+        {isLoading && (
+          <Pane
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            height={200}
+          >
+            <Spinner />
+          </Pane>
+        )}
       </section>
       <section className="feature">
         <div className="App">
