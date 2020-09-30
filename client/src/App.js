@@ -28,7 +28,7 @@ const App = () => {
           {/* <LotForm /> */}
         </div>
         {/* {console.log(state.lots)} */}
-        {/* <MapContainer lots={state.lots}/>  */}
+        <MapContainer lots={state.lots}/> 
       </section>
     </main>
   );
