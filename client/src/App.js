@@ -3,10 +3,13 @@ import './App.css';
 import MapContainer from "components/MapContainer";
 import useInitializer from "hooks/Initializer";
 
-import Form from './components/Lot/LotForm';
+import LotForm from './components/Lot/LotForm';
 import LotList from './components/Lot/LotList';
-// import SearchBar from './components/ui/SearchBar';
-// import Error from './components/ui/Error'
+
+import SearchBarItem from './components/SearchBar/SearchBarItem'
+//UI Tests
+import { Button } from 'evergreen-ui'
+
 function App() {
   const {
     state
@@ -15,11 +18,12 @@ function App() {
   return (
     <main>
     <div className="App">
-      Hello World! This is a change. Here we gosdfdfs
       {/* <LotListItem /> */}
       {/* <ImgList /> */}
       {/* <Form /> */}
-      <LotList />
+      {/* <LotList />
+      <LotForm /> */}
+      <SearchBarItem />
     </div>
       <MapContainer lots={state.lots}/> 
     </main>

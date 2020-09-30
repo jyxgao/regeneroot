@@ -12,7 +12,7 @@ CREATE TABLE lots
   is_irrigated BOOLEAN NOT NULL DEFAULT FALSE,
   suggested_term INTEGER NOT NULL DEFAULT 12,
   condition_rating INTEGER,
-  available_date DATE NOT NULL DEFAULT NOW(),
+  available_date DATE NOT NULL DEFAULT current_timestamp,
   lot_type VARCHAR(255) NOT NULL,
   lot_description TEXT NOT NULL,
   is_leased BOOLEAN NOT NULL DEFAULT FALSE,
@@ -22,6 +22,6 @@ CREATE TABLE lots
   post_code VARCHAR(255) NOT NULL,
   lat DECIMAL(8,6),
   long DECIMAL(9,6),
-  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+  created_at TIMESTAMP DEFAULT current_timestamp,
   is_active BOOLEAN NOT NULL DEFAULT TRUE
 );

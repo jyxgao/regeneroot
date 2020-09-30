@@ -58,7 +58,6 @@ const LotForm = (props) => {
   function handleSubmit(event) {
     axios
       .post("/api/lots", {
-        owner_id: 1,
         title,
         size,
         cost_per_month: costPerMonth,
@@ -73,14 +72,13 @@ const LotForm = (props) => {
         city,
         country,
         post_code: postCode,
-        created_at: created,
         is_active: true,
         images: [
           "https://www.google.com/url?sa=i&url=https%3A%2F%2Fcloudfour.com%2Fexamples%2Fimg-currentsrc%2F&psig=AOvVaw1mveMqKOFyRUQ6UYnN6T3W&ust=1601429150390000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCLDby8-ajewCFQAAAAAdAAAAABAD",
         ],
       })
-      .then((res) => console.log(res.data))
-      .catch((error) => console.log(error));
+      // .then((res) => console.log(res.data))
+      // .catch((error) => console.log(error));
 
     event.preventDefault();
   }
@@ -231,10 +229,10 @@ const LotForm = (props) => {
           />
         </label>
         <br />
-        <label>
+        {/* <label>
           Date:
           {created}
-        </label>
+        </label> */}
         <br />
         {/* <label>
           photo:
@@ -242,7 +240,7 @@ const LotForm = (props) => {
             {/* for the photo only can print document content but can not grab data into the object now */}
         {/* </label> */}
 
-        <Button type="submit">Submit</Button>
+        <Button onClick={handleSubmit}>Submit</Button>
       </form>
     </section>
   );
