@@ -12,7 +12,7 @@ export default function useInitializer() {
   useEffect(() => {
     axios.get("/api/lots")
       .then((res) => {
-      setState(prev => ({ ...prev, lots: [...res.data.data]}));
+      setState(prev => ({ ...prev, lots: [...res.data]}));
       })
   }, []);
   return {state}
