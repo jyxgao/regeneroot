@@ -1,9 +1,14 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
+import MapContainer from "../components/MapContainer";
 import SmallLotItem from "../components/Lot/SmallLotItem";
 import { SearchInput, Spinner, Pane } from "evergreen-ui";
 
-const Home = () => {
+const MapList = () => {
+  //searchterm state -> triggers axios.get
+  //loading state -> boolean
+  //dataobject state -> lot list
+
   const [enteredCity, setEnteredCity] = useState("");
   const [enteredMinSize, setEnteredMinSize] = useState("");
   const [enteredMaxSize, setEnteredMaxSize] = useState("");
@@ -37,6 +42,12 @@ const Home = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
+      //compare old search string with new string, if same, send http request
+
+      // this is dependent on evergreen-ui library ^5.1.2
+      // const inputValue = inputRef.current.children[1].value;
+      // console.log(inputRef.current.children[1].value)
+      // if (enteredCity === inputRef) {
       let query = "?";
       if (enteredCity.length > 0) {
         setIsLoading(true);
@@ -108,6 +119,8 @@ const Home = () => {
       </section>
       <section className="feature">
         <div className="App">
+          {/* <LotListItem /> */}
+          {/* <ImgList /> */}
           {state.lots.map((lot) => {
             return (
               <SmallLotItem
@@ -118,10 +131,15 @@ const Home = () => {
               />
             );
           })}
+          {/* <LotList /> */}
+          {/* <LotForm /> */}
+        </div>
+        <div>
+          <MapContainer lots={state.lots} />
         </div>
       </section>
     </main>
   );
-}
+};
 
-export default Home;
+export default MapList;
