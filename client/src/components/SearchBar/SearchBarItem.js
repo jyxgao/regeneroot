@@ -48,9 +48,25 @@ const SearchBarItem = () => {
       <div className="search-item--city">
         <SearchInput
           ref={inputRef}
-          placeholder="Enter city"
+          placeholder="City name..."
           value={enteredCity}
           onChange={(e) => setEnteredCity(e.target.value)}
+        />
+      </div>
+      <div className="search-item--minsize">
+        <SearchInput
+          ref={inputRef}
+          placeholder="Min lot size in sqft"
+          value={enteredMinSize}
+          onChange={(e) => setEnteredMinSize(e.target.value)}
+        />
+      </div>
+      <div className="search-item--maxsize">
+        <SearchInput
+          ref={inputRef}
+          placeholder="Max lot size in sqft"
+          value={enteredMaxSize}
+          onChange={(e) => setEnteredMinSize(e.target.value)}
         />
       </div>
     </section>

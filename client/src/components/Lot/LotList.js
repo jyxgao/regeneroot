@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import LotListItem from "./LotListItem";
 
@@ -26,9 +26,9 @@ const LotList = (props) => {
 
   // })
 
-  React.useEffect(() => {
+  useEffect(() => {
     axios.get("/api/lots").then((res) => {
-      setDatabase(res.data.data);
+      setDatabase(res.data);
     });
   }, []);
 
