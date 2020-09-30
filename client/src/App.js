@@ -9,12 +9,14 @@ const App = () => {
   return (
     <div className="App">
       <Router>
-          <Route path="/">
-            <Home />
-          </Route>
+        <Switch>
           <Route path="/mapview">
             <MapList />
           </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
       </Router>
     </div>
   );

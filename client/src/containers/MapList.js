@@ -3,13 +3,10 @@ import axios from "axios";
 import MapContainer from "../components/MapContainer";
 import LotForm from "../components/Lot/LotForm";
 import SmallLotItem from "../components/Lot/SmallLotItem";
+import "./MapList.css";
 import { SearchInput, Spinner, Pane } from "evergreen-ui";
 
 const MapList = () => {
-  //searchterm state -> triggers axios.get
-  //loading state -> boolean
-  //dataobject state -> lot list
-
   const [enteredCity, setEnteredCity] = useState("");
   const [enteredMinSize, setEnteredMinSize] = useState("");
   const [enteredMaxSize, setEnteredMaxSize] = useState("");
@@ -78,67 +75,78 @@ const MapList = () => {
   }, [enteredCity, enteredMinSize, enteredMaxSize, inputRef]);
 
   return (
-    <main className="layout">
+    <main className="maplist-view">
       <Pane>
         <nav className="navbar"></nav>
       </Pane>
-      <Pane
+      <section className="maplist-view--searchbar">
+        <Pane
+          display="flex"
+          flexDirection="row"
+          justifyContent="center"
+          padding={50}
+        >
+          <div className="search-item--city">
+            <SearchInput
+              ref={inputRef}
+              placeholder="City name..."
+              value={enteredCity}
+              onChange={(e) => setEnteredCity(e.target.value)}
+            />
+          </div>
+          <div className="search-item--minsize">
+            <SearchInput
+              ref={inputRef}
+              placeholder="Min lot size in sqft"
+              value={enteredMinSize}
+              onChange={(e) => setEnteredMinSize(e.target.value)}
+            />
+          </div>
+          <div className="search-item--maxsize">
+            <SearchInput
+              ref={inputRef}
+              placeholder="Max lot size in sqft"
+              value={enteredMaxSize}
+              onChange={(e) => setEnteredMaxSize(e.target.value)}
+            />
+          </div>
+          {isLoading && (
+            <Pane
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              height={200}
+            >
+              <Spinner />
+            </Pane>
+          )}
+        </Pane>
+      </section>
+      {/* <Pane
         display="flex"
         flexDirection="row"
-        justifyContent="center"
-        padding={50}
-      >
-        <div className="search-item--city">
-          <SearchInput
-            ref={inputRef}
-            placeholder="City name..."
-            value={enteredCity}
-            onChange={(e) => setEnteredCity(e.target.value)}
-          />
+        justifyContent="space-between"
+        flexWrap="wrap"
+      > */}
+      <section className="maplist-view--content">
+        <div className="small-lot--list">
+          {/* <Pane display="flex" flexDirection="column" margin="auto" flex="30%"> */}
+          {state.lots.map((lot) => {
+            return (
+              <SmallLotItem
+                key={lot.id}
+                imageUrls={lot.images}
+                title={lot.title}
+                city={lot.city}
+              />
+            );
+          })}
         </div>
-        <div className="search-item--minsize">
-          <SearchInput
-            ref={inputRef}
-            placeholder="Min lot size in sqft"
-            value={enteredMinSize}
-            onChange={(e) => setEnteredMinSize(e.target.value)}
-          />
+        {/* <Pane display="flex" flex="60%" justifyContent="flex-end" height="100%"> */}
+        <div className="maplist-view--map-container">
+          <MapContainer lots={state.lots} />
         </div>
-        <div className="search-item--maxsize">
-          <SearchInput
-            ref={inputRef}
-            placeholder="Max lot size in sqft"
-            value={enteredMaxSize}
-            onChange={(e) => setEnteredMaxSize(e.target.value)}
-          />
-        </div>
-        {isLoading && (
-          <Pane
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            height={200}
-          >
-            <Spinner />
-          </Pane>
-        )}
-      </Pane>
-
-      <Pane display="flex" flexDirection="row" flexWrap="wrap">
-        {state.lots.map((lot) => {
-          return (
-            <SmallLotItem
-              key={lot.id}
-              imageUrls={lot.images}
-              title={lot.title}
-              city={lot.city}
-            />
-          );
-        })}
-      </Pane>
-      <Pane>
-        <MapContainer lots={state.lots} />
-      </Pane>
+      </section>
     </main>
   );
 };
