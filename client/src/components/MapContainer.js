@@ -22,11 +22,9 @@ const MapContainer = (props) => {
   const onLoad = function(map) {
       const bounds = new window.google.maps.LatLngBounds();
       for (let lot of props.lots) {
-        console.log("lot location in map component: ", lot.location);
         bounds.extend (lot.location);        
       }
       map.fitBounds (bounds);
-      console.log(map);
     setMap(map)
   }
  

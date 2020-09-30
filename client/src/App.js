@@ -21,8 +21,8 @@ function App() {
       {/* <LotListItem /> */}
       {/* <ImgList /> */}
       {/* <Form /> */}
-      {/* <LotList />
-      <LotForm /> */}
+      {/* <LotList />*/
+      <LotForm />}
       <SearchBarItem />
     </div>
       <MapContainer lots={state.lots}/> 
