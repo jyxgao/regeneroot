@@ -25,8 +25,7 @@ function App() {
       <LotForm /> */}
       <SearchBarItem />
     </div>
-      {/* {console.log(state.lots)} */}
-      {/* <MapContainer lots={state.lots}/>  */}
+      <MapContainer lots={state.lots}/> 
     </main>
   );
 }
