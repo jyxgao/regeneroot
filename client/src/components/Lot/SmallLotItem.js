@@ -1,5 +1,6 @@
 import React from "react";
-import ImageList from "./Image/ImageList";
+import { Pane, Text } from "evergreen-ui";
+import ImageItem from "./Image/ImageItem";
 import './SmallLotItem.css';
 
 const LotListItem = (props) => {
@@ -10,13 +11,15 @@ const LotListItem = (props) => {
   //   id: 1
   // }
   return (
-    <div>
-      <ImageList imageUrls={props.imageUrls} />
-      <div>{props.name}</div>
-      <div>{props.title}</div>
-      <div>{props.city}</div>
-      {}
-    </div>
+    <Pane display="flex"
+          flexDirection="column"
+          alignItems="center"
+          width={500}>
+      <ImageItem url={props.imageUrls[0]} />
+      <Pane>{props.name}</Pane>
+      <Pane>{props.title}</Pane>
+      <Pane>{props.city}</Pane>
+    </Pane>
   );
 };
 

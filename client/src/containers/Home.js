@@ -67,10 +67,14 @@ const Home = () => {
 
   return (
     <main className="layout">
-      <section>
+      <Pane>
         <nav className="navbar"></nav>
-      </section>
-      <section className="search">
+      </Pane>
+      <Pane display="flex"
+            flexDirection="row"
+            justifyContent="center"
+            padding={50}
+      >
         <div className="search-item--city">
           <SearchInput
             ref={inputRef}
@@ -105,23 +109,22 @@ const Home = () => {
             <Spinner />
           </Pane>
         )}
-      </section>
-      <section className="feature">
-        <div className="App">
-          {state.lots.map((lot) => {
-            return (
-              <SmallLotItem
-                key={lot.id}
-                imageUrls={lot.images}
-                title={lot.title}
-                city={lot.city}
-              />
-            );
-          })}
-        </div>
-      </section>
+      </Pane>
+
+      <Pane display="flex" flexDirection="row" flexWrap="wrap">
+        {state.lots.map((lot) => {
+          return (
+            <SmallLotItem
+              key={lot.id}
+              imageUrls={lot.images}
+              title={lot.title}
+              city={lot.city}
+            />
+          );
+        })}
+      </Pane>
     </main>
   );
-}
+};
 
 export default Home;

@@ -7,7 +7,7 @@ import MapList from "./containers/MapList";
 
 const App = () => {
   return (
-    <div>
+    <div className="App">
       <Router>
           <Route path="/">
             <Home />

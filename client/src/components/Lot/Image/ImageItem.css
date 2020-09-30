@@ -1,4 +1,6 @@
 .lot-img {
+  object-fit: cover;
   border-radius: 10%;
-  width: 50%;
+  width: 90%;
+  height: 300px;
 }
