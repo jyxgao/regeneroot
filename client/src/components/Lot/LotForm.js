@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Button from "../UI/Button";
+import { Button } from 'evergreen-ui';
 // import { data } from "cypress/types/jquery";
 
 const APIkey = process.env.REACT_APP_GOOGLE_API_KEY;
