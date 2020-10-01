@@ -1,10 +1,11 @@
 import React from 'react';
+import { Pane} from 'evergreen-ui';
 
 const NavBar = () => {
   return (
-    <div>
-
-    </div>
+    <Pane>
+      
+    </Pane>
   )
 }
 

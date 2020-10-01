@@ -1,14 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import MapContainer from "../components/MapContainer";
+import LotForm from "../components/Lot/LotForm";
 import SmallLotItem from "../components/Lot/SmallLotItem";
+import "./MapList.css";
 import { SearchInput, Spinner, Pane } from "evergreen-ui";
 
 const MapList = () => {
-  //searchterm state -> triggers axios.get
-  //loading state -> boolean
-  //dataobject state -> lot list
-
   const [enteredCity, setEnteredCity] = useState("");
   const [enteredMinSize, setEnteredMinSize] = useState("");
   const [enteredMaxSize, setEnteredMaxSize] = useState("");
@@ -22,23 +20,6 @@ const MapList = () => {
   });
 
   const inputRef = useRef("");
-
-  useEffect(() => {
-    Promise.all([
-      axios.get("/api/lots"),
-      axios.get("/users/me"),
-      axios.get("/api/lots/owned"),
-      axios.get("/api/lots/leased"),
-    ]).then((response) => {
-      setState((prev) => ({
-        ...prev,
-        lots: response[0].data,
-        user: response[1].data,
-        owned: response[2].data,
-        leased: response[3].data,
-      }));
-    });
-  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -77,50 +58,55 @@ const MapList = () => {
   }, [enteredCity, enteredMinSize, enteredMaxSize, inputRef]);
 
   return (
-    <main className="layout">
-      <section>
+    <main className="maplist-view">
+      <Pane>
         <nav className="navbar"></nav>
+      </Pane>
+      <section className="maplist-view--searchbar">
+        <Pane
+          display="flex"
+          flexDirection="row"
+          justifyContent="center"
+          padding={50}
+        >
+          <div className="search-item--city">
+            <SearchInput
+              ref={inputRef}
+              placeholder="City name..."
+              value={enteredCity}
+              onChange={(e) => setEnteredCity(e.target.value)}
+            />
+          </div>
+          <div className="search-item--minsize">
+            <SearchInput
+              ref={inputRef}
+              placeholder="Min lot size in sqft"
+              value={enteredMinSize}
+              onChange={(e) => setEnteredMinSize(e.target.value)}
+            />
+          </div>
+          <div className="search-item--maxsize">
+            <SearchInput
+              ref={inputRef}
+              placeholder="Max lot size in sqft"
+              value={enteredMaxSize}
+              onChange={(e) => setEnteredMaxSize(e.target.value)}
+            />
+          </div>
+          {isLoading && (
+            <Pane
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              height={200}
+            >
+              <Spinner />
+            </Pane>
+          )}
+        </Pane>
       </section>
-      <section className="search">
-        <div className="search-item--city">
-          <SearchInput
-            ref={inputRef}
-            placeholder="City name..."
-            value={enteredCity}
-            onChange={(e) => setEnteredCity(e.target.value)}
-          />
-        </div>
-        <div className="search-item--minsize">
-          <SearchInput
-            ref={inputRef}
-            placeholder="Min lot size in sqft"
-            value={enteredMinSize}
-            onChange={(e) => setEnteredMinSize(e.target.value)}
-          />
-        </div>
-        <div className="search-item--maxsize">
-          <SearchInput
-            ref={inputRef}
-            placeholder="Max lot size in sqft"
-            value={enteredMaxSize}
-            onChange={(e) => setEnteredMaxSize(e.target.value)}
-          />
-        </div>
-        {isLoading && (
-          <Pane
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            height={200}
-          >
-            <Spinner />
-          </Pane>
-        )}
-      </section>
-      <section className="feature">
-        <div className="App">
-          {/* <LotListItem /> */}
-          {/* <ImgList /> */}
+      <section className="maplist-view--content">
+        <div className="small-lot--list">
           {state.lots.map((lot) => {
             return (
               <SmallLotItem
@@ -131,10 +117,8 @@ const MapList = () => {
               />
             );
           })}
-          {/* <LotList /> */}
-          {/* <LotForm /> */}
         </div>
-        <div>
+        <div className="maplist-view--map-container">
           <MapContainer lots={state.lots} />
         </div>
       </section>

@@ -15,18 +15,16 @@ const MapContainer = (props) => {
 
   //google maps window size
   const mapStyles = {        
-    height: "60vh",
-    width: "45%"};
+    height: "90vh",
+    width: "90%"};
 
   //sets map view bounds for list of queried lots
   const onLoad = function(map) {
       const bounds = new window.google.maps.LatLngBounds();
       for (let lot of props.lots) {
-        console.log("lot location in map component: ", lot.location);
         bounds.extend (lot.location);        
       }
       map.fitBounds (bounds);
-      console.log(map);
     setMap(map)
   }
  

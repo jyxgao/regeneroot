@@ -1,7 +1,11 @@
 import React from "react";
-import ImageList from "./Image/ImageList";
-import './SmallLotItem.css';
-import { Button } from 'evergreen-ui'
+
+// import ImageList from "./Image/ImageList";
+
+
+import { Pane, Text, Button  } from "evergreen-ui";
+import ImageItem from "./Image/ImageItem";
+import "./SmallLotItem.css";
 
 // import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 const LotListItem = (props) => {
@@ -12,6 +16,7 @@ const LotListItem = (props) => {
   //   id: 1
   // }
   return (
+// I am going to keep both master and gbai/continueUpdate, I think there shouble be issue. First div part is from my branch and second part is from the master
 
       <div>
         <ImageList imageUrls={props.imageUrls} />
@@ -27,6 +32,23 @@ const LotListItem = (props) => {
     
         {props.logedin &&  <Button>Delete</Button>}
       </div>
+
+
+    <div className="small-lot-item">
+      <Pane
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        width={500}
+      >
+        <ImageItem url={props.imageUrls[0]} />
+        <div className="small-lot--text">
+          <Pane>{props.name}</Pane>
+          <Pane>{props.title}</Pane>
+          <Pane>{props.city}</Pane>
+        </div>
+      </Pane>
+    </div>
 
   );
 };

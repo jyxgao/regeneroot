@@ -10,7 +10,7 @@ import Owner from "components/Lot/Owner";
 
 const App = () => {
   return (
-    <div>
+    <div className="App">
       <Router>
         <Switch>
         <Route path="/owner">
@@ -22,6 +22,7 @@ const App = () => {
           <Route path="/new">
             <CreateLot />
           </Route>
+
           <Route path="/">
             <Home />
           </Route>
