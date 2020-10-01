@@ -1,0 +1,20 @@
+.home-view--searchbar {
+  padding-top: 65px;
+  /* position: fixed; */
+}
+
+.home--layout {
+  /* background-image: url(../assets/home1.jpg); */
+  /* -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover; */
+  /* background-size: cover; */
+  background-repeat: no-repeat;
+  /* width: 100%; */
+}
+
+/* .home-view--content {
+  display: flex;
+  flex-direction: row;
+  margin-top: 1000px;
+} */

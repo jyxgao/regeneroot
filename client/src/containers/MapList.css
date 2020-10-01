@@ -1,5 +1,5 @@
 .maplist-view--searchbar {
-  padding-top: 100px;
+  padding-top: 65px;
   /* position: fixed; */
 }
 
@@ -16,6 +16,7 @@
   flex-direction: column;
   /* margin: auto; */
   margin-left: 10%;
+  width: 100%;
   flex: 30%;
   /* position: relative; */
 }
@@ -25,7 +26,7 @@
  width: 60%;
  height: 90%;
  justify-content: flex-end;
-
- right: 0;
  position: fixed;
+ right: 0;
+
 }

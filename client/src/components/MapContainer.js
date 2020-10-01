@@ -15,7 +15,7 @@ const MapContainer = (props) => {
 
   //google maps window size
   const mapStyles = {        
-    height: "100vh",
+    height: "90vh",
     width: "90%"};
 
   //sets map view bounds for list of queried lots

@@ -1,7 +1,7 @@
 import React from "react";
 import { Pane, Text } from "evergreen-ui";
 import ImageItem from "./Image/ImageItem";
-import './SmallLotItem.css';
+import "./SmallLotItem.css";
 
 const LotListItem = (props) => {
   // const lots = {
@@ -11,15 +11,21 @@ const LotListItem = (props) => {
   //   id: 1
   // }
   return (
-    <Pane display="flex"
-          flexDirection="column"
-          alignItems="center"
-          width={500}>
-      <ImageItem url={props.imageUrls[0]} />
-      <Pane>{props.name}</Pane>
-      <Pane>{props.title}</Pane>
-      <Pane>{props.city}</Pane>
-    </Pane>
+    <div className="small-lot-item">
+      <Pane
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        width={500}
+      >
+        <ImageItem url={props.imageUrls[0]} />
+        <div className="small-lot--text">
+          <Pane>{props.name}</Pane>
+          <Pane>{props.title}</Pane>
+          <Pane>{props.city}</Pane>
+        </div>
+      </Pane>
+    </div>
   );
 };
 

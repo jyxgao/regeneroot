@@ -22,23 +22,6 @@ const MapList = () => {
   const inputRef = useRef("");
 
   useEffect(() => {
-    Promise.all([
-      axios.get("/api/lots"),
-      axios.get("/users/me"),
-      axios.get("/api/lots/owned"),
-      axios.get("/api/lots/leased"),
-    ]).then((response) => {
-      setState((prev) => ({
-        ...prev,
-        lots: response[0].data,
-        user: response[1].data,
-        owned: response[2].data,
-        leased: response[3].data,
-      }));
-    });
-  }, []);
-
-  useEffect(() => {
     const timer = setTimeout(() => {
       //compare old search string with new string, if same, send http request
 
@@ -122,15 +105,8 @@ const MapList = () => {
           )}
         </Pane>
       </section>
-      {/* <Pane
-        display="flex"
-        flexDirection="row"
-        justifyContent="space-between"
-        flexWrap="wrap"
-      > */}
       <section className="maplist-view--content">
         <div className="small-lot--list">
-          {/* <Pane display="flex" flexDirection="column" margin="auto" flex="30%"> */}
           {state.lots.map((lot) => {
             return (
               <SmallLotItem
@@ -142,7 +118,6 @@ const MapList = () => {
             );
           })}
         </div>
-        {/* <Pane display="flex" flex="60%" justifyContent="flex-end" height="100%"> */}
         <div className="maplist-view--map-container">
           <MapContainer lots={state.lots} />
         </div>

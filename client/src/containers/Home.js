@@ -1,14 +1,16 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import SmallLotItem from "../components/Lot/SmallLotItem";
+import MapContainer from "../components/MapContainer";
 import { SearchInput, Spinner, Pane } from "evergreen-ui";
+import { Redirect } from 'react-router-dom'; 
 
 const Home = () => {
   const [enteredCity, setEnteredCity] = useState("");
   const [enteredMinSize, setEnteredMinSize] = useState("");
   const [enteredMaxSize, setEnteredMaxSize] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  // const [data, setData] = useState([]);
+  const [searchView, setSearchView] = useState(false);
   const [state, setState] = useState({
     lots: [],
     user: {},
@@ -25,6 +27,7 @@ const Home = () => {
       axios.get("/api/lots/owned"),
       axios.get("/api/lots/leased"),
     ]).then((response) => {
+      setSearchView(false);
       setState((prev) => ({
         ...prev,
         lots: response[0].data,
@@ -53,6 +56,7 @@ const Home = () => {
 
       axios.get("/api/lots/search" + query).then((response) => {
         setIsLoading(false);
+        setSearchView(true);
         setState((prev) => ({
           ...prev,
           lots: response.data,
@@ -65,8 +69,12 @@ const Home = () => {
     };
   }, [enteredCity, enteredMinSize, enteredMaxSize, inputRef]);
 
+  // if (redirect) {
+  //   return (<Redirect to={state.redirect})
+  // }
+
   return (
-    <main className="layout">
+    <main className="home--layout">
       <Pane>
         <nav className="navbar"></nav>
       </Pane>
@@ -123,6 +131,10 @@ const Home = () => {
           );
         })}
       </Pane>
+
+      {/* {searchView ? return (<div className="maplist-view--map-container">
+          <MapContainer lots={state.lots} />
+        </div>)} */}
     </main>
   );
 };

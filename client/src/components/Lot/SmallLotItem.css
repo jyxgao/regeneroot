@@ -1,0 +1,13 @@
+.small-lot-item {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  border-radius: 3%;
+  width: 500px;
+  margin: 10px;
+  overflow: hidden;
+}
+
+.small-lot--text {
+  margin-bottom: 0.5em;
+}
