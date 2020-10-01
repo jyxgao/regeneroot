@@ -11,6 +11,9 @@ const App = () => {
     <div className="App">
       <Router>
         <Switch>
+          <Route path="/lotdetail">
+            <LotDetail />
+          </Route>
           <Route path="/mapview">
             <MapList />
           </Route>

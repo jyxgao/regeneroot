@@ -1,6 +1,6 @@
 import React from 'react';
 import './LotDetail.css';
-
+import { Pane } from "evergreen-ui";
 
 const LotDetail = () => {
 
@@ -50,14 +50,14 @@ const props = {
 //owner_id, title, size, cost_per_month, is_irrigated, suggested_term, condition_rating, available_date, lot_type, lot_description, is_leased, street_address, city, country, post_code, lat, long, created_at, is_active
 
   return (
-    <main>
-      <section>
+    <main className="home--layout">
+      <Pane>
         <nav className="navbar"></nav>
-      </section>
+      </Pane>
       <section className="LotDetail_layout">
         <div className="LotDetail--detail_group">
-          <div className="LotDetail--main_image">
-            <img src={props.images[0]}></img>
+          <div>
+            <img className="LotDetail--main_image" src={props.images[0]}></img>
           </div>
           <div>
             <div>
