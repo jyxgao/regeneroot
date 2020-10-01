@@ -78,11 +78,14 @@ module.exports = function (router, database) {
 
   // create new lot
   router.post("/lots", (req, res) => {
+    console.log("submitting form...")
     const userId = req.session.user_id;
     const city = req.body.city.toLowerCase();
     const country = req.body.country.toLowerCase();
     const post_code = req.body.post_code.replace(/ /g, "");
     const images = req.body.images;
+
+    // console.log(req.body)
     delete req.body.images;
 
     const lot = { ...req.body, city, post_code, country, owner_id: userId };
@@ -133,7 +136,6 @@ module.exports = function (router, database) {
     const images = req.body.images;
     delete req.body.images;
 
-    // console.log(req.body)
 
     const lot = { ...req.body, owner_id: userId, city, post_code, country };
     if (!userId) {

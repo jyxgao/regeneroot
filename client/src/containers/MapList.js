@@ -1,25 +1,18 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import MapContainer from "../components/MapContainer";
-// import LotForm from "../components/Lot/LotForm";
 import SmallLotItem from "../components/Lot/SmallLotItem";
 import "./MapList.css";
 import { SearchInput, Spinner, Pane } from "evergreen-ui";
 
-const MapList = () => {
+const MapList = (props) => {
   const [enteredCity, setEnteredCity] = useState("");
   const [enteredMinSize, setEnteredMinSize] = useState("");
   const [enteredMaxSize, setEnteredMaxSize] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  // const [data, setData] = useState([]);
-  const [state, setState] = useState({
-    lots: [],
-    user: {},
-    owned: [],
-    leased: [],
-  });
 
   const inputRef = useRef("");
+  const {state, setState} = props;
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -51,7 +44,6 @@ const MapList = () => {
         }));
       });
     }, 1000);
-    // clean up timer before next run
     return () => {
       clearTimeout(timer);
     };

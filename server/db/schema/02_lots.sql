@@ -15,7 +15,7 @@ CREATE TABLE lots
   available_date DATE NOT NULL DEFAULT current_timestamp,
   lot_type VARCHAR(255) NOT NULL,
   lot_description TEXT NOT NULL,
-  is_leased BOOLEAN NOT NULL DEFAULT FALSE,
+  is_leased BOOLEAN DEFAULT FALSE,
   street_address VARCHAR(255) NOT NULL,
   city VARCHAR(255) NOT NULL,
   country VARCHAR(255) NOT NULL,
