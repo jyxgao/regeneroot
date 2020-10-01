@@ -118,7 +118,7 @@ const Home = () => {
           </Pane>
         )}
       </Pane>
-
+    
       <Pane display="flex" flexDirection="row" flexWrap="wrap">
         {state.lots.map((lot) => {
           return (
