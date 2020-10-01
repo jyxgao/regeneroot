@@ -1,13 +1,14 @@
 import React from "react";
+import { Pane, Text } from "evergreen-ui";
 import ImageItem from "./ImageItem";
 import "./ImageList.css";
 
 const ImageList = (props) => {
   return (
-    <div className="lot-images">
+    <Pane>
       {props.imageUrls &&
         props.imageUrls.map((url) => <ImageItem key={url} url={url} />)}
-    </div>
+    </Pane>
   );
 };
 
