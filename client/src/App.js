@@ -5,6 +5,9 @@ import "./App.css";
 import Home from "./containers/Home";
 import MapList from "./containers/MapList";
 import LotDetail from "./containers/LotDetail";
+import CreateLot from "./containers/CreateLot";
+import Owner from "components/Lot/Owner";
+
 
 const App = () => {
   return (
@@ -17,11 +20,16 @@ const App = () => {
           <Route path="/mapview">
             <MapList />
           </Route>
+          <Route path="/new">
+            <CreateLot />
+          </Route>
+
           <Route path="/">
             <Home />
           </Route>
         </Switch>
       </Router>
+     
     </div>
   );
 };
