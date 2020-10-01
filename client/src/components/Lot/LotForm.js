@@ -1,19 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 
-import { Button } from 'evergreen-ui';
+import { Button } from "evergreen-ui";
 // import { data } from "cypress/types/jquery";
 
 const APIkey = process.env.REACT_APP_GOOGLE_API_KEY;
-  
-const addressString = function(lotObj) {
-  const addressEsc = encodeURI(lotObj.street_address + " " + lotObj.city + " " + lotObj.country + " " + lotObj.post_code);
+
+const addressString = function (lotObj) {
+  const addressEsc = encodeURI(
+    lotObj.street_address +
+      " " +
+      lotObj.city +
+      " " +
+      lotObj.country +
+      " " +
+      lotObj.post_code
+  );
   // console.log(addressEsc);
   const geoRequestStr = `https://maps.googleapis.com/maps/api/geocode/json?address=${addressEsc}&key=${APIkey}`;
   // console.log(geoRequestStr);
   return geoRequestStr;
-}
-
+};
 
 const LotForm = (props) => {
   const [title, setTitle] = useState("");
@@ -30,9 +37,7 @@ const LotForm = (props) => {
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
   const [postCode, setPostCode] = useState("");
-  const [created, setCreated] = useState(
-    new Date().toLocaleString().slice(0, 9)
-  );
+  const created = new Date().toLocaleString().slice(0, 9);
   // const [photo, setPhoto] = React.useState([]); //??
   const lot = {
     title,
@@ -69,58 +74,54 @@ const LotForm = (props) => {
     setIsleased(value);
   }
   function handleSubmit(event) {
-    
     axios
-      .get(addressString(
-        {street_address: street,
-        city,
-        country,
-        post_code: postCode}
-      ))
-        .then((data) => {
-          const latResponse = data.data.results[0].geometry.location.lat;
-          const longResponse = data.data.results[0].geometry.location.lng;
-          console.log("lat:", latResponse)
-          axios.post("/api/lots", {
-            lat: latResponse,
-            long: longResponse,
-            title,
-            size,
-            cost_per_month: costPerMonth,
-            is_irrigated: isIrrigated,
-            suggested_term: term,
-            condition_rating: rating,
-            available_date: availableDate,
-            lot_type: type,
-            lot_description: lotDescription,
-            is_leased: isLeased,
-            street_address: street,
-            city,
-            country,
-            post_code: postCode,
-            is_active: true,
-            images: [
-              "https://www.google.com/url?sa=i&url=https%3A%2F%2Fcloudfour.com%2Fexamples%2Fimg-currentsrc%2F&psig=AOvVaw1mveMqKOFyRUQ6UYnN6T3W&ust=1601429150390000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCLDby8-ajewCFQAAAAAdAAAAABAD",
-            ],
-          })
+      .get(
+        addressString({
+          street_address: street,
+          city,
+          country,
+          post_code: postCode,
         })
+      )
+      .then((data) => {
+        const latResponse = data.data.results[0].geometry.location.lat;
+        const longResponse = data.data.results[0].geometry.location.lng;
+        console.log("lat:", latResponse);
+        axios.post("/api/lots", {
+          lat: latResponse,
+          long: longResponse,
+          title,
+          size,
+          cost_per_month: costPerMonth,
+          is_irrigated: isIrrigated,
+          suggested_term: term,
+          condition_rating: rating,
+          available_date: availableDate,
+          lot_type: type,
+          lot_description: lotDescription,
+          is_leased: isLeased,
+          street_address: street,
+          city,
+          country,
+          post_code: postCode,
+          is_active: true,
+          images: [
+            "https://www.google.com/url?sa=i&url=https%3A%2F%2Fcloudfour.com%2Fexamples%2Fimg-currentsrc%2F&psig=AOvVaw1mveMqKOFyRUQ6UYnN6T3W&ust=1601429150390000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCLDby8-ajewCFQAAAAAdAAAAABAD",
+          ],
+        });
+      })
       // .then((res) => console.log(res.data))
       .catch((error) => console.log(error));
 
     event.preventDefault();
   }
 
-
-const edit = (id) => {
-
-
-  return axios.get(`/api/lots/${id}`)
-    .then((results) => {
-      console.log("please do some,", results.data)
+  const edit = (id) => {
+    return axios.get(`/api/lots/${id}`).then((results) => {
+      console.log("please do some,", results.data);
       // setTitle(results.data.title )
-    })
-}
-
+    });
+  };
 
   return (
     <section>
