@@ -10,12 +10,12 @@ const Home = () => {
   const [enteredMinSize, setEnteredMinSize] = useState("");
   const [enteredMaxSize, setEnteredMaxSize] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [searchView, setSearchView] = useState(false);
   const [state, setState] = useState({
     lots: [],
     user: {},
     owned: [],
     leased: [],
+    isLoggedin: false,
   });
 
   const inputRef = useRef("");
@@ -27,7 +27,6 @@ const Home = () => {
       axios.get("/api/lots/owned"),
       axios.get("/api/lots/leased"),
     ]).then((response) => {
-      setSearchView(false);
       setState((prev) => ({
         ...prev,
         lots: response[0].data,
@@ -56,7 +55,6 @@ const Home = () => {
 
       axios.get("/api/lots/search" + query).then((response) => {
         setIsLoading(false);
-        setSearchView(true);
         setState((prev) => ({
           ...prev,
           lots: response.data,

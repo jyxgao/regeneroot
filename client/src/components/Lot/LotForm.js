@@ -102,7 +102,7 @@ const LotForm = (props) => {
           // images: [
             //   "https://www.google.com/url?sa=i&url=https%3A%2F%2Fcloudfour.com%2Fexamples%2Fimg-currentsrc%2F&psig=AOvVaw1mveMqKOFyRUQ6UYnN6T3W&ust=1601429150390000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCLDby8-ajewCFQAAAAAdAAAAABAD",
             // ],
-            images,
+            images: images,
           }).then(res => {
             setTitle("");
             setSize(0);
@@ -192,6 +192,7 @@ const LotForm = (props) => {
           value={type}
           onChange={(event) => setType(event.target.value)}
         >
+          <option value="Select an option">Select an option</option>
           <option value="Commercial">Commercial</option>
           <option value="Residential">Residential</option>
         </Select>
@@ -265,7 +266,7 @@ const LotForm = (props) => {
           <Button margin={5} onClick={handleImages}>add image</Button>
         </div>
         <div>
-          <Button onClick={handleSubmit}>Submit</Button>
+          <Button type="submit" onClick={handleSubmit}>Submit</Button>
         </div>
       </form>
     </section>
