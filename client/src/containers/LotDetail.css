@@ -1,0 +1,25 @@
+.LotDetail_layout {
+  display: flex;
+  flex-direction: row;
+  width: 100vw
+}
+
+.LotDetail--detail_group {
+  width: 45vw;
+}
+
+.LotDetail--image_list {
+  width: 45vw;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap
+}
+
+
+
+/* .LotDetail--image_list_item {
+  width: 45%;
+} */
+
+
+

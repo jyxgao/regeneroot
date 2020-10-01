@@ -4,6 +4,7 @@ import axios from "axios";
 import "./App.css";
 import Home from "./containers/Home";
 import MapList from "./containers/MapList";
+import LotDetail from "./containers/LotDetail";
 
 const App = () => {
   return (
@@ -14,6 +15,9 @@ const App = () => {
           </Route>
           <Route path="/mapview">
             <MapList />
+          </Route>
+          <Route path="/lotdetail">
+            <LotDetail />
           </Route>
       </Router>
     </div>
