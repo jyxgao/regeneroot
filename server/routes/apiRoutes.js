@@ -78,12 +78,14 @@ module.exports = function (router, database) {
 
   // create new lot
   router.post("/lots", (req, res) => {
+    console.log("submitting form...")
     const userId = req.session.user_id;
     const city = req.body.city.toLowerCase();
     const country = req.body.country.toLowerCase();
     const post_code = req.body.post_code.replace(/ /g, "");
     const images = req.body.images;
-    console.log(req.body)
+
+    // console.log(req.body)
     delete req.body.images;
 
     const lot = { ...req.body, city, post_code, country, owner_id: userId };

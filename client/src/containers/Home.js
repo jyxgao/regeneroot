@@ -3,22 +3,29 @@ import axios from "axios";
 import SmallLotItem from "../components/Lot/SmallLotItem";
 import MapContainer from "../components/MapContainer";
 import { SearchInput, Spinner, Pane } from "evergreen-ui";
-import { Redirect } from 'react-router-dom'; 
+import { Redirect } from "react-router-dom";
 
-const Home = () => {
+const Home = (props) => {
   const [enteredCity, setEnteredCity] = useState("");
   const [enteredMinSize, setEnteredMinSize] = useState("");
   const [enteredMaxSize, setEnteredMaxSize] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [state, setState] = useState({
-    lots: [],
-    user: {},
-    owned: [],
-    leased: [],
-    isLoggedin: false,
-  });
+  // const [state, setState] = useState({
+  //   lots: [],
+  //   user: {},
+  //   owned: [],
+  //   leased: [],
+  //   // lotsOwnerStatus: {}
+  // });
 
   const inputRef = useRef("");
+
+  const {state, setState} = props;
+
+  // obj {
+  //   lot_id: owner_status
+  // }
+  const validateRenter = () => {};
 
   useEffect(() => {
     Promise.all([
@@ -26,15 +33,23 @@ const Home = () => {
       axios.get("/users/me"),
       axios.get("/api/lots/owned"),
       axios.get("/api/lots/leased"),
-    ]).then((response) => {
-      setState((prev) => ({
-        ...prev,
-        lots: response[0].data,
-        user: response[1].data,
-        owned: response[2].data,
-        leased: response[3].data,
-      }));
-    });
+    ])
+      .then(([{data: lots },{data: user}, {data: owned}, {data: leased}]) => {
+        // console.log(lots.data, user.data, owned.data, leased)
+        let lotsOwnerStatus = {} 
+        lots.forEach(lot => {lotsOwnerStatus[lot.id] = null})
+        owned.forEach(lot => {lotsOwnerStatus[lot.id] = "owned"})
+        leased.forEach(lot => {lotsOwnerStatus[lot.id] = "leased"})
+
+        setState((prev) => ({
+          ...prev,
+          lots,
+          user,
+          owned,
+          leased,
+          lotsOwnerStatus,
+        }));
+      })
   }, []);
 
   useEffect(() => {
@@ -67,19 +82,16 @@ const Home = () => {
     };
   }, [enteredCity, enteredMinSize, enteredMaxSize, inputRef]);
 
-  // if (redirect) {
-  //   return (<Redirect to={state.redirect})
-  // }
-
   return (
     <main className="home--layout">
       <Pane>
         <nav className="navbar"></nav>
       </Pane>
-      <Pane display="flex"
-            flexDirection="row"
-            justifyContent="center"
-            padding={50}
+      <Pane
+        display="flex"
+        flexDirection="row"
+        justifyContent="center"
+        padding={50}
       >
         <div className="search-item--city">
           <SearchInput
@@ -116,7 +128,7 @@ const Home = () => {
           </Pane>
         )}
       </Pane>
-    
+
       <Pane display="flex" flexDirection="row" flexWrap="wrap">
         {state.lots.map((lot) => {
           return (
@@ -129,10 +141,6 @@ const Home = () => {
           );
         })}
       </Pane>
-
-      {/* {searchView ? return (<div className="maplist-view--map-container">
-          <MapContainer lots={state.lots} />
-        </div>)} */}
     </main>
   );
 };

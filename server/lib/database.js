@@ -159,7 +159,6 @@ exports.getAllLotsByCity = getAllLotsByCity;
 
 // add new lot to lots
 const addNewLot = function (lot, imageArr) {
-  console.log(lot);
   const queryParams = [
     lot.title,
     lot.size,
