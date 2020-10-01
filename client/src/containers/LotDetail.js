@@ -1,23 +1,29 @@
 import React from 'react';
 import './LotDetail.css';
 import { Pane, Text, Button } from "evergreen-ui";
+import LotFormEdit from "components/Lot/LotFormEdit";
+import ConfirmDelete from "components/Lot/ConfirmDelete";
 
 const LotDetail = () => {
 
-// const [ selectedImage, setSelectedImage ] = React.useState(props.images[0]);
+// const [ selectedImage, setSelectedImage ] = React.useState(props.lot.images[0]);
 
 // const onSelect = lotImage => { setSelectedImage(lotImage) }
 
 // const [ isOwner, setIsOwner ] = React.useState(false);
 
+const [ isEditing, setIsEditing ] = React.useState(false);
+
+const [ isDeleting, setIsDeleting ] = React.useState(false);
 
 
-const props = {
-    "id": 5,
+
+const props= {
+    lot: {"id": 5,
     "owner_id": 4,
     "title": "Northland",
     "size": 458,
-    "rate": "33.00",
+    "cost_per_month": "33.00",
     "is_irrigated": false,
     "suggested_term": 18,
     "condition_rating": 4,
@@ -46,6 +52,7 @@ const props = {
       "lng": -122.62733
       },
       "logedin" : true
+    }
   }
 
 //owner_id, title, size, cost_per_month, is_irrigated, suggested_term, condition_rating, available_date, lot_type, lot_description, is_leased, street_address, city, country, post_code, lat, long, created_at, is_active
@@ -55,54 +62,72 @@ const props = {
       <Pane>
         <nav className="navbar"></nav>
       </Pane>
+      <div>
+            {isEditing &&
+              <LotFormEdit 
+              lot={props.lot}
+              />
+            }
+      </div>
+      {!isEditing &&
       <section className="LotDetail_layout">
         <div className="LotDetail--detail_group">
           <div>
-            <img className="LotDetail--main_image" src={props.images[0]}></img>
+          <div className="LotDetail--confirm_delete">
+            {isDeleting &&
+              <ConfirmDelete
+              lot={props.lot}
+              />
+            }
+          </div>
+            <img className="LotDetail--main_image" src={props.lot.images[0]}></img>
           </div>
           <div className="LotDetail--title_block">
             <div >
-              <div className="LotDetail--title">{props.title}</div>
-              <div className="LotDetail--subtitle">{props.size}</div>
+              <div className="LotDetail--title">{props.lot.title}</div>
+              <div className="LotDetail--subtitle">{props.lot.size}</div>
             </div>
-            <div className="LotDetail--title">{props.rate}</div>
+            <div className="LotDetail--title">{props.lot.cost_per_month}</div>
           </div>
           <div>
             {
-            props.logedin && (
-            <Button onClick={(event) => (window.location.href = "/edit")}>
-              Edit
-            </Button>
+            props.lot.logedin && (
+            <Button onClick={(event) => setIsEditing(!isEditing)}>Edit</Button>
              )}
-            {props.logedin && <Button>Delete</Button>}
+            {
+            props.lot.logedin && (
+            <Button onClick={(event) => setIsDeleting(!isDeleting)}>Delete</Button>
+             )}
+            {/* {props.lot.logedin && <Button>Delete</Button>} */}
           </div>
           <div className="LotDetail--description">
-            {props.lot_description}
+            {props.lot.lot_description}
           </div>
           <ul className="LotDetail--list">
-            <li>{props.lot_type}</li>
-            <li>{props.condition_rating}</li>
-            <li>{props.is_irrigated}</li>
-            <li>{props.suggested_term}</li>
-            <li>{props.available_date}</li>
+            <li>{props.lot.lot_type}</li>
+            <li>{props.lot.condition_rating}</li>
+            <li>{props.lot.is_irrigated}</li>
+            <li>{props.lot.suggested_term}</li>
+            <li>{props.lot.available_date}</li>
           </ul>
         </div>
         <div className="LotDetail--image_list">
-                {props.images.map(image =>{
+                {props.lot.images.map(image =>{
                   return (
                   <img className="LotDetail--image_list_item" src={image} />
                   )
                 })}
         </div>
-        {/* {props.isOwned &&
+        {/* {props.lot.isOwned &&
           (
           <div className="App">
           <ImageList
-            imageUrls={props.images}
+            imageUrls={props.lot.images}
           />
         </div>
           )} */}
       </section>
+      }
   </main>
 );
 }

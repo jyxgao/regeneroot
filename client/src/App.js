@@ -15,7 +15,7 @@ const App = () => {
     <div className="App">
       <Router>
         <Switch>
-          <Route path="/lotdetail">
+          <Route path="/lot/:id">
             <LotDetail />
           </Route>
         {/* <Route path="/owner">

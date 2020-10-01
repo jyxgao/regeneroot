@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-
+import "./LotForm.css";
 import { Button } from "evergreen-ui";
 // import { data } from "cypress/types/jquery";
 
@@ -22,59 +22,59 @@ const addressString = function (lotObj) {
   return geoRequestStr;
 };
 
-const LotFormEdit = () => {
+const LotFormEdit = (props) => {
 
-  const props = {
-    "id": 5,
-    "owner_id": 4,
-    "title": "Northland",
-    "size": 458,
-    "rate": "33.00",
-    "is_irrigated": false,
-    "suggested_term": 18,
-    "condition_rating": 4,
-    "available_date": "2020-08-10T00:00:00.000Z",
-    "lot_type": "commercial",
-    "lot_description": "In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.",
-    "is_leased": true,
-    "street_address": "1903 Parsons Rd NW",
-    "city": "Edmonton",
-    "country": "Canada",
-    "post_code": "T6N1H5",
-    "lat": null,
-    "long": null,
-    "created_at": "2020-07-10T00:00:00.000Z",
-    "is_active": false,
-    "lot_id": 5,
-    "images": [
-      "https://consumerist.com/consumermediallc.files.wordpress.com/2014/08/2047.png",
-      "http://seanparnell.com/CALP/VacantLotEGP.jpg",
-      "https://savetherain.us/wp-content/uploads/2012/10/Vacant-Lot-Putnam.jpg",
-      "http://www.waterwinterwonderland.com/images/drivein/10/B%5EThe_empty_lot_next_to_store_photo_from_Water_Winter_Wonderland.jpg",
-      "http://smartgrowth.org/wp-content/uploads/2015/08/lot.jpg"
-      ],
-      "location": {
-      "lat": 49.13389,
-      "lng": -122.62733
-      },
-      "logedin" : true
-  }
-
-  const [title, setTitle] = useState(props.title);
-  const [size, setSize] = useState("");
-  const [costPerMonth, setCostPerMonth] = useState("");
-  const [isIrrigated, setIsIrrigated] = useState(false);
-  const [term, setTerm] = useState("");
-  const [rating, setRating] = useState("");
-  const [availableDate, setAvailableDate] = useState("");
-  const [type, setType] = useState("");
-  const [lotDescription, setLotDescription] = useState("");
-  const [isLeased, setIsleased] = useState(false);
-  const [street, setStreet] = useState("");
-  const [city, setCity] = useState("");
-  const [country, setCountry] = useState("");
-  const [postCode, setPostCode] = useState("");
-  const created = new Date().toLocaleString().slice(0, 9);
+  // const props = {
+  //   "id": 5,
+  //   "owner_id": 4,
+  //   "title": "Northland",
+  //   "size": 458,
+  //   "rate": "33.00",
+  //   "is_irrigated": false,
+  //   "suggested_term": 18,
+  //   "condition_rating": 4,
+  //   "available_date": "2020-08-10T00:00:00.000Z",
+  //   "lot_type": "commercial",
+  //   "lot_description": "In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.",
+  //   "is_leased": true,
+  //   "street_address": "1903 Parsons Rd NW",
+  //   "city": "Edmonton",
+  //   "country": "Canada",
+  //   "post_code": "T6N1H5",
+  //   "lat": null,
+  //   "long": null,
+  //   "created_at": "2020-07-10T00:00:00.000Z",
+  //   "is_active": false,
+  //   "lot_id": 5,
+  //   "images": [
+  //     "https://consumerist.com/consumermediallc.files.wordpress.com/2014/08/2047.png",
+  //     "http://seanparnell.com/CALP/VacantLotEGP.jpg",
+  //     "https://savetherain.us/wp-content/uploads/2012/10/Vacant-Lot-Putnam.jpg",
+  //     "http://www.waterwinterwonderland.com/images/drivein/10/B%5EThe_empty_lot_next_to_store_photo_from_Water_Winter_Wonderland.jpg",
+  //     "http://smartgrowth.org/wp-content/uploads/2015/08/lot.jpg"
+  //     ],
+  //     "location": {
+  //     "lat": 49.13389,
+  //     "lng": -122.62733
+  //     },
+  //     "logedin" : true
+  // }
+  console.log(props);
+  const [title, setTitle] = useState(props.lot.title);
+  const [size, setSize] = useState(props.lot.size);
+  const [costPerMonth, setCostPerMonth] = useState(props.lot.cost_per_month);
+  const [isIrrigated, setIsIrrigated] = useState(props.lot.isIrrigated);
+  const [term, setTerm] = useState(props.lot.suggested_term);
+  const [rating, setRating] = useState(props.lot.rating);
+  const [availableDate, setAvailableDate] = useState(props.lot.availableDate);
+  const [type, setType] = useState(props.lot.type);
+  const [lotDescription, setLotDescription] = useState(props.lot.lotDescription);
+  const [isLeased, setIsleased] = useState(props.lot.isLeased);
+  const [street, setStreet] = useState(props.lot.street);
+  const [city, setCity] = useState(props.lot.city);
+  const [country, setCountry] = useState(props.lot.country);
+  const [postCode, setPostCode] = useState(props.lot.postCode);
+  // const created = new Date().toLocaleString().slice(0, 9);
   // const [photo, setPhoto] = React.useState([]); //??
   const lot = {
     title,
@@ -91,7 +91,7 @@ const LotFormEdit = () => {
     city,
     country,
     postCode,
-    created,
+    // created,
   };
   function validate() {
     // console.log("{", title, size, costPerMonth, isIrrigated, term,rating, availableDate,  type, lotDescription, isLeased, street, city, country, postCode, created+ "}")
@@ -99,6 +99,7 @@ const LotFormEdit = () => {
     // props.onSave(lot)
     // onSave(title, size, costPerMonth, isIrrigated, term,rating, availableDate,  lotType, lotDescription, isLeased, street, city, country, postCode, created);
   }
+
   function handleInputIrrigateChange(event) {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
@@ -124,7 +125,7 @@ const LotFormEdit = () => {
         const latResponse = data.data.results[0].geometry.location.lat;
         const longResponse = data.data.results[0].geometry.location.lng;
         console.log("lat:", latResponse);
-        axios.post("/api/lots", {
+        axios.post(`/api/lots/${props.lot.id}`, {
           lat: latResponse,
           long: longResponse,
           title,
@@ -163,7 +164,7 @@ const LotFormEdit = () => {
   return (
     <section>
       <form autoComplete="off" onSubmit={handleSubmit}>
-        <h1>Add New Lot</h1>
+        <h1>Edit Lot</h1>
         <label>
           Title:
           <input

@@ -22,6 +22,8 @@
 }
 
 .LotDetail--image_list {
+  overflow-x: hidden;
+  overflow-y: auto;
   width: 50vw;
   display: flex;
   flex-direction: row;
@@ -50,9 +52,27 @@
   font-size: 40px;
   font-weight: 400;
 }
+
 .LotDetail--rate {
   font-size: 40px;
   font-weight: 400;
+}
+
+.hide {
+  display:none;
+  visibility: hidden;
+}
+
+.LotDetail--confirm_delete {
+
+  background-color: rgb(255, 174, 174);
+  position: absolute;
+  width: 30vw;
+  height: 20vw;
+  top   : 40%;
+  left  : 40%;
+  /* bottom: 30vw;
+  right : 30vw; */
 }
 
 
