@@ -41,5 +41,19 @@
   height: 13vw;
 }
 
+.LotDetail--title_block {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.LotDetail--title {
+  font-size: 40px;
+  font-weight: 400;
+}
+.LotDetail--rate {
+  font-size: 40px;
+  font-weight: 400;
+}
+
 
 

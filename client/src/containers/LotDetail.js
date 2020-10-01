@@ -1,6 +1,6 @@
 import React from 'react';
 import './LotDetail.css';
-import { Pane } from "evergreen-ui";
+import { Pane, Text, Button } from "evergreen-ui";
 
 const LotDetail = () => {
 
@@ -17,7 +17,7 @@ const props = {
     "owner_id": 4,
     "title": "Northland",
     "size": 458,
-    "cost_per_month": "33.00",
+    "rate": "33.00",
     "is_irrigated": false,
     "suggested_term": 18,
     "condition_rating": 4,
@@ -44,7 +44,8 @@ const props = {
       "location": {
       "lat": 49.13389,
       "lng": -122.62733
-      }
+      },
+      "logedin" : true
   }
 
 //owner_id, title, size, cost_per_month, is_irrigated, suggested_term, condition_rating, available_date, lot_type, lot_description, is_leased, street_address, city, country, post_code, lat, long, created_at, is_active
@@ -59,12 +60,21 @@ const props = {
           <div>
             <img className="LotDetail--main_image" src={props.images[0]}></img>
           </div>
-          <div>
-            <div>
+          <div className="LotDetail--title_block">
+            <div >
               <div className="LotDetail--title">{props.title}</div>
               <div className="LotDetail--subtitle">{props.size}</div>
             </div>
-            <div className="LotDetail--rate">{props.rate}</div>
+            <div className="LotDetail--title">{props.rate}</div>
+          </div>
+          <div>
+            {
+            props.logedin && (
+            <Button onClick={(event) => (window.location.href = "/edit")}>
+              Edit
+            </Button>
+             )}
+            {props.logedin && <Button>Delete</Button>}
           </div>
           <div className="LotDetail--description">
             {props.lot_description}
