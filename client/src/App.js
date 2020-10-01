@@ -1,11 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
-import axios from "axios";
 import "./App.css";
 import Home from "./containers/Home";
 import MapList from "./containers/MapList";
 import CreateLot from "./containers/CreateLot";
-import Owner from "components/Lot/Owner";
+// import Owner from "components/Lot/Owner";
 
 
 const App = () => {
@@ -13,16 +12,15 @@ const App = () => {
     <div className="App">
       <Router>
         <Switch>
-        <Route path="/owner">
+        {/* <Route path="/owner">
             <Owner />
-          </Route>
+          </Route> */}
           <Route path="/mapview">
             <MapList />
           </Route>
           <Route path="/new">
             <CreateLot />
           </Route>
-
           <Route path="/">
             <Home />
           </Route>
