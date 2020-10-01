@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Button from "../UI/Button";
+import { Button } from "evergreen-ui";
 
 const LotForm = (props) => {
   const [title, setTitle] = useState("");
@@ -82,6 +82,19 @@ const LotForm = (props) => {
 
     event.preventDefault();
   }
+
+
+const edit = (id) => {
+
+
+  return axios.get(`/api/lots/${id}`)
+    .then((results) => {
+      console.log("please do some,", results.data)
+      // setTitle(results.data.title )
+    })
+}
+
+
   return (
     <section>
       <form autoComplete="off" onSubmit={handleSubmit}>
