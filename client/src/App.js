@@ -8,17 +8,16 @@ import LotDetail from "./containers/LotDetail";
 
 const App = () => {
   return (
-    <div>
+    <div className="App">
       <Router>
-          <Route path="/">
-            <Home />
-          </Route>
+        <Switch>
           <Route path="/mapview">
             <MapList />
           </Route>
-          <Route path="/lotdetail">
-            <LotDetail />
+          <Route path="/">
+            <Home />
           </Route>
+        </Switch>
       </Router>
     </div>
   );

@@ -1,0 +1,32 @@
+.maplist-view--searchbar {
+  padding-top: 65px;
+  /* position: fixed; */
+}
+
+.maplist-view--content {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: auto;
+}
+
+.small-lot--list {
+  display: flex;
+  flex-direction: column;
+  /* margin: auto; */
+  margin-left: 10%;
+  width: 100%;
+  flex: 30%;
+  /* position: relative; */
+}
+
+.maplist-view--map-container{
+ display: flex;
+ width: 60%;
+ height: 90%;
+ justify-content: flex-end;
+ position: fixed;
+ right: 0;
+
+}
