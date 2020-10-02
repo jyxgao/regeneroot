@@ -15,7 +15,6 @@ import "./NavBar.css";
 import Logo from "../../assets/logo_color.png";
 
 const NavBar = (props) => {
-  console.log(props);
   return (
     <Pane
       display="flex"
@@ -23,7 +22,7 @@ const NavBar = (props) => {
       padding={10}
       paddingLeft={50}
       paddingRight={50}
-      zIndex={1}
+      zIndex={2}
       overflow="hidden"
       position="fixed"
       borderBottom="muted"
@@ -98,10 +97,21 @@ const NavBar = (props) => {
               fontcolor="#2EC4B6"
               key="explore"
               is="a"
-              href="/"
+              href="/mapview"
               id="explore"
             >
               Explore
+            </Tab>
+            <Tab
+              fontSize={16}
+              fontFamily="Poppins"
+              fontcolor="#2EC4B6"
+              key="explore"
+              is="a"
+              href="/new"
+              id="explore"
+            >
+              Become a host
             </Tab>
             {/* {["Home", "About"].map((tab, index) => (
               <Tab fontSize={16} fontFamily="Poppins" fontColor="#D81159" key={tab} is="a" href="#" id={tab} isSelected={index === 0}>
@@ -111,9 +121,9 @@ const NavBar = (props) => {
           </TabNavigation>
         </Pane>
       </Pane>
-      <TabNavigation display="flex">
+      <Pane display="flex">
         <Popover
-          trigger="hover"
+          trigger="click"
           content={
             <Menu>
               <Menu.Group>
@@ -133,8 +143,8 @@ const NavBar = (props) => {
         >
           <Avatar size={40} src={props.user.avatar}></Avatar>
         </Popover>
-        {props.user.first_name}
-      </TabNavigation>
+        <Pane>{props.user.first_name}</Pane>
+      </Pane>
     </Pane>
   );
 };

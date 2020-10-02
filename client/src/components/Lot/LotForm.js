@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-import { Button, TextInput, Textarea, Checkbox, Select } from "evergreen-ui";
+import { Button, Pane, TextInput, Textarea, Checkbox, Select } from "evergreen-ui";
 
 const APIkey = process.env.REACT_APP_GOOGLE_API_KEY;
 
@@ -116,11 +116,11 @@ const LotForm = (props) => {
   };
 
   return (
-    <section>
-      <form autoComplete="off">
+    <Pane className="lot-form--new" paddingTop={100} display="flex">
+      <Pane display="flex" flexDirection="column" justifyContent="center">
         <h1>Add New Lot</h1>
         <label>Title: </label>
-        <TextInput
+        <TextInput label="Title: "
           name="title"
           type="text"
           value={title}
@@ -245,8 +245,8 @@ const LotForm = (props) => {
             Submit
           </Button>
         </div>
-      </form>
-    </section>
+      </Pane>
+    </Pane>
   );
 };
 

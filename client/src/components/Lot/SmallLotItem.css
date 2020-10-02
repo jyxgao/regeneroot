@@ -14,7 +14,7 @@
 }
 
 .smallLot--owned {
-  border: 3px solid #AACE6E;
+  border: 2px solid #D81159;
 }
 
 .smallLot--top-right-owned {
@@ -22,15 +22,15 @@
   top: -2px;
   right: -2px;
   color: #FFFFFF;
-  background: #AACE6E;
+  background: #D81159;
   font-weight: bolder;
-  border: 15px solid #AACE6E;
+  border: 15px solid #D81159;
 
 }
 
 
 .smallLot--leased {
-  border: 3px solid #AACE6E;
+  border: 2px solid #D81159;
 }
 
 .smallLot--top-right-leased {
@@ -38,8 +38,8 @@
   top: -2px;
   right: -2px;
   color: #FFFFFF;
-  background: #AACE6E;
+  background: #D81159;
   font-weight: bolder;
-  border: 15px solid #AACE6E;
+  border: 15px solid #D81159;
 
 }

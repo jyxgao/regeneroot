@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import LotTile from "../components/Lot/LotTile";
 // import MapContainer from "../components/MapContainer";
-import { SearchInput, Spinner, Pane } from "evergreen-ui";
+import { SearchInput, Text, TextInput, Spinner, Pane } from "evergreen-ui";
 // import { Redirect } from "react-router-dom";
 
 const Home = (props) => {
@@ -13,7 +13,7 @@ const Home = (props) => {
 
   const inputRef = useRef("");
 
-  const {state, setState} = props;
+  const { state, setState } = props;
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -46,38 +46,46 @@ const Home = (props) => {
   }, [enteredCity, enteredMinSize, enteredMaxSize, inputRef]);
 
   return (
-    <main className="home--layout">
+    <Pane className="home--layout" display="flex" justifyContent="center" marginLeft={100}>
       <Pane
         display="flex"
-        flexDirection="row"
+        flexDirection="column"
         justifyContent="center"
         padding={50}
-        paddingTop={200}
+        paddingTop={150}
+        height={400}
+        position="fixed"
+        zIndex={1}
+        width="100%"
+        backgroundColor="#FFFFFF"
+        // borderBottom={10}
       >
-        <Pane className="search-item--city">
+        <Text paddingBottom={10}>Build your food garden at...</Text>
+        <Pane>
           <SearchInput
+            className="search-item--city"
             ref={inputRef}
             placeholder="City name..."
             value={enteredCity}
-            zIndex={-1}
+            width={200}
             onChange={(e) => setEnteredCity(e.target.value)}
           />
-        </Pane>
-        <Pane className="search-item--minsize">
-          <SearchInput
+
+          <TextInput
+            className="search-item--minsize"
             ref={inputRef}
             placeholder="Min lot size in sqft"
             value={enteredMinSize}
-            zIndex={-1}
+            width={150}
             onChange={(e) => setEnteredMinSize(e.target.value)}
           />
-        </Pane>
-        <Pane className="search-item--maxsize">
-          <SearchInput
+
+          <TextInput
+            className="search-item--maxsize"
             ref={inputRef}
             placeholder="Max lot size in sqft"
             value={enteredMaxSize}
-            zIndex={-1}
+            width={150}
             onChange={(e) => setEnteredMaxSize(e.target.value)}
           />
         </Pane>
@@ -106,7 +114,7 @@ const Home = (props) => {
           );
         })}
       </Pane>
-    </main>
+    </Pane>
   );
 };
 

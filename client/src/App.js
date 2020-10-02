@@ -31,7 +31,6 @@ const App = () => {
     ]).then(
       ([{ data: lots }, { data: user }, { data: owned }, { data: leased }]) => {
         let lotsOwnerStatus = {};
-        console.log(user)
         if (lots) {
           lots.forEach((lot) => {
             lotsOwnerStatus[lot.id] = null;
