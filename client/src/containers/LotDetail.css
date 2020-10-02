@@ -63,17 +63,4 @@
   visibility: hidden;
 }
 
-.LotDetail--confirm_delete {
-
-  background-color: rgb(255, 174, 174);
-  position: absolute;
-  width: 30vw;
-  height: 20vw;
-  top   : 40%;
-  left  : 40%;
-  /* bottom: 30vw;
-  right : 30vw; */
-}
-
-
 
