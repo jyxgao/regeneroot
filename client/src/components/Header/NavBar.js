@@ -1,17 +1,25 @@
 import React from "react";
-import { Pane, Tab, Button, Popover, TabNavigation, Menu } from "evergreen-ui";
+import {
+  Pane,
+  Tab,
+  Button,
+  Popover,
+  TabNavigation,
+  Menu,
+  MenuIcon,
+} from "evergreen-ui";
 import "./NavBar.css";
-import Logo from "../../assets/logo.png";
+import Logo from "../../assets/logo_color.png";
 
-const NavBar = ({sticky}) => {
+const NavBar = () => {
   return (
-    <nav className="navbar">
-      <div className="navbar--logo-holder">
-        <img src={Logo} alt="logo" className="navbar--logo" />
-      </div>
-      <TabNavigation>
+    <Pane className="navbar">
+      <Pane className="navbar--left">
+        <Pane className="navbar--logo-holder">
+          <img src={Logo} alt="logo" className="navbar--logo" />
+        </Pane>
+
         <Popover
-          // position={Position.BOTTOM_LEFT}
           content={
             <Menu>
               <Menu.Group>
@@ -44,20 +52,25 @@ const NavBar = ({sticky}) => {
             </Menu>
           }
         >
-          <Button marginRight={16}>Without Icons</Button>
+          <Button
+            className="nav-bar--dropdown"
+            appearance="minimal"
+            iconBefore={MenuIcon}
+          >
+          
+          </Button>
         </Popover>
-        
-        {["Traits", "Event History", "Identities"].map((tab, index) => (
-          <Tab key={tab} is="a" href="#" id={tab} isSelected={index === 0}>
-            {tab}
-          </Tab>
-        ))}
-      </TabNavigation>
+      </Pane>
 
-      <ul>
-        <li>user</li>
-      </ul>
-    </nav>
+        <TabNavigation>
+          {["Home", "About"].map((tab, index) => (
+            <Tab key={tab} is="a" href="#" id={tab} isSelected={index === 0}>
+              {tab}
+            </Tab>
+          ))}
+        </TabNavigation>
+ 
+    </Pane>
   );
 };
 
