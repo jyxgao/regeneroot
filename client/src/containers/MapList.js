@@ -105,10 +105,12 @@ const MapList = (props) => {
             return (
               <SmallLotItem
                 key={lot.id}
+                id={lot.id}
                 imageUrls={lot.images}
                 title={lot.title}
                 city={lot.city}
-                description={lot.description}
+                costPerMonth={lot.cost_per_month}
+                description={lot.lot_description}
                 lotOwnerStatus={lotOwnerStatus}
               />
             );

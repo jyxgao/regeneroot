@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import SmallLotItem from "../components/Lot/SmallLotItem";
+import LotTile from "../components/Lot/LotTile";
 import MapContainer from "../components/MapContainer";
 import { SearchInput, Spinner, Pane } from "evergreen-ui";
 // import { Redirect } from "react-router-dom";
@@ -95,11 +95,12 @@ const Home = (props) => {
       <Pane display="flex" flexDirection="row" flexWrap="wrap">
         {state.lots.map((lot) => {
           return (
-            <SmallLotItem
+            <LotTile
               key={lot.id}
               imageUrls={lot.images}
               title={lot.title}
               city={lot.city}
+              costPerMonth={lot.cost_per_month}
             />
           );
         })}

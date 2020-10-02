@@ -1,0 +1,16 @@
+.lot-tile{
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  border-radius: 3%;
+  width: 400px;
+  margin: 10px;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+}
+
+.lot-tile--text {
+  margin-bottom: 0.5em;
+  text-align: center;
+}
