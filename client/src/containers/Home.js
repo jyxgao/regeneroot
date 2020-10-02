@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import LotTile from "../components/Lot/LotTile";
-import MapContainer from "../components/MapContainer";
+// import MapContainer from "../components/MapContainer";
 import { SearchInput, Spinner, Pane } from "evergreen-ui";
 // import { Redirect } from "react-router-dom";
 

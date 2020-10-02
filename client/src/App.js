@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import axios from "axios";
 import "./App.css";
-import NavBar from './components/Navigation/NavBar'
+// import useSticky from "./hooks/useSticky";
+import NavBar from "./components/Header/NavBar";
 import Home from "./containers/Home";
 import MapList from "./containers/MapList";
 import LotDetail from "./containers/LotDetail";
@@ -12,6 +13,7 @@ import EditLot from "./containers/EditLot";
 // import Owner from "components/Lot/Owner";
 
 const App = () => {
+  // const { isSticky, element } = useSticky();
   const [state, setState] = useState({
     lots: [],
     user: {},
@@ -57,15 +59,12 @@ const App = () => {
         <NavBar />
         <Switch>
           <Route path="/lot/:id">
-            <LotDetail 
-              state={state}
-              setState={setState}
-            />
+            <LotDetail state={state} setState={setState} />
           </Route>
-        {/* <Route path="/owner">
+          {/* <Route path="/owner">
             <Owner />
           </Route> */}
-           <Route path="/edit">
+          <Route path="/edit">
             <EditLot />
           </Route>
           <Route path="/mapview">

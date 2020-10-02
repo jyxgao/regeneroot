@@ -1,9 +1,14 @@
 import React from "react";
 import { Pane, Tab, Button, Popover, TabNavigation, Menu } from "evergreen-ui";
+import "./NavBar.css";
+import Logo from "../../assets/logo.png";
 
-const NavBar = () => {
+const NavBar = ({sticky}) => {
   return (
-    <Pane padding={10}>
+    <nav className="navbar">
+      <div className="navbar--logo-holder">
+        <img src={Logo} alt="logo" className="navbar--logo" />
+      </div>
       <TabNavigation>
         <Popover
           // position={Position.BOTTOM_LEFT}
@@ -41,13 +46,18 @@ const NavBar = () => {
         >
           <Button marginRight={16}>Without Icons</Button>
         </Popover>
+        
         {["Traits", "Event History", "Identities"].map((tab, index) => (
           <Tab key={tab} is="a" href="#" id={tab} isSelected={index === 0}>
             {tab}
           </Tab>
         ))}
       </TabNavigation>
-    </Pane>
+
+      <ul>
+        <li>user</li>
+      </ul>
+    </nav>
   );
 };
 
