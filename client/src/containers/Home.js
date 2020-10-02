@@ -47,39 +47,40 @@ const Home = (props) => {
 
   return (
     <main className="home--layout">
-      <Pane>
-        <nav className="navbar"></nav>
-      </Pane>
       <Pane
         display="flex"
         flexDirection="row"
         justifyContent="center"
         padding={50}
+        paddingTop={200}
       >
-        <div className="search-item--city">
+        <Pane className="search-item--city">
           <SearchInput
             ref={inputRef}
             placeholder="City name..."
             value={enteredCity}
+            zIndex={-1}
             onChange={(e) => setEnteredCity(e.target.value)}
           />
-        </div>
-        <div className="search-item--minsize">
+        </Pane>
+        <Pane className="search-item--minsize">
           <SearchInput
             ref={inputRef}
             placeholder="Min lot size in sqft"
             value={enteredMinSize}
+            zIndex={-1}
             onChange={(e) => setEnteredMinSize(e.target.value)}
           />
-        </div>
-        <div className="search-item--maxsize">
+        </Pane>
+        <Pane className="search-item--maxsize">
           <SearchInput
             ref={inputRef}
             placeholder="Max lot size in sqft"
             value={enteredMaxSize}
+            zIndex={-1}
             onChange={(e) => setEnteredMaxSize(e.target.value)}
           />
-        </div>
+        </Pane>
         {isLoading && (
           <Pane
             display="flex"
@@ -92,7 +93,7 @@ const Home = (props) => {
         )}
       </Pane>
 
-      <Pane display="flex" flexDirection="row" flexWrap="wrap">
+      <Pane paddingTop={500} display="flex" flexDirection="row" flexWrap="wrap">
         {state.lots.map((lot) => {
           return (
             <LotTile

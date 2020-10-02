@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import axios from "axios";
 import "./App.css";
@@ -31,15 +31,20 @@ const App = () => {
     ]).then(
       ([{ data: lots }, { data: user }, { data: owned }, { data: leased }]) => {
         let lotsOwnerStatus = {};
-        lots.forEach((lot) => {
-          lotsOwnerStatus[lot.id] = null;
-        });
-        owned.forEach((lot) => {
-          lotsOwnerStatus[lot.id] = "owned";
-        });
-        leased.forEach((lot) => {
+        console.log(user)
+        if (lots) {
+          lots.forEach((lot) => {
+            lotsOwnerStatus[lot.id] = null;
+          });
+        }
+        if (owned) {
+          owned.forEach((lot) => {
+            lotsOwnerStatus[lot.id] = "owned";
+          });
+        }
+        if (leased) {leased.forEach((lot) => {
           lotsOwnerStatus[lot.id] = "leased";
-        });
+        })};
 
         setState((prev) => ({
           ...prev,
@@ -56,7 +61,7 @@ const App = () => {
   return (
     <div className="App">
       <Router>
-        <NavBar />
+        <NavBar user={state.user}/>
         <Switch>
           <Route path="/lot/:id">
             <LotDetail state={state} setState={setState} />

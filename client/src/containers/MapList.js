@@ -52,9 +52,6 @@ const MapList = (props) => {
 
   return (
     <main className="maplist-view">
-      <Pane>
-        <nav className="navbar"></nav>
-      </Pane>
       <section className="maplist-view--searchbar">
         <Pane
           display="flex"
@@ -67,6 +64,7 @@ const MapList = (props) => {
               ref={inputRef}
               placeholder="City name..."
               value={enteredCity}
+              zIndex={-1}
               onChange={(e) => setEnteredCity(e.target.value)}
             />
           </div>
@@ -75,6 +73,7 @@ const MapList = (props) => {
               ref={inputRef}
               placeholder="Min lot size in sqft"
               value={enteredMinSize}
+              zIndex={-1}
               onChange={(e) => setEnteredMinSize(e.target.value)}
             />
           </div>
@@ -83,6 +82,7 @@ const MapList = (props) => {
               ref={inputRef}
               placeholder="Max lot size in sqft"
               value={enteredMaxSize}
+              zIndex={-1}
               onChange={(e) => setEnteredMaxSize(e.target.value)}
             />
           </div>
