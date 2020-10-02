@@ -117,7 +117,7 @@ function onDelete(id) {
 
   return axios.post(`/api/lots/${id}/delete`)
   .then((res) => {
-    const lotsArrAfterDelete = removeLotIndex(id)
+    const lotsArrAfterDelete = removeLotIndex(findLot(id))
     const newLots = [
           ...state.lots,
           lotsArrAfterDelete
