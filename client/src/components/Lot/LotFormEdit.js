@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./LotForm.css";
-import { Button } from "evergreen-ui";
+import { Button, TextInput, Textarea, Checkbox, Select } from "evergreen-ui";
 // import { data } from "cypress/types/jquery";
 
 const APIkey = process.env.REACT_APP_GOOGLE_API_KEY;
@@ -24,94 +24,46 @@ const addressString = function (lotObj) {
 
 const LotFormEdit = (props) => {
 
-  // const props = {
-  //   "id": 5,
-  //   "owner_id": 4,
-  //   "title": "Northland",
-  //   "size": 458,
-  //   "rate": "33.00",
-  //   "is_irrigated": false,
-  //   "suggested_term": 18,
-  //   "condition_rating": 4,
-  //   "available_date": "2020-08-10T00:00:00.000Z",
-  //   "lot_type": "commercial",
-  //   "lot_description": "In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.",
-  //   "is_leased": true,
-  //   "street_address": "1903 Parsons Rd NW",
-  //   "city": "Edmonton",
-  //   "country": "Canada",
-  //   "post_code": "T6N1H5",
-  //   "lat": null,
-  //   "long": null,
-  //   "created_at": "2020-07-10T00:00:00.000Z",
-  //   "is_active": false,
-  //   "lot_id": 5,
-  //   "images": [
-  //     "https://consumerist.com/consumermediallc.files.wordpress.com/2014/08/2047.png",
-  //     "http://seanparnell.com/CALP/VacantLotEGP.jpg",
-  //     "https://savetherain.us/wp-content/uploads/2012/10/Vacant-Lot-Putnam.jpg",
-  //     "http://www.waterwinterwonderland.com/images/drivein/10/B%5EThe_empty_lot_next_to_store_photo_from_Water_Winter_Wonderland.jpg",
-  //     "http://smartgrowth.org/wp-content/uploads/2015/08/lot.jpg"
-  //     ],
-  //     "location": {
-  //     "lat": 49.13389,
-  //     "lng": -122.62733
-  //     },
-  //     "logedin" : true
-  // }
-  console.log(props);
+  console.log(props.lot);
+
   const [title, setTitle] = useState(props.lot.title);
   const [size, setSize] = useState(props.lot.size);
   const [costPerMonth, setCostPerMonth] = useState(props.lot.cost_per_month);
-  const [isIrrigated, setIsIrrigated] = useState(props.lot.isIrrigated);
+  const [isIrrigated, setIsIrrigated] = useState(props.lot.is_irrigated);
   const [term, setTerm] = useState(props.lot.suggested_term);
-  const [rating, setRating] = useState(props.lot.rating);
-  const [availableDate, setAvailableDate] = useState(props.lot.availableDate);
-  const [type, setType] = useState(props.lot.type);
-  const [lotDescription, setLotDescription] = useState(props.lot.lotDescription);
-  const [isLeased, setIsleased] = useState(props.lot.isLeased);
-  const [street, setStreet] = useState(props.lot.street);
+  const [rating, setRating] = useState(props.lot.condition_rating);
+  const [availableDate, setAvailableDate] = useState(props.lot.available_date);
+  const [type, setType] = useState(props.lot.lot_type);
+  const [lotDescription, setLotDescription] = useState(props.lot.lot_description);
+  const [isLeased, setIsleased] = useState(props.lot.is_leased);
+  const [street, setStreet] = useState(props.lot.street_address);
   const [city, setCity] = useState(props.lot.city);
   const [country, setCountry] = useState(props.lot.country);
-  const [postCode, setPostCode] = useState(props.lot.postCode);
-  // const created = new Date().toLocaleString().slice(0, 9);
-  // const [photo, setPhoto] = React.useState([]); //??
-  // const lot = {
-  //   title,
-  //   size,
-  //   costPerMonth,
-  //   isIrrigated,
-  //   term,
-  //   rating,
-  //   availableDate,
-  //   type,
-  //   lotDescription,
-  //   isLeased,
-  //   street,
-  //   city,
-  //   country,
-  //   postCode,
-  //   // created,
-  // };
-  // function validate() {
-    // console.log("{", title, size, costPerMonth, isIrrigated, term,rating, availableDate,  type, lotDescription, isLeased, street, city, country, postCode, created+ "}")
-  //   console.log(lot);
-  //   // props.onSave(lot)
-  //   // onSave(title, size, costPerMonth, isIrrigated, term,rating, availableDate,  lotType, lotDescription, isLeased, street, city, country, postCode, created);
+  const [postCode, setPostCode] = useState(props.lot.post_code);
+  const [image, setImage] = useState("");
+  const [images, setImages] = useState(props.lot.images);
+
+
+  const handleImages = (e) => {
+    e.preventDefault();
+    images.push(image);
+    setImages(images);
+    setImage("");
+  };
+
+  // function handleInputIrrigateChange(event) {
+  //   const target = event.target;
+  //   const value = target.type === "checkbox" ? target.checked : target.value;
+  //   setIsIrrigated(value);
   // }
 
-  function handleInputIrrigateChange(event) {
-    const target = event.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
-    setIsIrrigated(value);
-  }
+  // function handleInputLeasedChange(event) {
+  //   const target = event.target;
+  //   const value = target.type === "checkbox" ? target.checked : target.value;
+  //   setIsleased(value);
+  // }
 
-  function handleInputLeasedChange(event) {
-    const target = event.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
-    setIsleased(value);
-  }
-  function handleSubmit(event) {
+  const handleSubmit = (event) => {
     axios
       .get(
         addressString({
@@ -124,35 +76,52 @@ const LotFormEdit = (props) => {
       .then((data) => {
         const latResponse = data.data.results[0].geometry.location.lat;
         const longResponse = data.data.results[0].geometry.location.lng;
-        console.log("lat:", latResponse);
-        axios.post(`/api/lots/${props.lot.id}`, {
-          lat: latResponse,
-          long: longResponse,
-          title,
-          size,
-          cost_per_month: costPerMonth,
-          is_irrigated: isIrrigated,
-          suggested_term: term,
-          condition_rating: rating,
-          available_date: availableDate,
-          lot_type: type,
-          lot_description: lotDescription,
-          is_leased: isLeased,
-          street_address: street,
-          city,
-          country,
-          post_code: postCode,
-          is_active: true,
-          images: [
-            "https://www.google.com/url?sa=i&url=https%3A%2F%2Fcloudfour.com%2Fexamples%2Fimg-currentsrc%2F&psig=AOvVaw1mveMqKOFyRUQ6UYnN6T3W&ust=1601429150390000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCLDby8-ajewCFQAAAAAdAAAAABAD",
-          ],
-        });
+        axios
+          .post(`/api/lots/${props.lot.id}`, {
+            lat: latResponse,
+            long: longResponse,
+            title,
+            size,
+            cost_per_month: costPerMonth,
+            is_irrigated: isIrrigated,
+            suggested_term: term,
+            condition_rating: rating,
+            available_date: availableDate,
+            lot_type: type,
+            lot_description: lotDescription,
+            // is_leased: isLeased,
+            street_address: street,
+            city,
+            country,
+            post_code: postCode,
+            is_active: true,
+            images: images,
+          })
+          .then((res) => {
+            setTitle("");
+            setSize(0);
+            setCostPerMonth(0);
+            setIsIrrigated(false);
+            setTerm(0);
+            setRating(0);
+            setAvailableDate("");
+            setType("");
+            setLotDescription("");
+            setStreet("");
+            setCity("");
+            setCountry("");
+            setPostCode("");
+            setImage("");
+            setImages([]);
+          });
       })
+      //need to set state again here
       // .then((res) => console.log(res.data))
       .catch((error) => console.log(error));
 
-    event.preventDefault();
-  }
+      event.preventDefault();
+    };
+
 
   const edit = (id) => {
     return axios.get(`/api/lots/${id}`).then((results) => {
@@ -163,163 +132,134 @@ const LotFormEdit = (props) => {
 
   return (
     <section>
-      <form autoComplete="off" onSubmit={handleSubmit}>
+      <form autoComplete="off">
         <h1>Edit Lot</h1>
-        <label>
-          Title:
-          <input
-            name="title"
-            type="text"
-            value={title}
-            onChange={(event) => setTitle(event.target.value)}
-          />
-        </label>
+        <label>Title: </label>
+        <TextInput
+          name="title"
+          type="text"
+          value={title}
+          onChange={(event) => setTitle(event.target.value)}
+        />
         <br />
-        <label>
-          Size:
-          <input
-            name="size"
-            type="text"
-            value={size}
-            onChange={(event) => setSize(event.target.value)}
-          />
-        </label>
+        <label>Size: </label>
+        <TextInput
+          name="size"
+          type="text"
+          value={size}
+          onChange={(event) => setSize(event.target.value)}
+        />
         <br />
-        <label>
-          Cost Per-Month:
-          <input
-            name="Cost Per-Month:"
-            type="text"
-            value={costPerMonth}
-            onChange={(event) => setCostPerMonth(event.target.value)}
-          />
-        </label>
+        <label>Cost Per Month: </label>
+        <TextInput
+          name="cost_per_month"
+          type="text"
+          value={costPerMonth}
+          onChange={(event) => setCostPerMonth(event.target.value)}
+        />
         <br />
-        <label>
-          Is it irrigated:
-          <input
-            name="irrigated"
-            type="checkbox"
-            checked={isIrrigated}
-            onChange={handleInputIrrigateChange}
-          />
-        </label>
+        <label>Is it irrigated: </label>
+        <Checkbox
+          name="is_irrigated"
+          type="checkbox"
+          checked={isIrrigated}
+          onChange={(e) => setIsIrrigated(e.target.checked)}
+        />
         <br />
-        <label>
-          Term:
-          <input
-            name="term"
-            type="text"
-            value={term}
-            onChange={(event) => setTerm(event.target.value)}
-          />
-        </label>
+        <label>Term in Months: </label>
+        <TextInput
+          name="term"
+          type="text"
+          value={term}
+          onChange={(event) => setTerm(event.target.value)}
+        />
         <br />
-        <label>
-          Rating:
-          <input
-            name="term"
-            type="text"
-            value={rating}
-            onChange={(event) => setRating(event.target.value)}
-          />
-        </label>
+        <label>Rating: </label>
+        <TextInput
+          name="term"
+          type="text"
+          value={rating}
+          onChange={(event) => setRating(event.target.value)}
+        />
         <br />
-        <label>
-          Lot Type:
-          <select
-            name="type"
-            type="text"
-            value={type}
-            onChange={(event) => setType(event.target.value)}
-          >
-            <option value="commercial">Commercial</option>
-            <option value="Residential">residential</option>
-          </select>
-        </label>
+        <label>Lot Type: </label>
+        <Select
+          name="lot_type"
+          value={type}
+          onChange={(event) => setType(event.target.value)}
+        >
+          <option value="Select an option">Select an option</option>
+          <option value="Commercial">Commercial</option>
+          <option value="Residential">Residential</option>
+        </Select>
         <br />
-        <label>
-          Lot description:
-          <input
-            name="descriptioin"
-            type="text"
-            value={lotDescription}
-            onChange={(event) => setLotDescription(event.target.value)}
-          />
-        </label>
+        <label>Lot Description: </label>
+        <Textarea
+          name="description"
+          placeholder="Write a description for your lot..."
+          width={750}
+          value={lotDescription}
+          onChange={(event) => setLotDescription(event.target.value)}
+        />
         <br />
-        <label>
-          Is it leased:
-          <input
-            name="isLeased"
-            type="checkbox"
-            checked={isLeased}
-            onChange={handleInputLeasedChange}
-          />
-        </label>
+        <label>Street: </label>
+        <TextInput
+          name="street"
+          type="text"
+          value={street}
+          onChange={(event) => setStreet(event.target.value)}
+        />
         <br />
-        <label>
-          street:
-          <input
-            name="street"
-            type="text"
-            value={street}
-            onChange={(event) => setStreet(event.target.value)}
-          />
-        </label>
+        <label>City: </label>
+        <TextInput
+          name="city"
+          type="text"
+          value={city}
+          onChange={(event) => setCity(event.target.value)}
+        />
         <br />
-        <label>
-          City:
-          <input
-            name="city"
-            type="text"
-            value={city}
-            onChange={(event) => setCity(event.target.value)}
-          />
-        </label>
+        <label>country: </label>
+        <TextInput
+          name="country"
+          type="text"
+          value={country}
+          onChange={(event) => setCountry(event.target.value)}
+        />
         <br />
-        <label>
-          country:
-          <input
-            name="country"
-            type="text"
-            value={country}
-            onChange={(event) => setCountry(event.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          Post Code:
-          <input
-            name="post code"
-            type="text"
-            value={postCode}
-            onChange={(event) => setPostCode(event.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          Available Date:
-          <input
-            name="Available Date"
-            type="date"
-            value={availableDate}
-            onChange={(event) => setAvailableDate(event.target.value)}
-          />
-        </label>
-        <br />
-        {/* <label>
-          Date:
-          {created}
-        </label> */}
-        <br />
-        {/* <label>
-          photo:
-            <input name="photo" type="file" value={photo} multiple onChange={handlePhotoUpload} />  
-            {/* for the photo only can print document content but can not grab data into the object now */}
-        {/* </label> */}
+        <label>Post Code: </label>
+        <TextInput
+          name="post_code"
+          type="text"
+          value={postCode}
+          onChange={(event) => setPostCode(event.target.value)}
+        />
 
-        <Button onClick={handleSubmit}>Submit</Button>
+        <br />
+        <label>Available Date: </label>
+        <TextInput
+          name="available_date"
+          type="date"
+          value={availableDate}
+          onChange={(event) => setAvailableDate(event.target.value)}
+        />
+        <br />
+        <div className="lot-form--add-img">
+          <label>Add an image url: </label>
+          <TextInput
+            name="image_url"
+            type="text"
+            value={image}
+            onChange={(event) => setImage(event.target.value)}
+          />
+          <Button margin={5} onClick={handleImages}>
+            add image
+          </Button>
+        </div>
+        <div>
+          <Button type="submit" onClick={handleSubmit}>
+            Submit
+          </Button>
+        </div>
       </form>
     </section>
   );
