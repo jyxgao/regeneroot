@@ -55,7 +55,10 @@ const App = () => {
       <Router>
         <Switch>
           <Route path="/lot/:id">
-            <LotDetail />
+            <LotDetail 
+              state={state}
+              setState={setState}
+            />
           </Route>
         {/* <Route path="/owner">
             <Owner />

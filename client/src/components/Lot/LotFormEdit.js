@@ -76,29 +76,29 @@ const LotFormEdit = (props) => {
   const [postCode, setPostCode] = useState(props.lot.postCode);
   // const created = new Date().toLocaleString().slice(0, 9);
   // const [photo, setPhoto] = React.useState([]); //??
-  const lot = {
-    title,
-    size,
-    costPerMonth,
-    isIrrigated,
-    term,
-    rating,
-    availableDate,
-    type,
-    lotDescription,
-    isLeased,
-    street,
-    city,
-    country,
-    postCode,
-    // created,
-  };
-  function validate() {
+  // const lot = {
+  //   title,
+  //   size,
+  //   costPerMonth,
+  //   isIrrigated,
+  //   term,
+  //   rating,
+  //   availableDate,
+  //   type,
+  //   lotDescription,
+  //   isLeased,
+  //   street,
+  //   city,
+  //   country,
+  //   postCode,
+  //   // created,
+  // };
+  // function validate() {
     // console.log("{", title, size, costPerMonth, isIrrigated, term,rating, availableDate,  type, lotDescription, isLeased, street, city, country, postCode, created+ "}")
-    console.log(lot);
-    // props.onSave(lot)
-    // onSave(title, size, costPerMonth, isIrrigated, term,rating, availableDate,  lotType, lotDescription, isLeased, street, city, country, postCode, created);
-  }
+  //   console.log(lot);
+  //   // props.onSave(lot)
+  //   // onSave(title, size, costPerMonth, isIrrigated, term,rating, availableDate,  lotType, lotDescription, isLeased, street, city, country, postCode, created);
+  // }
 
   function handleInputIrrigateChange(event) {
     const target = event.target;
