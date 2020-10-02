@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import axios from "axios";
 import "./App.css";
+import NavBar from './components/Navigation/NavBar'
 import Home from "./containers/Home";
 import MapList from "./containers/MapList";
 import CreateLot from "./containers/CreateLot";
@@ -50,6 +51,7 @@ const App = () => {
   return (
     <div className="App">
       <Router>
+        <NavBar />
         <Switch>
           {/* <Route path="/owner">
             <Owner />

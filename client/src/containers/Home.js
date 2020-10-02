@@ -3,54 +3,17 @@ import axios from "axios";
 import SmallLotItem from "../components/Lot/SmallLotItem";
 import MapContainer from "../components/MapContainer";
 import { SearchInput, Spinner, Pane } from "evergreen-ui";
-import { Redirect } from "react-router-dom";
+// import { Redirect } from "react-router-dom";
 
 const Home = (props) => {
   const [enteredCity, setEnteredCity] = useState("");
   const [enteredMinSize, setEnteredMinSize] = useState("");
   const [enteredMaxSize, setEnteredMaxSize] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  // const [state, setState] = useState({
-  //   lots: [],
-  //   user: {},
-  //   owned: [],
-  //   leased: [],
-  //   // lotsOwnerStatus: {}
-  // });
 
   const inputRef = useRef("");
 
   const {state, setState} = props;
-
-  // obj {
-  //   lot_id: owner_status
-  // }
-  const validateRenter = () => {};
-
-  useEffect(() => {
-    Promise.all([
-      axios.get("/api/lots"),
-      axios.get("/users/me"),
-      axios.get("/api/lots/owned"),
-      axios.get("/api/lots/leased"),
-    ])
-      .then(([{data: lots },{data: user}, {data: owned}, {data: leased}]) => {
-        // console.log(lots.data, user.data, owned.data, leased)
-        let lotsOwnerStatus = {} 
-        lots.forEach(lot => {lotsOwnerStatus[lot.id] = null})
-        owned.forEach(lot => {lotsOwnerStatus[lot.id] = "owned"})
-        leased.forEach(lot => {lotsOwnerStatus[lot.id] = "leased"})
-
-        setState((prev) => ({
-          ...prev,
-          lots,
-          user,
-          owned,
-          leased,
-          lotsOwnerStatus,
-        }));
-      })
-  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import MapContainer from "../components/MapContainer";
 import SmallLotItem from "../components/Lot/SmallLotItem";
+import { getLotOwnerStatus } from '../helpers/selectors';
 import "./MapList.css";
 import { SearchInput, Spinner, Pane } from "evergreen-ui";
 
@@ -100,12 +101,15 @@ const MapList = (props) => {
       <section className="maplist-view--content">
         <div className="small-lot--list">
           {state.lots.map((lot) => {
+            const lotOwnerStatus = state.lotsOwnerStatus[lot.id]
             return (
               <SmallLotItem
                 key={lot.id}
                 imageUrls={lot.images}
                 title={lot.title}
                 city={lot.city}
+                description={lot.description}
+                lotOwnerStatus={lotOwnerStatus}
               />
             );
           })}

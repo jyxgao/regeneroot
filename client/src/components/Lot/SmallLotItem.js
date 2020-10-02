@@ -2,17 +2,18 @@ import React from "react";
 import { Pane, Text, Button } from "evergreen-ui";
 import ImageItem from "./Image/ImageItem";
 import "./SmallLotItem.css";
+import classnames from "classnames";
+
 // import { Redirect, Link } from "react-router-dom";
 
-const LotListItem = (props) => {
-  // const lots = {
-  //   image_url: ["https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pinterest.com%2Fspeterson1024%2Ftiny-hearts%2F&psig=AOvVaw1h36nTO0LIC7Vxr-OZWC5P&ust=1601337566857000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCMjdqLnFiuwCFQAAAAAdAAAAABAD", "https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.inktion.com%2Fwp-content%2Fuploads%2F2017%2F09%2Ftemporary-tattoo-small-hearts-4.jpg&imgrefurl=https%3A%2F%2Fwww.inktion.com%2Fproduct%2Fsmall-heart-tattoo%2F&tbnid=CxPMSLJ_kTrlHM&vet=12ahUKEwiD2_y3xYrsAhUIhp4KHa56CxMQMygFegUIARDEAQ..i&docid=lBBpjecXeJJjGM&w=600&h=550&q=small%20photo&hl=en&ved=2ahUKEwiD2_y3xYrsAhUIhp4KHa56CxMQMygFegUIARDEAQ"],
-  //   name: "SeaIsland",
-  //   lotDescription: "Beatiful land",
-  //   id: 1
-  // }
+const SmallLotItem = (props) => {
+  const smallLotClass = classnames("smallLot", {
+    "smallLot--owned": props.lotOwnerStatus === "owned",
+    "smallLot--leased": props.lotOwnerStatus === "leased",
+  })
+
   return (
-    <div className="small-lot-item">
+    <div className={smallLotClass}>
       <Pane
         display="flex"
         flexDirection="column"
@@ -24,16 +25,22 @@ const LotListItem = (props) => {
           <Pane>{props.name}</Pane>
           <Pane>{props.title}</Pane>
           <Pane>{props.city}</Pane>
+          {props.lotOwnerStatus ==="owned" && 
+          <div className="smallLot--top-right-owned">MY LOT</div>
+          }
+          {props.lotOwnerStatus ==="leased" && 
+          <div className="smallLot--top-right-leased">RENTING</div>
+          }
         </div>
-        {props.logedin && (
+        {/* {props.logedin && (
           <Button onClick={(event) => (window.location.href = "/new")}>
             Edit
           </Button>
         )}
-        {props.logedin && <Button>Delete</Button>}
+        {props.logedin && <Button>Delete</Button>} */}
       </Pane>
     </div>
   );
 };
 
-export default LotListItem;
+export default SmallLotItem;

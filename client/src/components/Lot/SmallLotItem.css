@@ -1,4 +1,4 @@
-.small-lot-item {
+.smallLot{
   display: flex;
   flex-direction: column;
   border: 1px solid #ccc;
@@ -6,8 +6,40 @@
   width: 500px;
   margin: 10px;
   overflow: hidden;
+  position: relative;
 }
 
 .small-lot--text {
   margin-bottom: 0.5em;
+}
+
+.smallLot--owned {
+  border: 3px solid #AACE6E;
+}
+
+.smallLot--top-right-owned {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  color: #FFFFFF;
+  background: #AACE6E;
+  font-weight: bolder;
+  border: 15px solid #AACE6E;
+
+}
+
+
+.smallLot--leased {
+  border: 3px solid #AACE6E;
+}
+
+.smallLot--top-right-leased {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  color: #FFFFFF;
+  background: #AACE6E;
+  font-weight: bolder;
+  border: 15px solid #AACE6E;
+
 }
