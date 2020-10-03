@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useReducer } from "react";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import axios from "axios";
 import "./App.css";
 import NavBar from "./components/Header/NavBar";

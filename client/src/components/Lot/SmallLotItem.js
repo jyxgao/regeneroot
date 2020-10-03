@@ -1,20 +1,16 @@
 import React from "react";
-import { Pane, Text, Button } from "evergreen-ui";
+import { Pane, Button } from "evergreen-ui";
 import { Link } from "react-router-dom";
-import ImageItem from "./Image/ImageItem";
 import "./SmallLotItem.css";
 import classnames from "classnames";
 import Slider from "./Image/Slider";
-// import Slider from '../../components/Slider/Slider'
 
-// import { Redirect, Link } from "react-router-dom";
 
 const SmallLotItem = (props) => {
   const smallLotClass = classnames("smallLot", {
     "smallLot--owned": props.lotOwnerStatus === "owned",
     "smallLot--leased": props.lotOwnerStatus === "leased",
   });
-  // console.log(props.imageUrls)
   return (
     <div className={smallLotClass}>
       <Pane

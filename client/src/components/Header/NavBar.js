@@ -2,7 +2,6 @@ import React from "react";
 import {
   Pane,
   Tab,
-  Button,
   Popover,
   TabNavigation,
   Menu,
@@ -10,7 +9,7 @@ import {
   IconButton,
   Avatar,
 } from "evergreen-ui";
-import { Redirect, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./NavBar.css";
 import Logo from "../../assets/logo_color.png";
 
