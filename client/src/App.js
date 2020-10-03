@@ -6,6 +6,7 @@ import Home from "./containers/Home";
 import MapList from "./containers/MapList";
 import LotDetail from "./containers/LotDetail";
 import CreateLot from "./containers/CreateLot";
+import LotFormEdit from "./components/Lot/LotFormEdit";
 import EditLot from "./containers/EditLot";
 
 // import Owner from "components/Lot/Owner";
@@ -64,7 +65,7 @@ const App = () => {
             <Owner />
           </Route> */}
            <Route path="/edit">
-            <EditLot />
+            <LotFormEdit/>
           </Route>
           <Route path="/mapview">
             <MapList

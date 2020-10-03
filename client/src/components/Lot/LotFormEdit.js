@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./LotForm.css";
 import { Button, TextInput, Textarea, Checkbox, Select } from "evergreen-ui";
-// import { data } from "cypress/types/jquery";
+import { useParams, useHistory} from 'react-router-dom';
+
 
 const APIkey = process.env.REACT_APP_GOOGLE_API_KEY;
 
@@ -16,15 +17,11 @@ const addressString = function (lotObj) {
       " " +
       lotObj.post_code
   );
-  // console.log(addressEsc);
   const geoRequestStr = `https://maps.googleapis.com/maps/api/geocode/json?address=${addressEsc}&key=${APIkey}`;
-  // console.log(geoRequestStr);
   return geoRequestStr;
 };
 
 const LotFormEdit = (props) => {
-
-  console.log(props.lot);
 
   const [title, setTitle] = useState(props.lot.title);
   const [size, setSize] = useState(props.lot.size);
@@ -43,7 +40,6 @@ const LotFormEdit = (props) => {
   const [image, setImage] = useState("");
   const [images, setImages] = useState(props.lot.images);
 
-
   const handleImages = (e) => {
     e.preventDefault();
     images.push(image);
@@ -51,17 +47,7 @@ const LotFormEdit = (props) => {
     setImage("");
   };
 
-  // function handleInputIrrigateChange(event) {
-  //   const target = event.target;
-  //   const value = target.type === "checkbox" ? target.checked : target.value;
-  //   setIsIrrigated(value);
-  // }
-
-  // function handleInputLeasedChange(event) {
-  //   const target = event.target;
-  //   const value = target.type === "checkbox" ? target.checked : target.value;
-  //   setIsleased(value);
-  // }
+  const history = useHistory();
 
   const handleSubmit = (event) => {
     axios
@@ -97,38 +83,26 @@ const LotFormEdit = (props) => {
             is_active: true,
             images: images,
           })
-          .then((res) => {
-            setTitle("");
-            setSize(0);
-            setCostPerMonth(0);
-            setIsIrrigated(false);
-            setTerm(0);
-            setRating(0);
-            setAvailableDate("");
-            setType("");
-            setLotDescription("");
-            setStreet("");
-            setCity("");
-            setCountry("");
-            setPostCode("");
-            setImage("");
-            setImages([]);
-          });
+          .then((data)=> {
+            const returnedLotObj = JSON.parse(data.config.data);
+            returnedLotObj.id = props.id
+            console.log(returnedLotObj);
+            const updatedLotsArrFunc = function(oldArr, newVal) {
+              return oldArr.map(oldVal => oldVal.id === newVal.id ? newVal : oldVal)
+            }
+            props.setState((prev) => ({
+              ...prev, lots: updatedLotsArrFunc(props.state.lots, returnedLotObj)
+            }))
+          })
+          .then(()=> {
+            console.log("this is state after setState", props.state);
+            props.setIsEditing(!props.isEditing);
+          }
+        )
       })
-      //need to set state again here
-      // .then((res) => console.log(res.data))
       .catch((error) => console.log(error));
-
       event.preventDefault();
     };
-
-
-  const edit = (id) => {
-    return axios.get(`/api/lots/${id}`).then((results) => {
-      console.log("please do some,", results.data);
-      // setTitle(results.data.title )
-    });
-  };
 
   return (
     <section>
