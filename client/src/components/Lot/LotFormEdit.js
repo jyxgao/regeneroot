@@ -24,7 +24,7 @@ const addressString = function (lotObj) {
 
 const LotFormEdit = (props) => {
 
-  console.log(props.lot);
+  console.log(props);
 
   const [title, setTitle] = useState(props.lot.title);
   const [size, setSize] = useState(props.lot.size);
@@ -97,6 +97,18 @@ const LotFormEdit = (props) => {
             is_active: true,
             images: images,
           })
+          .then(() => {
+            axios.get(`/api/lots/${props.lot.id}`)  ////this part is what i am doing,
+            .then( result => {
+              console.log(result.data[0].title)
+              setTitle(result.data[0].title)
+              console.log("title", title)
+            })
+          })
+          .then(() => {
+            props.setIsEditing(false)
+          })
+      })
           .then((res) => {
             setTitle("");
             setSize(0);
@@ -113,13 +125,14 @@ const LotFormEdit = (props) => {
             setPostCode("");
             setImage("");
             setImages([]);
-          });
-      })
+          })
+  
       //need to set state again here
       // .then((res) => console.log(res.data))
       .catch((error) => console.log(error));
 
       event.preventDefault();
+   
     };
 
 

@@ -3,7 +3,7 @@ import './LotDetail.css';
 import { Pane, Text, Button, Popover } from "evergreen-ui";
 import LotFormEdit from "components/Lot/LotFormEdit";
 import ConfirmDelete from "components/Lot/ConfirmDelete";
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory, Link, LinkButton } from 'react-router-dom';
 import axios from 'axios';
 
 const LotDetail = (props) => {
@@ -56,7 +56,7 @@ const isOwned = state.lotsOwnerStatus[currentLotId];
 // console.log(newLots);
 // console.log(oran);
 
-  // const newState = {...state, newLots}
+//   const newState = {...state, newLots}
 
 //   return axios.delete(`/api/lots/${id}/delete`)
 //   .then((res) => {
@@ -70,27 +70,53 @@ const isOwned = state.lotsOwnerStatus[currentLotId];
 //     return err;
 //   })
 // }
+const history = useHistory();
+
+function onDelete(id) {
+
+  return axios.post(`/api/lots/${id}/delete`)
+  .then((res) => {
+    const lots = state.lots.filter(item => item.id !== id);
+    setState((prev) => ({
+      ...prev, lots
+    })
+    )
+    let path = `/`; 
+    history.push(path);
+  })
+
+}
+// function handleDelete (event) {
+//   onDelete(id)
+  
+// }
 
 // function onDelete(id) {
-//   const newLots = [
-//     ...state.lots,
-//     findLot(id)
-// ];
 
-// console.log(newLots);
-// // console.log(oran);
+// //   const lotsArrAfterDelete = removeLotIndex(id)
 
-//   const newState = {...state, newLots}
+// //   const newLots = [
+// //     ...state.lots,
+// //     lotsArrAfterDelete
+// // ];
 
-//   return axios.delete(`/api/lots/${id}/delete`)
+// // console.log(newLots);
+
+// //   const newState = {...state, newLots}
+
+// //   console.log(newLots);
+
+//   return axios.post(`/api/lots/${id}/delete`)
 //   .then((res) => {
-//     for(const lot of newLots) {
-//       if (lot["id"] !== id) {
-//         setState
-//       }
-//     }
+//     const lotsArrAfterDelete = removeLotIndex(findLot(id))
+//     const newLots = [
+//           ...state.lots,
+//           lotsArrAfterDelete
+//       ];
+//     const newState = {...state, newLots}
+//     setState({newState})
+//     console.log(state.lots)
 //     console.log(res);
-//     // setOran(null);
   
 //     return;
 //   })
@@ -99,41 +125,6 @@ const isOwned = state.lotsOwnerStatus[currentLotId];
 //     return err;
 //   })
 // }
-
-function onDelete(id) {
-
-//   const lotsArrAfterDelete = removeLotIndex(id)
-
-//   const newLots = [
-//     ...state.lots,
-//     lotsArrAfterDelete
-// ];
-
-// console.log(newLots);
-
-//   const newState = {...state, newLots}
-
-//   console.log(newLots);
-
-  return axios.post(`/api/lots/${id}/delete`)
-  .then((res) => {
-    const lotsArrAfterDelete = removeLotIndex(findLot(id))
-    const newLots = [
-          ...state.lots,
-          lotsArrAfterDelete
-      ];
-    const newState = {...state, newLots}
-    setState({newState})
-    console.log(state.lots)
-    console.log(res);
-  
-    return;
-  })
-  .catch((err) => {
-    console.log(err);
-    return err;
-  })
-}
 
 if (!currentLot) {
   //can return loading icon istead
@@ -149,6 +140,8 @@ if (!currentLot) {
             {isEditing &&
               <LotFormEdit 
               lot={currentLot}
+              isEditing={isEditing}
+              setIsEditing={setIsEditing}
               />
             }
       </div>
@@ -170,7 +163,7 @@ if (!currentLot) {
                 flexDirection="column"
               >
                 <Button onClick={close}>Cancel</Button>
-                <Button onClick={onDelete(currentLotId)}>Delete</Button>
+                <Button onClick={() => {onDelete(currentLotId)}}>Delete</Button>
               </Pane>
             )}
           >
@@ -193,10 +186,13 @@ if (!currentLot) {
           <div>
             {
             isOwned && (
-            <Button onClick={(event) => setIsEditing(!isEditing)}>Edit</Button>
+            // <Link to="/edit">
+              <Button onClick={(event) => setIsEditing(!isEditing)}>Edit</Button>
+            // </Link> 
              )}
             {
             isOwned && (
+              
             <Button onClick={(event) => setIsDeleting(!isDeleting)}>Delete</Button>
              )}
             {/* {currentLot.logedin && <Button>Delete</Button>} */}
