@@ -58,6 +58,10 @@ const MapList = (props) => {
           flexDirection="row"
           justifyContent="center"
           padding={50}
+          position="fixed"
+          zIndex={1}
+          width="100%"
+          backgroundColor="#FFFFFF"
         >
           <div className="search-item--city">
             <SearchInput
@@ -96,7 +100,7 @@ const MapList = (props) => {
         </Pane>
       </section>
       <section className="maplist-view--content">
-        <div className="small-lot--list">
+        <Pane paddingTop={150} className="small-lot--list">
           {state.lots.map((lot) => {
             const lotOwnerStatus = state.lotsOwnerStatus[lot.id]
             return (
@@ -112,7 +116,7 @@ const MapList = (props) => {
               />
             );
           })}
-        </div>
+        </Pane>
         <div className="maplist-view--map-container">
           <MapContainer lots={state.lots} />
         </div>

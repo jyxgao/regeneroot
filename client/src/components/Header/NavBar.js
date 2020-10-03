@@ -121,7 +121,7 @@ const NavBar = (props) => {
           </TabNavigation>
         </Pane>
       </Pane>
-      <Pane display="flex">
+      <Pane display="flex" paddingTop={8}>
         <Popover
           trigger="click"
           content={
@@ -141,9 +141,10 @@ const NavBar = (props) => {
             </Menu>
           }
         >
+
           <Avatar size={40} src={props.user.avatar}></Avatar>
         </Popover>
-        <Pane>{props.user.first_name}</Pane>
+        <Pane paddingLeft={12} paddingTop={12}>{props.user.first_name}</Pane>
       </Pane>
     </Pane>
   );
