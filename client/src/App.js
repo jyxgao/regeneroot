@@ -2,7 +2,6 @@ import React, { useState, useEffect, useReducer } from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import axios from "axios";
 import "./App.css";
-// import useSticky from "./hooks/useSticky";
 import NavBar from "./components/Header/NavBar";
 import Footer from './components/Footer/Footer'
 import Home from "./containers/Home";
@@ -12,10 +11,7 @@ import CreateLot from "./containers/CreateLot";
 import LotFormEdit from "./components/Lot/LotFormEdit";
 import EditLot from "./containers/EditLot";
 
-// import Owner from "components/Lot/Owner";
-
 const App = () => {
-  // const { isSticky, element } = useSticky();
   const [state, setState] = useState({
     lots: [],
     user: {},
@@ -67,9 +63,6 @@ const App = () => {
           <Route path="/lot/:id">
             <LotDetail state={state} setState={setState} />
           </Route>
-          {/* <Route path="/owner">
-            <Owner />
-          </Route> */}
            <Route path="/edit">
             <LotFormEdit/>
           </Route>
@@ -77,8 +70,6 @@ const App = () => {
             <MapList
               state={state}
               setState={setState}
-              // lots={state.lots}
-              // lotsOwnerStatus={state.lotsOwnerstatus}
             />
           </Route>
           <Route path="/new">
@@ -88,8 +79,6 @@ const App = () => {
             <Home
               state={state}
               setState={setState}
-              // lots={state.lots}
-              // user={state.user}
             />
           </Route>
         </Switch>
