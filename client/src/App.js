@@ -4,6 +4,7 @@ import axios from "axios";
 import "./App.css";
 // import useSticky from "./hooks/useSticky";
 import NavBar from "./components/Header/NavBar";
+import Footer from './components/Footer/Footer'
 import Home from "./containers/Home";
 import MapList from "./containers/MapList";
 import LotDetail from "./containers/LotDetail";
@@ -92,6 +93,7 @@ const App = () => {
             />
           </Route>
         </Switch>
+        <Footer />
       </Router>
     </div>
   );

@@ -17,10 +17,10 @@
     "moment": "^2.29.0",
     "normalize.css": "^8.0.1",
     "react": "^16.13.1",
+    "react-alice-carousel": "^1.19.3",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.3",
-    "react-slideshow-image": "^3.3.0"
+    "react-scripts": "3.4.3"
   },
   "proxy": "http://localhost:8080",
   "scripts": {

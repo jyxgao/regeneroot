@@ -25,7 +25,7 @@ const NavBar = (props) => {
       zIndex={2}
       overflow="hidden"
       position="fixed"
-      borderBottom="muted"
+      borderBottom="default"
       backgroundColor="#FFFFFF"
       width="100%"
     >

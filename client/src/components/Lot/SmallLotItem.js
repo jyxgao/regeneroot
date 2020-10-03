@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import ImageItem from "./Image/ImageItem";
 import "./SmallLotItem.css";
 import classnames from "classnames";
+import Slider from "./Image/Slider";
 // import Slider from '../../components/Slider/Slider'
 
 // import { Redirect, Link } from "react-router-dom";
@@ -22,7 +23,8 @@ const SmallLotItem = (props) => {
         alignItems="center"
         width={500}
       >
-        <ImageItem url={props.imageUrls[0]} />
+        {/* <ImageItem url={props.imageUrls[0]} /> */}
+        {props.imageUrls && <Slider urls={props.imageUrls} />}
         <div className="small-lot--text">
           <Pane>{props.name}</Pane>
           {/* <Pane>{props.title}</Pane> */}

@@ -1,0 +1,12 @@
+.slider--lot-img{
+  /* display: flex; */
+  /* width: 50px; */
+  height: 300px;
+  width: 100%;
+  /* height: 500px; */
+  object-fit: cover
+}
+
+.slider-carousel{
+  color: #000000
+}
