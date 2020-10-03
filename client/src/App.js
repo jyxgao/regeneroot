@@ -3,24 +3,32 @@ import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import axios from "axios";
 import "./App.css";
 import NavBar from "./components/Header/NavBar";
-import Footer from './components/Footer/Footer'
+import Footer from "./components/Footer/Footer";
 import Home from "./containers/Home";
 import MapList from "./containers/MapList";
 import LotDetail from "./containers/LotDetail";
 import CreateLot from "./containers/CreateLot";
-import LotFormEdit from "./components/Lot/LotFormEdit";
-import EditLot from "./containers/EditLot";
+import { css } from "@emotion/core";
+import BeatLoader from "react-spinners/BeatLoader";
 
 const App = () => {
+  const override = css`
+    display: block;
+    margin: 0 auto;
+    padding: 200px 400px 0 400px;
+    color: #2ec4b6;
+  `;
   const [state, setState] = useState({
     lots: [],
     user: {},
     owned: [],
     leased: [],
     lotsOwnerStatus: {},
+    isLoading: false,
   });
 
   useEffect(() => {
+    setState({ isLoading: true });
     Promise.all([
       axios.get("/api/lots"),
       axios.get("/users/me"),
@@ -39,9 +47,11 @@ const App = () => {
             lotsOwnerStatus[lot.id] = "owned";
           });
         }
-        if (leased) {leased.forEach((lot) => {
-          lotsOwnerStatus[lot.id] = "leased";
-        })};
+        if (leased) {
+          leased.forEach((lot) => {
+            lotsOwnerStatus[lot.id] = "leased";
+          });
+        }
 
         setState((prev) => ({
           ...prev,
@@ -50,6 +60,7 @@ const App = () => {
           owned,
           leased,
           lotsOwnerStatus,
+          isLoading: false,
         }));
       }
     );
@@ -57,33 +68,28 @@ const App = () => {
 
   return (
     <div className="App">
-      <Router>
-        <NavBar user={state.user}/>
-        <Switch>
-          <Route path="/lot/:id">
-            <LotDetail state={state} setState={setState} />
-          </Route>
-           <Route path="/edit">
-            <LotFormEdit/>
-          </Route>
-          <Route path="/mapview">
-            <MapList
-              state={state}
-              setState={setState}
-            />
-          </Route>
-          <Route path="/new">
-            <CreateLot />
-          </Route>
-          <Route path="/">
-            <Home
-              state={state}
-              setState={setState}
-            />
-          </Route>
-        </Switch>
-        <Footer />
-      </Router>
+      {state.isLoading === true ? (
+        <BeatLoader css={override} size={50} color={"#D81159"} loading={true} />
+      ) : (
+        <Router>
+          <NavBar user={state.user} />
+          <Switch>
+            <Route path="/lot/:id">
+              <LotDetail state={state} setState={setState} />
+            </Route>
+            <Route path="/mapview">
+              <MapList state={state} setState={setState} />
+            </Route>
+            <Route path="/new">
+              <CreateLot />
+            </Route>
+            <Route path="/">
+              <Home state={state} setState={setState} />
+            </Route>
+          </Switch>
+          <Footer />
+        </Router>
+      )}
     </div>
   );
 };
