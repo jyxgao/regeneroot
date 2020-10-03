@@ -106,7 +106,7 @@ const NavBar = (props) => {
               fontSize={16}
               fontFamily="Poppins"
               fontcolor="#2EC4B6"
-              key="explore"
+              key="create"
               is="a"
               href="/new"
               id="explore"

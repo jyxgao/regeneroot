@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import ImageItem from "./Image/ImageItem";
 import "./SmallLotItem.css";
 import classnames from "classnames";
+// import Slider from '../../components/Slider/Slider'
 
 // import { Redirect, Link } from "react-router-dom";
 
@@ -12,7 +13,7 @@ const SmallLotItem = (props) => {
     "smallLot--owned": props.lotOwnerStatus === "owned",
     "smallLot--leased": props.lotOwnerStatus === "leased",
   });
-
+  // console.log(props.imageUrls)
   return (
     <div className={smallLotClass}>
       <Pane
@@ -38,13 +39,6 @@ const SmallLotItem = (props) => {
             <div className="smallLot--top-right-leased">RENTING</div>
           )}
         </div>
-
-        {/* {props.logedin && (
-          <Button onClick={(event) => (window.location.href = "/new")}>
-            Edit
-          </Button>
-        )}
-        {props.logedin && <Button>Delete</Button>} */}
       </Pane>
     </div>
   );
