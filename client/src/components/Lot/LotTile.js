@@ -1,9 +1,7 @@
 import React from "react";
-import { Pane, Text, Button } from "evergreen-ui";
+import { Pane} from "evergreen-ui";
 import ImageItem from "./Image/ImageItem";
 import "./LotTile.css";
-
-// import { Redirect, Link } from "react-router-dom";
 
 const LotTile = (props) => {
 

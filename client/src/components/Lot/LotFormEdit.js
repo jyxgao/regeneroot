@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import axios from "axios";
 import "./LotForm.css";
 import { Button, TextInput, Textarea, Checkbox, Select } from "evergreen-ui";
-import { useParams, useHistory} from 'react-router-dom';
-
 
 const APIkey = process.env.REACT_APP_GOOGLE_API_KEY;
 
@@ -32,7 +30,6 @@ const LotFormEdit = (props) => {
   const [availableDate, setAvailableDate] = useState(props.lot.available_date);
   const [type, setType] = useState(props.lot.lot_type);
   const [lotDescription, setLotDescription] = useState(props.lot.lot_description);
-  const [isLeased, setIsleased] = useState(props.lot.is_leased);
   const [street, setStreet] = useState(props.lot.street_address);
   const [city, setCity] = useState(props.lot.city);
   const [country, setCountry] = useState(props.lot.country);
@@ -46,8 +43,6 @@ const LotFormEdit = (props) => {
     setImages(images);
     setImage("");
   };
-
-  const history = useHistory();
 
   const handleSubmit = (event) => {
     axios
@@ -75,7 +70,6 @@ const LotFormEdit = (props) => {
             available_date: availableDate,
             lot_type: type,
             lot_description: lotDescription,
-            // is_leased: isLeased,
             street_address: street,
             city,
             country,

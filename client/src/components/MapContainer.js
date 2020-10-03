@@ -93,6 +93,7 @@ const MapContainer = (props) => {
               <div>
                 <img
                   className="map-popup--img"
+                  alt="lot-img"
                   src={selectedLot.images[0]}
                 ></img>
                 <p>{selectedLot.title}</p>

@@ -31,7 +31,6 @@ const LotForm = (props) => {
   const [availableDate, setAvailableDate] = useState("");
   const [type, setType] = useState("");
   const [lotDescription, setLotDescription] = useState("");
-  // const [isLeased, setIsleased] = useState(false);
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
@@ -39,14 +38,11 @@ const LotForm = (props) => {
   const [image, setImage] = useState("");
   const [images, setImages] = useState([]);
 
-  // const created = new Date().toLocaleString().slice(0, 9);
-
   const handleImages = (e) => {
     e.preventDefault();
     images.push(image);
     setImages(images);
     setImage("");
-    // console.log(images);
   };
 
   const handleSubmit = (event) => {
@@ -101,18 +97,9 @@ const LotForm = (props) => {
             setImages([]);
           });
       })
-      //need to set state again here
-      // .then((res) => console.log(res.data))
       .catch((error) => console.log(error));
 
     event.preventDefault();
-  };
-
-  const edit = (id) => {
-    return axios.get(`/api/lots/${id}`).then((results) => {
-      console.log("please do some,", results.data);
-      // setTitle(results.data.title )
-    });
   };
 
   return (
