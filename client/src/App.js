@@ -8,6 +8,7 @@ import Home from "./containers/Home";
 import MapList from "./containers/MapList";
 import LotDetail from "./containers/LotDetail";
 import CreateLot from "./containers/CreateLot";
+import LotFormEdit from "./components/Lot/LotFormEdit";
 import EditLot from "./containers/EditLot";
 
 // import Owner from "components/Lot/Owner";
@@ -68,8 +69,8 @@ const App = () => {
           {/* <Route path="/owner">
             <Owner />
           </Route> */}
-          <Route path="/edit">
-            <EditLot />
+           <Route path="/edit">
+            <LotFormEdit/>
           </Route>
           <Route path="/mapview">
             <MapList
