@@ -352,7 +352,7 @@ exports.updateImage = updateImage;
 const getUserById = function (userId) {
   return pool
     .query(
-      `SELECT first_name, last_name, username, email
+      `SELECT first_name, last_name, username, email, avatar
       FROM users
       WHERE id = $1;
     `,

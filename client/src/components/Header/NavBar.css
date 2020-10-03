@@ -1,0 +1,33 @@
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0.2rem 3.5rem;
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  background-color: #FFFFFF;
+}
+
+.navbar--left {
+
+}
+
+.nav-bar--dropdown {
+  display: flex;
+  color: #2EC4B6;
+  size: 2em;
+}
+
+.navbar--link {
+  display: flex;
+  list-style: none;
+}
+
+.navbar--link-item {
+  margin: 0.4rem 1rem 0 0;
+  padding: 0 0.3rem;
+  cursor: pointer;
+}

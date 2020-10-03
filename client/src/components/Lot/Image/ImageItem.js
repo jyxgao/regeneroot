@@ -1,8 +1,12 @@
 import React from "react";
-import './ImageItem.css';
+import "./ImageItem.css";
 
 const Image = (props) => {
-  return <img className="lot-img" alt="urbanlot" src={props.url} />;
+  return (
+    <div>
+      <img className="lot-img" alt="urbanlot" src={props.url} />
+    </div>
+  );
 };
 
 export default Image;

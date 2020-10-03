@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import MapContainer from "../components/MapContainer";
 import SmallLotItem from "../components/Lot/SmallLotItem";
+import { getLotOwnerStatus } from '../helpers/selectors';
 import "./MapList.css";
 import { SearchInput, Spinner, Pane } from "evergreen-ui";
 
@@ -51,15 +52,16 @@ const MapList = (props) => {
 
   return (
     <main className="maplist-view">
-      <Pane>
-        <nav className="navbar"></nav>
-      </Pane>
       <section className="maplist-view--searchbar">
         <Pane
           display="flex"
           flexDirection="row"
           justifyContent="center"
           padding={50}
+          position="fixed"
+          zIndex={1}
+          width="100%"
+          backgroundColor="#FFFFFF"
         >
           <div className="search-item--city">
             <SearchInput
@@ -98,18 +100,23 @@ const MapList = (props) => {
         </Pane>
       </section>
       <section className="maplist-view--content">
-        <div className="small-lot--list">
+        <Pane paddingTop={150} className="small-lot--list">
           {state.lots.map((lot) => {
+            const lotOwnerStatus = state.lotsOwnerStatus[lot.id]
             return (
               <SmallLotItem
                 key={lot.id}
+                id={lot.id}
                 imageUrls={lot.images}
                 title={lot.title}
                 city={lot.city}
+                costPerMonth={lot.cost_per_month}
+                description={lot.lot_description}
+                lotOwnerStatus={lotOwnerStatus}
               />
             );
           })}
-        </div>
+        </Pane>
         <div className="maplist-view--map-container">
           <MapContainer lots={state.lots} />
         </div>

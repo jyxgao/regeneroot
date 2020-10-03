@@ -9,6 +9,7 @@ module.exports = function (router, database) {
 
   router.get("/me", (req, res) => {
     const userId = req.session.user_id;
+    console.log(userId)
     if (!userId) {
       res.send({ message: "You are not logged in" });
       return;
@@ -22,15 +23,15 @@ module.exports = function (router, database) {
           return;
         }
 
-        res.send({
-          user: {
+        res.json({
             id: userId,
             first_name: user.first_name,
             last_name: user.last_name,
             username: user.username,
             email: user.email,
-          },
-        });
+            avatar: user.avatar,
+          }
+        );
       })
       .catch((err) => res.send({ error: err.message }));
   });
