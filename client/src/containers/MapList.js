@@ -113,6 +113,7 @@ const MapList = (props) => {
         </Pane>
       </section>
       <section className="maplist-view--content">
+        <Pane display="flex" flexDirection="column" paddingTop={150} marginRight="50%">
         {!isEmpty(state.selectedLot) &&
         
         <SmallLotItem
@@ -127,7 +128,7 @@ const MapList = (props) => {
         />
         
         }
-        <Pane paddingTop={150} className="small-lot--list">
+        <Pane className="small-lot--list">
           {state.lots.map((lot) => {
             const lotOwnerStatus = state.lotsOwnerStatus[lot.id];
             return (
@@ -143,6 +144,7 @@ const MapList = (props) => {
               />
             );
           })}
+        </Pane>
         </Pane>
         <div className="maplist-view--map-container">
           <MapContainer lots={state.lots} state={state} setState={setState} />
