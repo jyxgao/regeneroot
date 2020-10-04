@@ -56,6 +56,16 @@
 
 <p>&nbsp;</p>
 
+### Messages Routes
+
+1. #### Get all messages by lot id and user id
+  > GET /lots/:lot_id/messages
+
+2. #### Create new message by lot id, user id, owner id
+  > POST /lots/:lot_id/messages
+
+<p>&nbsp;</p>
+
 ### User Routes
 
 1. #### Login
