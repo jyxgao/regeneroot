@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./LotDetail.css";
 import { Pane, Button, Popover, Position } from "evergreen-ui";
 import LotFormEdit from "components/Lot/LotFormEdit";
@@ -7,16 +7,11 @@ import Chat from "../components/Messages/Chat";
 import axios from "axios";
 
 const LotDetail = (props) => {
-  const [isEditing, setIsEditing] = React.useState(false);
-
-  const [isDeleting, setIsDeleting] = React.useState(false);
-
-  const [isMessaging, setIsMessaging] = React.useState(false);
-
   const { state, setState } = props;
-
+  const [isEditing, setIsEditing] = React.useState(false);
+  const [isDeleting, setIsDeleting] = React.useState(false);
+  const [isMessaging, setIsMessaging] = React.useState(false);
   const params = useParams();
-
   const currentLotId = Number(params.id);
 
   const findLot = function (lotId) {
@@ -29,18 +24,43 @@ const LotDetail = (props) => {
   };
 
   // check if user logged in with email key
-  const isEmpty = (obj) => {
-    if (!props.user.email) {
+  const isLoggedIn = (obj) => {
+    if (obj.email) {
       return true;
     }
     return false;
   };
 
+  // console.log("user obj", state.user)
+  // console.log("user login", isLoggedIn(state.user))
   const currentLot = findLot(currentLotId);
 
-  const isOwned = state.lotsOwnerStatus[currentLotId];
+  // const isOwned = state.lotsOwnerStatus[currentLotId];
+
+  const isOwned = (lotId) => {
+    if (state.lotsOwnerStatus[lotId] === "owned") {
+      return true;
+    }
+    return false;
+  };
+  // console.log(isOwned(currentLotId))
+    const handleMessage = () => {
+      setIsMessaging(true);
+      return axios.get(`/lots/${currentLotId}/messages`).then((response) => {
+        console.log(response.data)
+        setState((prev) => ({
+          ...prev,
+          messages: response.data,
+        }));
+      });
+    };
+  useEffect(() => {
+    handleMessage();
+    console.log(state.messages)
+  }, [state.user]);
 
   const history = useHistory();
+
   function onDelete(id) {
     return axios.post(`/api/lots/${id}/delete`).then((res) => {
       const lots = state.lots.filter((item) => item.id !== id);
@@ -59,22 +79,18 @@ const LotDetail = (props) => {
   }
 
   return (
-    <main className="home--layout">
-      {!isEmpty(state.user) && !isOwned && (
-        <Button onClick={(event) => setIsMessaging(true)}>Message Owner</Button>
+    <Pane paddingTop={120} className="home--layout">
+      {isMessaging && <Chat messages={state.messages} user={state.user}/>}
+      {isEditing && (
+        <LotFormEdit
+          lot={currentLot}
+          setIsEditing={setIsEditing}
+          isEditing={isEditing}
+          state={state}
+          setState={setState}
+          id={currentLotId}
+        />
       )}
-      <div>
-        {isEditing && (
-          <LotFormEdit
-            lot={currentLot}
-            setIsEditing={setIsEditing}
-            isEditing={isEditing}
-            state={state}
-            setState={setState}
-            id={currentLotId}
-          />
-        )}
-      </div>
       {!isEditing && (
         <section className="LotDetail_layout">
           <div className="LotDetail--detail_group">
@@ -123,7 +139,7 @@ const LotDetail = (props) => {
               </div>
             </div>
             <div>
-              {isOwned && (
+              {isOwned(currentLotId) && (
                 <Button onClick={(event) => setIsEditing(!isEditing)}>
                   Edit
                 </Button>
@@ -132,7 +148,10 @@ const LotDetail = (props) => {
             isOwned && (
             <Button onClick={(event) => setIsDeleting(!isDeleting)}>Delete</Button>
              )} */}
-              {isOwned && (
+              {!isOwned(currentLotId) && isLoggedIn(state.user) && (
+                <Button onClick={handleMessage}>Message Owner</Button>
+              )}
+              {isOwned(currentLotId) && (
                 <Popover
                   content={({ close }) => (
                     <Pane
@@ -184,17 +203,9 @@ const LotDetail = (props) => {
               );
             })}
           </div>
-          {/* {currentLot.isOwned &&
-          (
-          <div className="App">
-          <ImageList
-            imageUrls={currentLot.images}
-          />
-        </div>
-          )} */}
         </section>
       )}
-    </main>
+    </Pane>
   );
 };
 

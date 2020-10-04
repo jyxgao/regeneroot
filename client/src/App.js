@@ -25,6 +25,7 @@ const App = () => {
     leased: [],
     lotsOwnerStatus: {},
     isLoading: false,
+    messages: [],
   });
 
   useEffect(() => {
