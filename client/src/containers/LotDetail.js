@@ -168,7 +168,7 @@ const LotDetail = (props) => {
             isOwned && (
             <Button onClick={(event) => setIsDeleting(!isDeleting)}>Delete</Button>
              )} */}
-              {!isOwned(currentLotId) && isLoggedIn(state.user) && (
+              {!isOwned(currentLotId) && isLoggedIn(state.user) && !isMessaging && (
                 <Button onClick={handleMessage}>Message Owner</Button>
               )}
               {isOwned(currentLotId) && (
