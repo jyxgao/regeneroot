@@ -19,6 +19,7 @@ const App = () => {
     color: #2ec4b6;
   `;
   const [state, setState] = useState({
+    lot: {},
     lots: [],
     user: {},
     owned: [],
@@ -34,36 +35,43 @@ const App = () => {
       axios.get("/users/me"),
       axios.get("/api/lots/owned"),
       axios.get("/api/lots/leased"),
-    ]).then(
-      ([{ data: lots }, { data: user }, { data: owned }, { data: leased }]) => {
-        let lotsOwnerStatus = {};
-        if (lots) {
-          lots.forEach((lot) => {
-            lotsOwnerStatus[lot.id] = null;
-          });
-        }
-        if (owned) {
-          owned.forEach((lot) => {
-            lotsOwnerStatus[lot.id] = "owned";
-          });
-        }
-        if (leased) {
-          leased.forEach((lot) => {
-            lotsOwnerStatus[lot.id] = "leased";
-          });
-        }
+    ])
+      .then(
+        ([
+          { data: lots },
+          { data: user },
+          { data: owned },
+          { data: leased },
+        ]) => {
+          let lotsOwnerStatus = {};
+          if (lots) {
+            lots.forEach((lot) => {
+              lotsOwnerStatus[lot.id] = null;
+            });
+          }
+          if (owned) {
+            owned.forEach((lot) => {
+              lotsOwnerStatus[lot.id] = "owned";
+            });
+          }
+          if (leased) {
+            leased.forEach((lot) => {
+              lotsOwnerStatus[lot.id] = "leased";
+            });
+          }
 
-        setState((prev) => ({
-          ...prev,
-          lots,
-          user,
-          owned,
-          leased,
-          lotsOwnerStatus,
-          isLoading: false,
-        }));
-      }
-    );
+          setState((prev) => ({
+            ...prev,
+            lots,
+            user,
+            owned,
+            leased,
+            lotsOwnerStatus,
+            isLoading: false,
+          }));
+        }
+      )
+      .catch((err) => console.log(err));
   }, []);
 
   return (

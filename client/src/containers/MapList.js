@@ -12,7 +12,21 @@ const MapList = (props) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const inputRef = useRef("");
-  const {state, setState} = props;
+  const { state, setState } = props;
+
+  // const setLot = (lot) => {
+  //   setState((prev) => ({
+  //     ...prev,
+  //     lot: lot,
+  //   }));
+  //   console.log(state.lot);
+  // };
+  const isEmpty = (obj) => {
+    for (const lot in obj) {
+      if (obj.hasOwnProperty(lot)) return false;
+    }
+    return true;
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -99,9 +113,23 @@ const MapList = (props) => {
         </Pane>
       </section>
       <section className="maplist-view--content">
+        {/* {!isEmpty(state.lot) &&
+        
+        <SmallLotItem
+          key={state.lot.id}
+          id={state.lot.id}
+          imageUrls={state.lot.images}
+          title={state.lot.title}
+          city={state.lot.city}
+          costPerMonth={state.lot.cost_per_month}
+          description={state.lot.lot_description}
+          lotOwnerStatus={state.lotOwnerStatus[state.lot.id]}
+        />
+        
+        } */}
         <Pane paddingTop={150} className="small-lot--list">
           {state.lots.map((lot) => {
-            const lotOwnerStatus = state.lotsOwnerStatus[lot.id]
+            const lotOwnerStatus = state.lotsOwnerStatus[lot.id];
             return (
               <SmallLotItem
                 key={lot.id}
@@ -117,7 +145,7 @@ const MapList = (props) => {
           })}
         </Pane>
         <div className="maplist-view--map-container">
-          <MapContainer lots={state.lots} />
+          <MapContainer lots={state.lots} state={state} setState={setState} />
         </div>
       </section>
     </main>

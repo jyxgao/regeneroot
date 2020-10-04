@@ -8,13 +8,24 @@ import {
 // import Geocoder from "hooks/Geocoder";
 
 const MapContainer = (props) => {
+  const {state, setState} = props
+
   const [map, setMap] = useState(null);
 
   //set selected state for markers
   const [selectedLot, setSelectedLot] = useState({});
 
+  const setLot = (lot) => {
+    setState((prev) => ({
+      ...prev,
+      lot: lot,
+    }));
+    console.log(state.lot);
+  };
+
   const onSelect = (lotItem) => {
     setSelectedLot(lotItem);
+    setLot(lotItem)
   };
 
   //google maps window size
