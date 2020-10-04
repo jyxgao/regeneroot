@@ -450,7 +450,7 @@ const getAllMessagesByLotIdAndUserIds = function (userId, otherId, lotId) {
     WHERE messages.lot_id = $3
     AND ((messages.owner_id = $1 AND messages.renter_id = $2)
     OR (messages.owner_id = $2 AND messages.renter_id = $1))
-    ORDER BY messages.created_at DESC
+    ORDER BY messages.created_at ASC
   `,
       queryParams
     )
