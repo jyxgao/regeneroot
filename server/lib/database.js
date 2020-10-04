@@ -430,16 +430,27 @@ const getAllLotsByQuery = function (options, limit = 10) {
 exports.getAllLotsByQuery = getAllLotsByQuery;
 
 // messages
-const getAllMessagesByLotIdAndUserId = function (userId, lotId) {
-  const queryParams = [userId, lotId];
+const getAllMessagesByLotIdAndUserIds = function (userId, otherId, lotId) {
+  const queryParams = [userId, otherId, lotId];
 
   return pool
     .query(
       `
-    SELECT *, messages.id AS message_id
+    SELECT messages.id AS message_id,
+    owner_id AS owner_id,
+    renter_id AS renter_id,
+    lot_id AS lot_id,
+    written_by AS written_by,
+    users.username AS username,
+    text_body AS text_body,
+    messages.created_at AS created_at,
+    users.avatar AS avatar
     FROM messages
-    WHERE (owner_id = $1 OR renter_id = $1) AND lot_id = $2
-    ORDER BY created_at DESC
+    JOIN users ON messages.written_by = users.id
+    WHERE messages.lot_id = $3
+    AND ((messages.owner_id = $1 AND messages.renter_id = $2)
+    OR (messages.owner_id = $2 AND messages.renter_id = $1))
+    ORDER BY messages.created_at DESC
   `,
       queryParams
     )
@@ -451,7 +462,7 @@ const getAllMessagesByLotIdAndUserId = function (userId, lotId) {
     });
 };
 
-exports.getAllMessagesByLotIdAndUserId = getAllMessagesByLotIdAndUserId;
+exports.getAllMessagesByLotIdAndUserIds = getAllMessagesByLotIdAndUserIds;
 
 const getMessagesAndOwnerByLotIdUserId = function (lotId, userId) {
   const queryParams = [lotId, userId];
@@ -462,7 +473,7 @@ const getMessagesAndOwnerByLotIdUserId = function (lotId, userId) {
   FROM messages
   JOIN users ON messages.owner_id = users.id
   WHERE messages.lot_id = $1 AND messages.renter_id = $2
-  ORDER BY created_at DESC
+  ORDER BY messages.created_at DESC
   `,
       queryParams
     )
@@ -484,7 +495,7 @@ const getMessagesAndRenterByLotIdUserId = function (lotId, userId) {
       FROM messages
       JOIN users ON messages.renter_id = users.id
       WHERE messages.lot_id = $1 AND messages.owner_id = $2
-      ORDER BY created_at DESC
+      ORDER BY messages.created_at DESC
   `,
       queryParams
     )
@@ -497,9 +508,9 @@ const getMessagesAndRenterByLotIdUserId = function (lotId, userId) {
 };
 exports.getMessagesAndRenterByLotIdUserId = getMessagesAndRenterByLotIdUserId;
 
-const addNewMessage = function (lotId, userId, ownerId, text) {
+const addNewMessage = function (lotId, userId, otherId, text) {
   console.log("submitting message...");
-  const queryParams = [lotId, userId, ownerId, text, userId];
+  const queryParams = [lotId, userId, otherId, text, userId];
   return pool
     .query(
       `
