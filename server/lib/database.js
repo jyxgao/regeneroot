@@ -395,13 +395,13 @@ const getAllLotsByQuery = function (options, limit = 10) {
 
   if (options.minimum_size) {
     queryParams.push(options.minimum_size);
-    queryString += queryParams.length === 1 ? `WHERE ` : `AND `
+    queryString += queryParams.length === 1 ? `WHERE ` : `AND `;
     queryString += `lots.size >= $${queryParams.length} `;
   }
 
   if (options.maximum_size) {
     queryParams.push(options.maximum_size);
-    queryString += queryParams.length === 1 ? `WHERE ` : `AND `
+    queryString += queryParams.length === 1 ? `WHERE ` : `AND `;
     queryString += `lots.size <= $${queryParams.length} `;
   }
 
@@ -427,3 +427,52 @@ const getAllLotsByQuery = function (options, limit = 10) {
 };
 
 exports.getAllLotsByQuery = getAllLotsByQuery;
+
+// messages
+const getAllMessagesByLotIdUserId = function (lotId, userId, limit = 10) {
+  const queryParams = [lotId, userId, limit];
+  return pool
+    .query(
+      `
+  SELECT *, messages.id AS message_id
+  FROM messages
+  WHERE messages.lot_id = $1 AND messages.renter_id = $2
+  ORDER BY created_at DESC
+  LIMIT $3
+  `,
+      queryParams
+    )
+    .then((res) => {
+      return res.rows;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+exports.getAllMessagesByLotIdUserId = getAllMessagesByLotIdUserId;
+
+const addNewMessage = function (lotId, userId, ownerId, text) {
+  console.log("submitting message...");
+  const queryParams = [lotId, userId, ownerId, text];
+  return pool
+    .query(
+      `
+    INSERT INTO messages (
+      lot_id,
+      owner_id,
+      renter_id,
+      text_body
+    )
+    VALUES ($1, $2, $3, $4)
+    RETURNING *, id AS message_id;
+    `,
+      queryParams
+    )
+    .then((res) => {
+      return res.rows;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+exports.addNewMessage = addNewMessage;

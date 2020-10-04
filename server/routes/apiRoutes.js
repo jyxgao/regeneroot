@@ -1,10 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-//routes documentation
-
 module.exports = function (router, database) {
-  //
+
   router.get("/lots/search", (req, res) => {
     database
       .getAllLotsByQuery(req.query)
