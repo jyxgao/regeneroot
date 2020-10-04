@@ -8,6 +8,7 @@ import Home from "./containers/Home";
 import MapList from "./containers/MapList";
 import LotDetail from "./containers/LotDetail";
 import CreateLot from "./containers/CreateLot";
+import Login from "./containers/Login";
 import { css } from "@emotion/core";
 import BeatLoader from "react-spinners/BeatLoader";
 
@@ -90,6 +91,9 @@ const App = () => {
             </Route>
             <Route path="/new">
               <CreateLot />
+            </Route>
+            <Route path="/login">
+              <Login user={state.user}/>
             </Route>
             <Route path="/">
               <Home state={state} setState={setState} />
