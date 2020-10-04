@@ -3,6 +3,7 @@ import "./LotDetail.css";
 import { Pane, Button, Popover, Position } from "evergreen-ui";
 import LotFormEdit from "components/Lot/LotFormEdit";
 import { useParams, useHistory } from "react-router-dom";
+import Chat from "../components/Messages/Chat";
 import axios from "axios";
 
 const LotDetail = (props) => {
@@ -164,7 +165,13 @@ const LotDetail = (props) => {
           </div>
           <div className="LotDetail--image_list">
             {currentLot.images.map((image) => {
-              return <img className="LotDetail--image_list_item" src={image} alt="lot-img"/>;
+              return (
+                <img
+                  className="LotDetail--image_list_item"
+                  src={image}
+                  alt="lot-img"
+                />
+              );
             })}
           </div>
           {/* {currentLot.isOwned &&

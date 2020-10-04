@@ -33,7 +33,7 @@ const App = () => {
       axios.get("/api/lots"),
       axios.get("/users/me"),
       axios.get("/api/lots/owned"),
-      axios.get("/api/lots/leased"),
+      axios.get("/api/lots/leased")
     ]).then(
       ([{ data: lots }, { data: user }, { data: owned }, { data: leased }]) => {
         let lotsOwnerStatus = {};
