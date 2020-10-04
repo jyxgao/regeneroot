@@ -1,7 +1,12 @@
+.home--layout{
+  margin-right: 10%;
+  margin-left: 10%;
+}
+
 .LotDetail_layout {
   display: flex;
   flex-direction: row;
-  width: 100vw;
+  width: 100%;
   justify-content: space-between;
 }
 

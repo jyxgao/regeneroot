@@ -56,21 +56,18 @@ const LotDetail = (props) => {
       return axios
         .get(`/lots/${currentLotId}/messages/${currentLot.owner_id}`)
         .then((response) => {
-          console.log("response", response.data);
+          console.log("messages", response.data);
           setState((prev) => ({
             ...prev,
             messages: response.data,
           }));
         });
     } else {
-
+      return null;
     }
-
-
   };
 
   useEffect(() => {
-
     handleMessage();
     // const lot = state.lots.filter(item => item.id === 5);
   }, [state.user]);
@@ -96,7 +93,14 @@ const LotDetail = (props) => {
 
   return (
     <Pane paddingTop={120} className="home--layout">
-      {isMessaging && <Chat messages={state.messages} user={state.user} />}
+      {isMessaging && (
+        <Chat
+          messages={state.messages}
+          user={state.user}
+          isMessaging={isMessaging}
+          setIsMessaging={setIsMessaging}
+        />
+      )}
       {isEditing && (
         <LotFormEdit
           lot={currentLot}
