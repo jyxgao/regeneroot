@@ -31,15 +31,18 @@ const LotDetail = (props) => {
 
   const history = useHistory();
   function onDelete(id) {
-    return axios.post(`/api/lots/${id}/delete`).then((res) => {
-      const lots = state.lots.filter((item) => item.id !== id);
-      setState((prev) => ({
-        ...prev,
-        lots,
-      }));
-      let path = `/`;
-      history.push(path);
-    });
+    return axios
+      .post(`/api/lots/${id}/delete`)
+      .then((res) => {
+        const lots = state.lots.filter((item) => item.id !== id);
+        setState((prev) => ({
+          ...prev,
+          lots,
+        }));
+        let path = `/`;
+        history.push(path);
+      })
+      .catch((err) => console.log(err));
   }
 
   if (!currentLot) {
@@ -164,7 +167,13 @@ const LotDetail = (props) => {
           </div>
           <div className="LotDetail--image_list">
             {currentLot.images.map((image) => {
-              return <img className="LotDetail--image_list_item" src={image} alt="lot-img"/>;
+              return (
+                <img
+                  className="LotDetail--image_list_item"
+                  src={image}
+                  alt="lot-img"
+                />
+              );
             })}
           </div>
           {/* {currentLot.isOwned &&

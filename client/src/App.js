@@ -75,13 +75,30 @@ const App = () => {
       .catch((err) => console.log(err));
   }, []);
 
+  const logout = () => {
+    axios
+      .post("/users/logout")
+      .then((resolve) => {
+        setState((prev) => ({ ...prev, user: {} }));
+      })
+      .catch((err) => console.log(err));
+  };
+  const login = (id) => {
+    // axios.get(`/users/login/${id}`).then((res) => {
+    //   setState((prev) => ({
+    //     user: res.data,
+    //   })).catch((err) => console.log(err));
+    // });
+  };
+
+
   return (
     <div className="App">
       {state.isLoading === true ? (
         <BeatLoader css={override} size={50} color={"#D81159"} loading={true} />
       ) : (
         <Router>
-          <NavBar user={state.user} />
+          <NavBar user={state.user} logout={logout} login={login} />
           <Switch>
             <Route path="/lot/:id">
               <LotDetail state={state} setState={setState} />
@@ -93,7 +110,7 @@ const App = () => {
               <CreateLot />
             </Route>
             <Route path="/login">
-              <Login user={state.user}/>
+              <Login user={state.user} />
             </Route>
             <Route path="/">
               <Home state={state} setState={setState} />
