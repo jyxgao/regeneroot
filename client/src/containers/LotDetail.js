@@ -11,6 +11,8 @@ const LotDetail = (props) => {
 
   const [isDeleting, setIsDeleting] = React.useState(false);
 
+  const [isMessaging, setIsMessaging] = React.useState(false);
+
   const { state, setState } = props;
 
   const params = useParams();
@@ -24,6 +26,14 @@ const LotDetail = (props) => {
         return lot;
       }
     }
+  };
+
+  // check if user logged in with email key
+  const isEmpty = (obj) => {
+    if (!props.user.email) {
+      return true;
+    }
+    return false;
   };
 
   const currentLot = findLot(currentLotId);
@@ -50,9 +60,9 @@ const LotDetail = (props) => {
 
   return (
     <main className="home--layout">
-      <Pane>
-        <nav className="navbar"></nav>
-      </Pane>
+      {!isEmpty(state.user) && !isOwned && (
+        <Button onClick={(event) => setIsMessaging(true)}>Message Owner</Button>
+      )}
       <div>
         {isEditing && (
           <LotFormEdit
