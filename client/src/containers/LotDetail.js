@@ -34,7 +34,11 @@ const LotDetail = (props) => {
   // console.log("user obj", state.user)
   // console.log("user login", isLoggedIn(state.user))
   const currentLot = findLot(currentLotId);
-
+  const findLotOwner = (lotId) => {
+    const lots = state.lots;
+    let lot = lots.filter((lot) => lot.id === lotId);
+    return lot;
+  };
   // const isOwned = state.lotsOwnerStatus[currentLotId];
 
   const isOwned = (lotId) => {
@@ -44,19 +48,31 @@ const LotDetail = (props) => {
     return false;
   };
   // console.log(isOwned(currentLotId))
-    const handleMessage = () => {
+  const handleMessage = () => {
+    if (isLoggedIn(state.user)) {
+      console.log("current lot", currentLot);
+      console.log("owner id", currentLot.owner_id);
       setIsMessaging(true);
-      return axios.get(`/lots/${currentLotId}/messages`).then((response) => {
-        console.log(response.data)
-        setState((prev) => ({
-          ...prev,
-          messages: response.data,
-        }));
-      });
-    };
+      return axios
+        .get(`/lots/${currentLotId}/messages/${currentLot.owner_id}`)
+        .then((response) => {
+          console.log("response", response.data);
+          setState((prev) => ({
+            ...prev,
+            messages: response.data,
+          }));
+        });
+    } else {
+
+    }
+
+
+  };
+
   useEffect(() => {
+
     handleMessage();
-    console.log(state.messages)
+    // const lot = state.lots.filter(item => item.id === 5);
   }, [state.user]);
 
   const history = useHistory();
@@ -80,7 +96,7 @@ const LotDetail = (props) => {
 
   return (
     <Pane paddingTop={120} className="home--layout">
-      {isMessaging && <Chat messages={state.messages} user={state.user}/>}
+      {isMessaging && <Chat messages={state.messages} user={state.user} />}
       {isEditing && (
         <LotFormEdit
           lot={currentLot}
@@ -196,6 +212,7 @@ const LotDetail = (props) => {
             {currentLot.images.map((image) => {
               return (
                 <img
+                  key={image}
                   className="LotDetail--image_list_item"
                   src={image}
                   alt="lot-img"
