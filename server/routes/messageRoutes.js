@@ -13,7 +13,7 @@ module.exports = function (router, database) {
     }
 
     database
-      .getAllMessagesByLotIdUserId(lotId, userId)
+      .getAllMessagesByLotIdAndUserId(userId, lotId)
       .then((data) => {
         res.json(data);
       })

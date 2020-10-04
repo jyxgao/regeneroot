@@ -4,6 +4,7 @@ const {
   addImagesToLot,
   convertCoordsToObject,
 } = require("./helper-functions");
+const { query } = require("./db");
 // get all lots order by most recent
 const getAllLotsByMostRecent = function (limit = 10) {
   const queryParams = [limit];
@@ -429,16 +430,16 @@ const getAllLotsByQuery = function (options, limit = 10) {
 exports.getAllLotsByQuery = getAllLotsByQuery;
 
 // messages
-const getAllMessagesByLotIdUserId = function (lotId, userId, limit = 10) {
-  const queryParams = [lotId, userId, limit];
+const getAllMessagesByLotIdAndUserId = function (userId, lotId) {
+  const queryParams = [userId, lotId];
+
   return pool
     .query(
       `
-  SELECT *, messages.id AS message_id
-  FROM messages
-  WHERE messages.lot_id = $1 AND messages.renter_id = $2
-  ORDER BY created_at DESC
-  LIMIT $3
+    SELECT *, messages.id AS message_id
+    FROM messages
+    WHERE (owner_id = $1 OR renter_id = $1) AND lot_id = $2
+    ORDER BY created_at DESC
   `,
       queryParams
     )
@@ -449,11 +450,56 @@ const getAllMessagesByLotIdUserId = function (lotId, userId, limit = 10) {
       console.log(err);
     });
 };
-exports.getAllMessagesByLotIdUserId = getAllMessagesByLotIdUserId;
+
+exports.getAllMessagesByLotIdAndUserId = getAllMessagesByLotIdAndUserId;
+
+const getMessagesAndOwnerByLotIdUserId = function (lotId, userId) {
+  const queryParams = [lotId, userId];
+  return pool
+    .query(
+      `
+  SELECT *, messages.id AS message_id, users.username AS owner_username
+  FROM messages
+  JOIN users ON messages.owner_id = users.id
+  WHERE messages.lot_id = $1 AND messages.renter_id = $2
+  ORDER BY created_at DESC
+  `,
+      queryParams
+    )
+    .then((res) => {
+      return res.rows;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+exports.getMessagesAndOwnerByLotIdUserId = getMessagesAndOwnerByLotIdUserId;
+
+const getMessagesAndRenterByLotIdUserId = function (lotId, userId) {
+  const queryParams = [lotId, userId];
+  return pool
+    .query(
+      `
+      SELECT *, messages.id AS message_id, users.username AS renter_username
+      FROM messages
+      JOIN users ON messages.renter_id = users.id
+      WHERE messages.lot_id = $1 AND messages.owner_id = $2
+      ORDER BY created_at DESC
+  `,
+      queryParams
+    )
+    .then((res) => {
+      return res.rows;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+exports.getMessagesAndRenterByLotIdUserId = getMessagesAndRenterByLotIdUserId;
 
 const addNewMessage = function (lotId, userId, ownerId, text) {
   console.log("submitting message...");
-  const queryParams = [lotId, userId, ownerId, text];
+  const queryParams = [lotId, userId, ownerId, text, userId];
   return pool
     .query(
       `
@@ -461,9 +507,10 @@ const addNewMessage = function (lotId, userId, ownerId, text) {
       lot_id,
       owner_id,
       renter_id,
-      text_body
+      text_body,
+      written_by
     )
-    VALUES ($1, $2, $3, $4)
+    VALUES ($1, $2, $3, $4, $5)
     RETURNING *, id AS message_id;
     `,
       queryParams

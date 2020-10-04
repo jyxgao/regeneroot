@@ -8,5 +8,6 @@ CREATE TABLE messages
   renter_id INTEGER REFERENCES users(id) ON DELETE CASCADE NOT NULL,
   lot_id INTEGER REFERENCES lots(id) ON DELETE CASCADE NOT NULL,
   text_body TEXT NOT NULL,
+  written_by INTEGER NOT NULL,
   created_at TIMESTAMP DEFAULT current_timestamp
 );
