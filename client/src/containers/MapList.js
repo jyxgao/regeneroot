@@ -113,20 +113,20 @@ const MapList = (props) => {
         </Pane>
       </section>
       <section className="maplist-view--content">
-        {/* {!isEmpty(state.lot) &&
+        {!isEmpty(state.selectedLot) &&
         
         <SmallLotItem
-          key={state.lot.id}
-          id={state.lot.id}
-          imageUrls={state.lot.images}
-          title={state.lot.title}
-          city={state.lot.city}
-          costPerMonth={state.lot.cost_per_month}
-          description={state.lot.lot_description}
-          lotOwnerStatus={state.lotOwnerStatus[state.lot.id]}
+          key={state.selectedLot.id}
+          id={state.selectedLot.id}
+          imageUrls={state.selectedLot.images}
+          title={state.selectedLot.title}
+          city={state.selectedLot.city}
+          costPerMonth={state.selectedLot.cost_per_month}
+          description={state.selectedLot.lot_description}
+          // lotOwnerStatus={state.lotOwnerStatus[state.selectedLot.id]}
         />
         
-        } */}
+        }
         <Pane paddingTop={150} className="small-lot--list">
           {state.lots.map((lot) => {
             const lotOwnerStatus = state.lotsOwnerStatus[lot.id];

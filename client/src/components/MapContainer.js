@@ -18,9 +18,11 @@ const MapContainer = (props) => {
   const setLot = (lot) => {
     setState((prev) => ({
       ...prev,
-      lot: lot,
+      selectedLot: lot,
     }));
-    console.log(state.lot);
+
+    console.log("selected Lot", state.selectedLot)
+
   };
 
   const onSelect = (lotItem) => {

@@ -20,7 +20,7 @@ const App = () => {
     color: #2ec4b6;
   `;
   const [state, setState] = useState({
-    lot: {},
+    selectedLot: {},
     lots: [],
     user: {},
     owned: [],
