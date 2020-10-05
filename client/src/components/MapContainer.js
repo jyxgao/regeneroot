@@ -19,18 +19,20 @@ const MapContainer = (props) => {
 
   //google maps window size
   const mapStyles = {
-    height: "90vh",
-    width: "90%",
+    height: "100vh",
+    width: "60vw",
   };
 
   //sets map view bounds for list of queried lots
-  const onLoad = function (map) {
+  const onCenterChanged = function (map) {
     const bounds = new window.google.maps.LatLngBounds();
     for (let lot of props.lots) {
       bounds.extend(lot.location);
     }
+    console.log(bounds)
     map.fitBounds(bounds);
     setMap(map);
+    console.log("MAP BOUNDS CALLED")
   };
 
   const onUnmount = useCallback(function callback(map) {
@@ -65,7 +67,8 @@ const MapContainer = (props) => {
         mapContainerStyle={mapStyles}
         zoom={11}
         center={mapCenter(props.lots)}
-        onLoad={onLoad}
+        onLoad={onCenterChanged}
+        onCenterChanged={() => onCenterChanged}
         onUnmount={onUnmount}
       >
         {

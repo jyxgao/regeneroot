@@ -28,7 +28,7 @@
  justify-content: flex-end;
  position: fixed;
  right: 0;
-
+ margin-bottom: 20px;
 }
 
 .map-popup {
