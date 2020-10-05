@@ -14,15 +14,8 @@ const Chat = (props) => {
   };
 
   return (
-    <Pane>
+    <Pane padding={10}>
       <IconButton display="flex" icon={CrossIcon} onClick={onClose} />
-      <Textarea
-        placeholder="Send a message..."
-        onChange={(e) => {
-          setTextbody(e.target.value);
-        }}
-      ></Textarea>
-      <Button onClick={handleMessageSubmit}>Send</Button>
       {props.messages &&
         props.messages.map((message, index) => {
           return (
@@ -41,6 +34,13 @@ const Chat = (props) => {
             </Pane>
           );
         })}
+        <Textarea
+          placeholder="Send a message..."
+          onChange={(e) => {
+            setTextbody(e.target.value);
+          }}
+        ></Textarea>
+        <Button onClick={handleMessageSubmit}>Send</Button>
       {/* {console.log(props.messages)} */}
     </Pane>
   );

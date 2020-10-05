@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import "./LotDetail.css";
 import { Pane, Button, Popover, Position } from "evergreen-ui";
 import LotFormEdit from "components/Lot/LotFormEdit";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, Link } from "react-router-dom";
 import Chat from "../components/Messages/Chat";
 import axios from "axios";
 
@@ -31,15 +31,12 @@ const LotDetail = (props) => {
     return false;
   };
 
-  // console.log("user obj", state.user)
-  // console.log("user login", isLoggedIn(state.user))
   const currentLot = findLot(currentLotId);
   const findLotOwner = (lotId) => {
     const lots = state.lots;
     let lot = lots.filter((lot) => lot.id === lotId);
     return lot;
   };
-  // const isOwned = state.lotsOwnerStatus[currentLotId];
 
   const isOwned = (lotId) => {
     if (state.lotsOwnerStatus[lotId] === "owned") {
@@ -47,16 +44,13 @@ const LotDetail = (props) => {
     }
     return false;
   };
-  // console.log(isOwned(currentLotId))
+
   const getMessages = () => {
     if (isLoggedIn(state.user)) {
-      // console.log("current lot", currentLot);
-      // console.log("owner id", currentLot.owner_id);
       setIsMessaging(true);
       return axios
         .get(`/lots/${currentLotId}/messages/${currentLot.owner_id}`)
         .then((response) => {
-          // console.log("messages", response.data);
           setState((prev) => ({
             ...prev,
             messages: response.data,
@@ -86,15 +80,13 @@ const LotDetail = (props) => {
           username: state.user.username,
           text_body: data.data[0].text_body,
           written_by: state.user.id,
-          created_at: Date.now()
+          created_at: Date.now(),
         };
         const updatedMessages = [...state.messages, newMessage];
-        console.log("before set state", state.messages);
         setState((prev) => ({
           ...prev,
           messages: updatedMessages,
         }));
-        console.log("messages state", state.messages)
       });
   };
 
@@ -118,8 +110,16 @@ const LotDetail = (props) => {
   }
 
   return (
-    <Pane paddingTop={120} className="home--layout">
-      {isMessaging && (
+    <Pane
+      paddingTop={120}
+      className="home--layout"
+      display="flex"
+      flexDirection="column"
+    >
+      <Link to="/mapview">
+        <Button onClick={() => setIsMessaging(false)}>Back to List</Button>
+      </Link>
+      {/* {isMessaging && (
         <Chat
           messages={state.messages}
           user={state.user}
@@ -130,7 +130,7 @@ const LotDetail = (props) => {
           isMessaging={isMessaging}
           setIsMessaging={setIsMessaging}
         />
-      )}
+      )} */}
       {isEditing && (
         <LotFormEdit
           lot={currentLot}
@@ -256,10 +256,21 @@ const LotDetail = (props) => {
               );
             })}
           </div>
+          {isMessaging && (
+            <Chat
+              messages={state.messages}
+              user={state.user}
+              lotId={currentLotId}
+              userId={state.user.id}
+              ownerId={currentLot.owner_id}
+              sendMessage={sendMessage}
+              isMessaging={isMessaging}
+              setIsMessaging={setIsMessaging}
+            />
+          )}
         </section>
       )}
     </Pane>
   );
 };
-
 export default LotDetail;
