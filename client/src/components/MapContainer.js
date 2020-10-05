@@ -1,11 +1,5 @@
 import React, { useState, useCallback } from "react";
-import {
-  GoogleMap,
-  LoadScript,
-  Marker,
-  InfoWindow,
-} from "@react-google-maps/api";
-// import Geocoder from "hooks/Geocoder";
+import { GoogleMap, LoadScript, Marker, InfoWindow, } from "@react-google-maps/api";
 
 const MapContainer = (props) => {
   const [map, setMap] = useState(null);
@@ -23,6 +17,8 @@ const MapContainer = (props) => {
     width: "60vw",
   };
 
+  const zoomVar = 11;
+
   //sets map view bounds for list of queried lots
   const onCenterChanged = function (map) {
     const bounds = new window.google.maps.LatLngBounds();
@@ -31,7 +27,6 @@ const MapContainer = (props) => {
     }
     console.log(bounds)
     map.fitBounds(bounds);
-    setMap(map);
     console.log("MAP BOUNDS CALLED")
   };
 
@@ -65,7 +60,6 @@ const MapContainer = (props) => {
       <GoogleMap
         //map setup
         mapContainerStyle={mapStyles}
-        zoom={11}
         center={mapCenter(props.lots)}
         onLoad={onCenterChanged}
         onCenterChanged={() => onCenterChanged}
@@ -76,11 +70,9 @@ const MapContainer = (props) => {
           props.lots.map((lotItem) => {
             return (
               <Marker
-                key={lotItem.title}
+                key={lotItem.id}
                 position={lotItem.location}
-                onClick={() => {
-                  onSelect(lotItem);
-                }}
+                onClick={() => onSelect(lotItem)}
               />
             );
           })
