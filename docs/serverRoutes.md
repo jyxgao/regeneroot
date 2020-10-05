@@ -56,6 +56,19 @@
 
 <p>&nbsp;</p>
 
+### Messages Routes
+
+1. #### Get all messages by lot id, user id, and other user id AS RENTER/VIEWER
+  > GET /lots/:lot_id/messages/:other_id
+
+2. #### Create new message by lot id, user id, other user id
+  > POST /lots/:lot_id/messages
+
+3. #### Get all messages AS OWNER by lot id and owner id grouped by renter id
+  > GET /lots/:lot_id/messages
+
+<p>&nbsp;</p>
+
 ### User Routes
 
 1. #### Login

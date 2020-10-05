@@ -8,12 +8,21 @@ import {
   MenuIcon,
   IconButton,
   Avatar,
+  Button,
 } from "evergreen-ui";
 import { Link } from "react-router-dom";
 import "./NavBar.css";
 import Logo from "../../assets/logo_color.png";
 
 const NavBar = (props) => {
+  // check if user logged in with email key
+  const isLoggedIn = (obj) => {
+    if (obj.email) {
+      return true;
+    }
+    return false;
+  };
+
   return (
     <Pane
       display="flex"
@@ -120,31 +129,36 @@ const NavBar = (props) => {
           </TabNavigation>
         </Pane>
       </Pane>
-      <Pane display="flex" paddingTop={8}>
-        <Popover
-          trigger="click"
-          content={
-            <Menu>
-              <Menu.Group>
-                <Menu.Item
-                // onSelect={() => toaster.notify("Share")}
-                >
-                  Share...
-                </Menu.Item>
-                <Menu.Item
-                // onSelect={() => toaster.notify("Move")}
-                >
-                  Move...
-                </Menu.Item>
-              </Menu.Group>
-            </Menu>
-          }
-        >
-
-          <Avatar size={40} src={props.user.avatar}></Avatar>
-        </Popover>
-        <Pane paddingLeft={12} paddingTop={12}>{props.user.first_name}</Pane>
-      </Pane>
+      {isLoggedIn(props.user) && (
+        <Pane display="flex" paddingTop={8}>
+          <Popover
+            trigger="click"
+            content={
+              <Menu>
+                <Menu.Group>
+                  <Menu.Item
+                  // onSelect={() => toaster.notify("Share")}
+                  >
+                    Share...
+                  </Menu.Item>
+                  <Menu.Item
+                  // onSelect={() => toaster.notify("Move")}
+                  >
+                    Move...
+                  </Menu.Item>
+                </Menu.Group>
+              </Menu>
+            }
+          >
+            <Avatar size={40} src={props.user.avatar}></Avatar>
+          </Popover>
+          <Pane paddingLeft={12} paddingTop={12}>
+            {props.user.first_name}
+          </Pane>
+          <Button marginLeft={10} marginTop={5} onClick={props.logout}>Logout</Button>
+        </Pane>
+      )}
+      {!isLoggedIn(props.user) && <Button marginLeft={10} marginTop={5} onClick={props.login(1)}>Login</Button>}
     </Pane>
   );
 };

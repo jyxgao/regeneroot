@@ -80,7 +80,7 @@ const LotFormEdit = (props) => {
           .then((data)=> {
             const returnedLotObj = JSON.parse(data.config.data);
             returnedLotObj.id = props.id
-            console.log(returnedLotObj);
+            // console.log(returnedLotObj);
             const updatedLotsArrFunc = function(oldArr, newVal) {
               return oldArr.map(oldVal => oldVal.id === newVal.id ? newVal : oldVal)
             }
@@ -89,7 +89,7 @@ const LotFormEdit = (props) => {
             }))
           })
           .then(()=> {
-            console.log("this is state after setState", props.state);
+            // console.log("this is state after setState", props.state);
             props.setIsEditing(!props.isEditing);
           }
         )

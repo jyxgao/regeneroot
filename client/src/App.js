@@ -8,6 +8,7 @@ import Home from "./containers/Home";
 import MapList from "./containers/MapList";
 import LotDetail from "./containers/LotDetail";
 import CreateLot from "./containers/CreateLot";
+import Login from "./containers/Login";
 import { css } from "@emotion/core";
 import BeatLoader from "react-spinners/BeatLoader";
 
@@ -19,12 +20,14 @@ const App = () => {
     color: #2ec4b6;
   `;
   const [state, setState] = useState({
+    selectedLot: {},
     lots: [],
     user: {},
     owned: [],
     leased: [],
     lotsOwnerStatus: {},
     isLoading: false,
+    messages: [],
   });
 
   useEffect(() => {
@@ -34,37 +37,61 @@ const App = () => {
       axios.get("/users/me"),
       axios.get("/api/lots/owned"),
       axios.get("/api/lots/leased"),
-    ]).then(
-      ([{ data: lots }, { data: user }, { data: owned }, { data: leased }]) => {
-        let lotsOwnerStatus = {};
-        if (lots) {
-          lots.forEach((lot) => {
-            lotsOwnerStatus[lot.id] = null;
-          });
-        }
-        if (owned) {
-          owned.forEach((lot) => {
-            lotsOwnerStatus[lot.id] = "owned";
-          });
-        }
-        if (leased) {
-          leased.forEach((lot) => {
-            lotsOwnerStatus[lot.id] = "leased";
-          });
-        }
+    ])
+      .then(
+        ([
+          { data: lots },
+          { data: user },
+          { data: owned },
+          { data: leased },
+        ]) => {
+          let lotsOwnerStatus = {};
+          if (lots) {
+            lots.forEach((lot) => {
+              lotsOwnerStatus[lot.id] = null;
+            });
+          }
+          if (owned) {
+            owned.forEach((lot) => {
+              lotsOwnerStatus[lot.id] = "owned";
+            });
+          }
+          if (leased) {
+            leased.forEach((lot) => {
+              lotsOwnerStatus[lot.id] = "leased";
+            });
+          }
 
-        setState((prev) => ({
-          ...prev,
-          lots,
-          user,
-          owned,
-          leased,
-          lotsOwnerStatus,
-          isLoading: false,
-        }));
-      }
-    );
+          setState((prev) => ({
+            ...prev,
+            lots,
+            user,
+            owned,
+            leased,
+            lotsOwnerStatus,
+            isLoading: false,
+          }));
+        }
+      )
+      .catch((err) => console.log(err));
   }, []);
+
+  const logout = () => {
+    axios
+      .post("/users/logout")
+      .then((resolve) => {
+        setState((prev) => ({ ...prev, user: {} }));
+      })
+      .catch((err) => console.log(err));
+  };
+  const login = (id) => {
+    // axios.get(`/users/login/${id}`).then((res) => {
+    //   setState((prev) => ({
+    //     user: res.data,
+    //   })).catch((err) => console.log(err));
+    // });
+  };
+
 
   return (
     <div className="App">
@@ -72,7 +99,7 @@ const App = () => {
         <BeatLoader css={override} size={50} color={"#D81159"} loading={true} />
       ) : (
         <Router>
-          <NavBar user={state.user} />
+          <NavBar user={state.user} logout={logout} login={login} />
           <Switch>
             <Route path="/lot/:id">
               <LotDetail state={state} setState={setState} />
@@ -82,6 +109,9 @@ const App = () => {
             </Route>
             <Route path="/new">
               <CreateLot />
+            </Route>
+            <Route path="/login">
+              <Login user={state.user} />
             </Route>
             <Route path="/">
               <Home state={state} setState={setState} />
