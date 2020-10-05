@@ -13,12 +13,12 @@ const ChatBoard = (props) => {
     return true;
   };
 
-  console.log(selectedContact)
-  // const onSelect = (renterId) => {
-  //   setSelectedContact(renterId);
-  //   console.log(selectedContact)
-  //   props.setIsMessaging(true)
-  // };
+  // console.log(selectedContact)
+  const onSelect = (renterId) => {
+    setSelectedContact(renterId);
+    console.log(selectedContact)
+    props.setIsMessaging(true)
+  };
 
   return (
     <Pane>
@@ -38,7 +38,7 @@ const ChatBoard = (props) => {
       {!selectedContact && (
         <Table>
           <Table.Body height={240}>
-            {!isObjEmpty(props.messages) && Object.keys(props.messages).map((key, index) => {
+            {!isObjEmpty(props.ownerMessages) && Object.keys(props.ownerMessages).map((key, index) => {
               return (
                 <Table.Row
                   key={index}
@@ -61,14 +61,15 @@ const ChatBoard = (props) => {
                   {/* <Pane>{props.messages[key].length} messages</Pane> */}
 
                   <Table.TextCell>
-                    {props.messages[key][0].username}
+                    {props.ownerMessages[key][0].username}
                   </Table.TextCell>
                   <Table.TextCell>
-                    {props.messages[key].length} messages
+                    {props.ownerMessages[key].length} messages
                   </Table.TextCell>
                   <Table.TextCell>
-                    <Avatar src={props.messages[key][0].avatar} />
+                    <Avatar src={props.ownerMessages[key][0].avatar} />
                   </Table.TextCell>
+                  {console.log(props.ownerMessages["2"])}
                 </Table.Row>
               );
             })}
@@ -76,7 +77,6 @@ const ChatBoard = (props) => {
         </Table>
       )}
     </Pane>
-    // {console.log(props.messages["2"])}
   );
 };
 

@@ -45,7 +45,6 @@ const LotDetail = (props) => {
 
   const getMessages = () => {
     if (isLoggedIn(state.user) && !isOwner(currentLotId)) {
-      setIsMessaging(true);
       return axios
         .get(`/lots/${currentLotId}/messages/${currentLot.owner_id}`)
         .then((response) => {
@@ -55,12 +54,11 @@ const LotDetail = (props) => {
           }));
         });
     } else if (isLoggedIn(state.user) && isOwner(currentLotId)) {
-      return axios.get(`/lots/${currentLotId}/messages`)
-      .then((response) => {
-        console.log(response.data);
+      return axios.get(`/lots/${currentLotId}/messages`).then((response) => {
+        // console.log(response.data);
         setState((prev) => ({
           ...prev,
-          messages: response.data,
+          ownerMessages: response.data,
         }));
       });
     } else {
@@ -97,7 +95,6 @@ const LotDetail = (props) => {
       });
   };
 
-  
   const history = useHistory();
 
   function onDelete(id) {
@@ -127,18 +124,6 @@ const LotDetail = (props) => {
       <Link to="/mapview">
         <Button onClick={(event) => setIsMessaging(false)}>Back to List</Button>
       </Link>
-      {isCheckingMsgs && (
-        <ChatBoard
-          messages={state.messages}
-          user={state.user}
-          lotId={currentLotId}
-          userId={state.user.id}
-          ownerId={currentLot.owner_id}
-          sendMessage={sendMessage}
-          isMessaging={isMessaging}
-          setIsMessaging={setIsMessaging}
-        />
-      )}
       {isEditing && (
         <LotFormEdit
           lot={currentLot}
@@ -209,7 +194,9 @@ const LotDetail = (props) => {
               {!isOwner(currentLotId) &&
                 isLoggedIn(state.user) &&
                 !isMessaging && (
-                  <Button onClick={getMessages}>Message Owner</Button>
+                  <Button onClick={() => setIsMessaging(true)}>
+                    Message Owner
+                  </Button>
                 )}
               {isOwner(currentLotId) && (
                 <Popover
@@ -240,7 +227,7 @@ const LotDetail = (props) => {
                 </Popover>
               )}
               {isOwner(currentLotId) && isLoggedIn(state.user) && (
-                <Button onClick={(event) => setIsCheckingMsgs(true)}>
+                <Button onClick={(event) => setIsCheckingMsgs(!isCheckingMsgs)}>
                   View my Inbox
                 </Button>
               )}
@@ -269,20 +256,32 @@ const LotDetail = (props) => {
               );
             })}
           </div>
-          {isMessaging && !isOwner(currentLotId) && (
-            <Chat
-              messages={state.messages}
-              user={state.user}
-              lotId={currentLotId}
-              userId={state.user.id}
-              ownerId={currentLot.owner_id}
-              sendMessage={sendMessage}
-              isMessaging={isMessaging}
-              setIsMessaging={setIsMessaging}
-            />
-          )}
         </section>
       )}
+            {isCheckingMsgs && (
+              <ChatBoard
+                ownerMessages={state.ownerMessages}
+                user={state.user}
+                lotId={currentLotId}
+                userId={state.user.id}
+                ownerId={currentLot.owner_id}
+                sendMessage={sendMessage}
+                isMessaging={isMessaging}
+                setIsMessaging={setIsMessaging}
+              />
+            )}
+            {isMessaging && !isOwner(currentLotId) && (
+              <Chat
+                messages={state.messages}
+                user={state.user}
+                lotId={currentLotId}
+                userId={state.user.id}
+                ownerId={currentLot.owner_id}
+                sendMessage={sendMessage}
+                isMessaging={isMessaging}
+                setIsMessaging={setIsMessaging}
+              />
+            )}
     </Pane>
   );
 };

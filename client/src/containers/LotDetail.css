@@ -42,6 +42,7 @@
 
 .LotDetail--image_list_item {
   display: flex;
+  object-fit: cover;
   border-radius: 0.5em;
   width: 23.8vw;
   padding-bottom: 1vw;
