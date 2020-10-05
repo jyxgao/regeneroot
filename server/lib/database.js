@@ -3,6 +3,7 @@ const {
   convertLotToNested,
   addImagesToLot,
   convertCoordsToObject,
+  groupMessagesByRenterId,
 } = require("./helper-functions");
 const { query } = require("./db");
 // get all lots order by most recent
@@ -464,49 +465,78 @@ const getAllMessagesByLotIdAndUserIds = function (userId, otherId, lotId) {
 
 exports.getAllMessagesByLotIdAndUserIds = getAllMessagesByLotIdAndUserIds;
 
-const getMessagesAndOwnerByLotIdUserId = function (lotId, userId) {
+// messages as owner with many renters msgs
+const getAllMessagesByLotIdAsOwner = (lotId, userId) => {
   const queryParams = [lotId, userId];
-  return pool
-    .query(
-      `
-  SELECT *, messages.id AS message_id, users.username AS owner_username
-  FROM messages
-  JOIN users ON messages.owner_id = users.id
-  WHERE messages.lot_id = $1 AND messages.renter_id = $2
-  ORDER BY messages.created_at DESC
-  `,
-      queryParams
-    )
-    .then((res) => {
-      return res.rows;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-exports.getMessagesAndOwnerByLotIdUserId = getMessagesAndOwnerByLotIdUserId;
 
-const getMessagesAndRenterByLotIdUserId = function (lotId, userId) {
-  const queryParams = [lotId, userId];
   return pool
     .query(
       `
-      SELECT *, messages.id AS message_id, users.username AS renter_username
-      FROM messages
-      JOIN users ON messages.renter_id = users.id
-      WHERE messages.lot_id = $1 AND messages.owner_id = $2
-      ORDER BY messages.created_at DESC
-  `,
+    SELECT messages.id AS message_id,
+    owner_id AS owner_id,
+    renter_id AS renter_id,
+    lot_id AS lot_id,
+    written_by AS written_by,
+    users.username AS username,
+    text_body AS text_body,
+    messages.created_at AS created_at,
+    users.avatar AS avatar
+    FROM messages
+    JOIN users ON messages.written_by = users.id
+    WHERE messages.lot_id = $1 AND messages.owner_id = $2
+    ORDER BY messages.created_at ASC
+    `,
       queryParams
     )
     .then((res) => {
-      return res.rows;
-    })
-    .catch((err) => {
-      console.log(err);
+      return groupMessagesByRenterId(res.rows);
     });
 };
-exports.getMessagesAndRenterByLotIdUserId = getMessagesAndRenterByLotIdUserId;
+
+exports.getAllMessagesByLotIdAsOwner = getAllMessagesByLotIdAsOwner;
+// const getMessagesAndOwnerByLotIdUserId = function (lotId, userId) {
+//   const queryParams = [lotId, userId];
+//   return pool
+//     .query(
+//       `
+//   SELECT *, messages.id AS message_id, users.username AS owner_username
+//   FROM messages
+//   JOIN users ON messages.owner_id = users.id
+//   WHERE messages.lot_id = $1 AND messages.renter_id = $2
+//   ORDER BY messages.created_at DESC
+//   `,
+//       queryParams
+//     )
+//     .then((res) => {
+//       return res.rows;
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// };
+// exports.getMessagesAndOwnerByLotIdUserId = getMessagesAndOwnerByLotIdUserId;
+
+// const getMessagesAndRenterByLotIdUserId = function (lotId, userId) {
+//   const queryParams = [lotId, userId];
+//   return pool
+//     .query(
+//       `
+//       SELECT *, messages.id AS message_id, users.username AS renter_username
+//       FROM messages
+//       JOIN users ON messages.renter_id = users.id
+//       WHERE messages.lot_id = $1 AND messages.owner_id = $2
+//       ORDER BY messages.created_at DESC
+//   `,
+//       queryParams
+//     )
+//     .then((res) => {
+//       return res.rows;
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// };
+// exports.getMessagesAndRenterByLotIdUserId = getMessagesAndRenterByLotIdUserId;
 
 const addNewMessage = function (lotId, userId, otherId, text) {
   console.log("submitting message...");

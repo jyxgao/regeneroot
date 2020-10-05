@@ -70,7 +70,6 @@ const convertCoordsToObject = function (lots) {
       const newLong = Number(lot.long);
       lot.location = { lat: newLat, lng: newLong };
 
-
       // iterate through keys of lot
       for (let key in lot) {
         // eliminate lat and long keys by copying the others
@@ -86,3 +85,23 @@ const convertCoordsToObject = function (lots) {
 };
 
 exports.convertCoordsToObject = convertCoordsToObject;
+
+const groupMessagesByRenterId = function (messages) {
+  // input: [{renter_id: number, text: ... etc}, {}, {}...]
+  //convert into { renter_id: [{msgObj}, {}, {}...],
+  // retner_id: [{msgObj}, {}, {}...],
+  //              }
+  let convertedMessages = {};
+  for (let message of messages) {
+    // if renter id not in convertedMessages obj, add the key value
+    if (!convertedMessages[message.renter_id]) {
+      convertedMessages[message.renter_id] = [message];
+      // else if renter id is found, push the message
+    } else {
+      convertedMessages[message.renter_id].push(message);
+    }
+  }
+  return convertedMessages;
+};
+
+exports.groupMessagesByRenterId = groupMessagesByRenterId;
