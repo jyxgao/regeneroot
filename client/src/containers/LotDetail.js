@@ -98,15 +98,18 @@ const LotDetail = (props) => {
   const history = useHistory();
 
   function onDelete(id) {
-    return axios.post(`/api/lots/${id}/delete`).then((res) => {
-      const lots = state.lots.filter((item) => item.id !== id);
-      setState((prev) => ({
-        ...prev,
-        lots,
-      }));
-      let path = `/`;
-      history.push(path);
-    });
+    return axios
+      .post(`/api/lots/${id}/delete`)
+      .then((res) => {
+        const lots = state.lots.filter((item) => item.id !== id);
+        setState((prev) => ({
+          ...prev,
+          lots,
+        }));
+        let path = `/`;
+        history.push(path);
+      })
+      .catch((err) => console.log(err));
   }
 
   if (!currentLot) {
