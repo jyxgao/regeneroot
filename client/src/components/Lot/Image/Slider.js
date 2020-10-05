@@ -12,7 +12,7 @@ const Slider = (props) => {
   return (
     <AliceCarousel className="slider-carousel" mouseTrackingEnabled={true} responsive={responsive}>
       {props.urls.map((url) => (
-        <img src={url} alt="lot-img" className="slider--lot-img" onDragStart={handleOnDragStart} />
+        <img key={url} src={url} alt="lot-img" className="slider--lot-img" onDragStart={handleOnDragStart} />
       ))}
     </AliceCarousel>
   );
