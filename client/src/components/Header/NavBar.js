@@ -10,18 +10,18 @@ import {
   Avatar,
   Button,
 } from "evergreen-ui";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import "./NavBar.css";
 import Logo from "../../assets/logo_color.png";
 
 const NavBar = (props) => {
   // check if user logged in with email key
-  const isLoggedIn = (obj) => {
-    if (obj.email) {
-      return true;
-    }
-    return false;
-  };
+  // const isLoggedIn = (obj) => {
+  //   if (obj.email) {
+  //     return true;
+  //   }
+  //   return false;
+  // };
 
   return (
     <Pane
@@ -129,7 +129,9 @@ const NavBar = (props) => {
           </TabNavigation>
         </Pane>
       </Pane>
-      {isLoggedIn(props.user) && (
+      {console.log("navbar user", props.user)}
+      {console.log("isLoggedIn state", props.loggedin)}
+      {props.loggedin && (
         <Pane display="flex" paddingTop={8}>
           <Popover
             trigger="click"
@@ -155,10 +157,18 @@ const NavBar = (props) => {
           <Pane paddingLeft={12} paddingTop={12}>
             {props.user.first_name}
           </Pane>
-          <Button marginLeft={10} marginTop={5} onClick={props.logout}>Logout</Button>
+          <Button marginLeft={10} marginTop={5} onClick={props.logout}>
+            Logout
+          </Button>
         </Pane>
       )}
-      {!isLoggedIn(props.user) && <Button marginLeft={10} marginTop={5} onClick={props.login(1)}>Login</Button>}
+      {!props.loggedin && (
+        <Link to="/login">
+          <Button marginLeft={10} marginTop={5}>
+            Login
+          </Button>
+        </Link>
+      )}
     </Pane>
   );
 };

@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  useHistory,
+} from "react-router-dom";
 import axios from "axios";
 import "./App.css";
 import NavBar from "./components/Header/NavBar";
@@ -28,7 +33,10 @@ const App = () => {
     lotsOwnerStatus: {},
     isLoading: false,
     messages: [],
+    loggedin: false,
   });
+
+  const history = useHistory();
 
   useEffect(() => {
     setState({ isLoading: true });
@@ -70,6 +78,7 @@ const App = () => {
             leased,
             lotsOwnerStatus,
             isLoading: false,
+            loggedin: user.email ? true : false,
           }));
         }
       )
@@ -80,18 +89,34 @@ const App = () => {
     axios
       .post("/users/logout")
       .then((resolve) => {
-        setState((prev) => ({ ...prev, user: {} }));
+        setState((prev) => ({ ...prev, user: {}, loggedin: false }));
       })
       .catch((err) => console.log(err));
   };
-  const login = (id) => {
-    // axios.get(`/users/login/${id}`).then((res) => {
-    //   setState((prev) => ({
-    //     user: res.data,
-    //   })).catch((err) => console.log(err));
-    // });
-  };
+  const login = (email) => {
+    return axios
+      .post(`/users/login`, { email: email })
+      .then((data) => {
+        if (data.data.isLoggedIn) {
+          setState((prev) => ({
+            ...prev,
+            loggedin: true,
 
+          }));
+
+        
+          // let path = `/`;
+          // history.push(path);
+        }
+        // console.log(data);
+      }).then(res => {
+        console.log('state after setState', state.loggedin)
+
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div className="App">
@@ -99,7 +124,12 @@ const App = () => {
         <BeatLoader css={override} size={50} color={"#D81159"} loading={true} />
       ) : (
         <Router>
-          <NavBar user={state.user} logout={logout} login={login} />
+          {console.log("app level isloggedin",state.loggedin)}
+          <NavBar
+            user={state.user}
+            logout={logout}
+            loggedin={state.loggedin}
+          />
           <Switch>
             <Route path="/lot/:id">
               <LotDetail state={state} setState={setState} />
@@ -111,7 +141,7 @@ const App = () => {
               <CreateLot />
             </Route>
             <Route path="/login">
-              <Login user={state.user} />
+              <Login user={state.user} login={login} />
             </Route>
             <Route path="/">
               <Home state={state} setState={setState} />
