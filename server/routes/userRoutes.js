@@ -4,7 +4,7 @@ const router = express.Router();
 module.exports = function (router, database) {
   router.get("/login/:id", (req, res) => {
     req.session.user_id = req.params.id;
-    res.redirect("/");
+    res.send("Logged in");
   });
 
   router.get("/me", (req, res) => {

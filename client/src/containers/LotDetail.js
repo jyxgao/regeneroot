@@ -1,19 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./LotDetail.css";
 import { Pane, Button, Popover, Position } from "evergreen-ui";
 import LotFormEdit from "components/Lot/LotFormEdit";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, Link } from "react-router-dom";
+import ChatBoard from "../components/Messages/ChatBoard";
+import Chat from "../components/Messages/Chat";
 import axios from "axios";
 
 const LotDetail = (props) => {
-  const [isEditing, setIsEditing] = React.useState(false);
-
-  const [isDeleting, setIsDeleting] = React.useState(false);
-
   const { state, setState } = props;
-
+  const [isEditing, setIsEditing] = React.useState(false);
+  const [isDeleting, setIsDeleting] = React.useState(false);
+  const [isMessaging, setIsMessaging] = React.useState(false);
+  // for owner:
+  const [isCheckingMsgs, setIsCheckingMsgs] = React.useState(false);
   const params = useParams();
-
   const currentLotId = Number(params.id);
 
   const findLot = function (lotId) {
@@ -25,11 +26,77 @@ const LotDetail = (props) => {
     }
   };
 
+  // check if user logged in with email key
+  const isLoggedIn = (obj) => {
+    if (obj.email) {
+      return true;
+    }
+    return false;
+  };
+
   const currentLot = findLot(currentLotId);
 
-  const isOwned = state.lotsOwnerStatus[currentLotId];
+  const isOwner = (lotId) => {
+    if (state.lotsOwnerStatus[lotId] === "owned") {
+      return true;
+    }
+    return false;
+  };
+
+  const getMessages = () => {
+    if (isLoggedIn(state.user) && !isOwner(currentLotId)) {
+      return axios
+        .get(`/lots/${currentLotId}/messages/${currentLot.owner_id}`)
+        .then((response) => {
+          setState((prev) => ({
+            ...prev,
+            messages: response.data,
+          }));
+        });
+    } else if (isLoggedIn(state.user) && isOwner(currentLotId)) {
+      return axios.get(`/lots/${currentLotId}/messages`).then((response) => {
+        // console.log(response.data);
+        setState((prev) => ({
+          ...prev,
+          ownerMessages: response.data,
+        }));
+      });
+    } else {
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    getMessages();
+  }, [state.user]);
+
+  const sendMessage = (text) => {
+    return axios
+      .post(`/lots/${currentLotId}/messages`, {
+        text_body: text,
+        other_id: currentLot.owner_id,
+      })
+      .then((data) => {
+        const newMessage = {
+          avatar: state.user.avatar,
+          lot_id: currentLotId,
+          owner_id: currentLot.owner_id,
+          renter_id: state.user.id,
+          username: state.user.username,
+          text_body: data.data[0].text_body,
+          written_by: state.user.id,
+          created_at: Date.now(),
+        };
+        const updatedMessages = [...state.messages, newMessage];
+        setState((prev) => ({
+          ...prev,
+          messages: updatedMessages,
+        }));
+      });
+  };
 
   const history = useHistory();
+
   function onDelete(id) {
     return axios
       .post(`/api/lots/${id}/delete`)
@@ -51,22 +118,25 @@ const LotDetail = (props) => {
   }
 
   return (
-    <main className="home--layout">
-      <Pane>
-        <nav className="navbar"></nav>
-      </Pane>
-      <div>
-        {isEditing && (
-          <LotFormEdit
-            lot={currentLot}
-            setIsEditing={setIsEditing}
-            isEditing={isEditing}
-            state={state}
-            setState={setState}
-            id={currentLotId}
-          />
-        )}
-      </div>
+    <Pane
+      paddingTop={120}
+      className="home--layout"
+      display="flex"
+      flexDirection="column"
+    >
+      <Link to="/mapview">
+        <Button onClick={(event) => setIsMessaging(false)}>Back to List</Button>
+      </Link>
+      {isEditing && (
+        <LotFormEdit
+          lot={currentLot}
+          setIsEditing={setIsEditing}
+          isEditing={isEditing}
+          state={state}
+          setState={setState}
+          id={currentLotId}
+        />
+      )}
       {!isEditing && (
         <section className="LotDetail_layout">
           <div className="LotDetail--detail_group">
@@ -115,16 +185,23 @@ const LotDetail = (props) => {
               </div>
             </div>
             <div>
-              {isOwned && (
+              {isOwner(currentLotId) && (
                 <Button onClick={(event) => setIsEditing(!isEditing)}>
                   Edit
                 </Button>
               )}
               {/* {
-            isOwned && (
+            isOwner && (
             <Button onClick={(event) => setIsDeleting(!isDeleting)}>Delete</Button>
              )} */}
-              {isOwned && (
+              {!isOwner(currentLotId) &&
+                isLoggedIn(state.user) &&
+                !isMessaging && (
+                  <Button onClick={() => setIsMessaging(true)}>
+                    Message Owner
+                  </Button>
+                )}
+              {isOwner(currentLotId) && (
                 <Popover
                   content={({ close }) => (
                     <Pane
@@ -152,6 +229,11 @@ const LotDetail = (props) => {
                   <Button>Delete</Button>
                 </Popover>
               )}
+              {isOwner(currentLotId) && isLoggedIn(state.user) && (
+                <Button onClick={(event) => setIsCheckingMsgs(!isCheckingMsgs)}>
+                  View my Inbox
+                </Button>
+              )}
               {/* {currentLot.logedin && <Button>Delete</Button>} */}
             </div>
             <div className="LotDetail--description">
@@ -169,6 +251,7 @@ const LotDetail = (props) => {
             {currentLot.images.map((image) => {
               return (
                 <img
+                  key={image}
                   className="LotDetail--image_list_item"
                   src={image}
                   alt="lot-img"
@@ -176,18 +259,33 @@ const LotDetail = (props) => {
               );
             })}
           </div>
-          {/* {currentLot.isOwned &&
-          (
-          <div className="App">
-          <ImageList
-            imageUrls={currentLot.images}
-          />
-        </div>
-          )} */}
         </section>
       )}
-    </main>
+            {isCheckingMsgs && (
+              <ChatBoard
+                ownerMessages={state.ownerMessages}
+                user={state.user}
+                lotId={currentLotId}
+                userId={state.user.id}
+                ownerId={currentLot.owner_id}
+                sendMessage={sendMessage}
+                isMessaging={isMessaging}
+                setIsMessaging={setIsMessaging}
+              />
+            )}
+            {isMessaging && !isOwner(currentLotId) && (
+              <Chat
+                messages={state.messages}
+                user={state.user}
+                lotId={currentLotId}
+                userId={state.user.id}
+                ownerId={currentLot.owner_id}
+                sendMessage={sendMessage}
+                isMessaging={isMessaging}
+                setIsMessaging={setIsMessaging}
+              />
+            )}
+    </Pane>
   );
 };
-
 export default LotDetail;

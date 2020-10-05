@@ -48,9 +48,9 @@ export default function Geocoder(lotObj) {
   
   const addressString = function(lotObj) {
     const addressEsc = encodeURI(lotObj.street_address + " " + lotObj.city + " " + lotObj.country + " " + lotObj.post_code);
-    console.log(addressEsc);
+    // console.log(addressEsc);
     const geoRequestStr = `https://maps.googleapis.com/maps/api/geocode/json?address=${addressEsc}&key=${APIkey}`;
-    console.log(geoRequestStr);
+    // console.log(geoRequestStr);
     return geoRequestStr;
   }
 
@@ -58,7 +58,7 @@ export default function Geocoder(lotObj) {
     axios.get(addressString(lotObj))
       .then((geoObj) => {
         // debugger
-        console.log(geoObj);
+        // console.log(geoObj);
       setState(prev => ({ ...prev, lat: {...geoObj.data.results[0].geometry.location.lat}, prev, long: {...geoObj.data.results[0].geometry.location.lng}}));
     });
   }, []);
