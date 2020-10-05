@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 module.exports = function (router, database) {
-  // get all messages by lot and user Ids
+  // get all messages by lot and user Ids as renter
   router.get("/:lot_id/messages/:other_id", (req, res) => {
     const lotId = req.params.lot_id;
     const userId = req.session.user_id;
@@ -25,7 +25,7 @@ module.exports = function (router, database) {
       });
   });
 
-  // get all messages for owner by lot id
+  // get all messages by lot id as owner
   router.get("/:lot_id/messages", (req, res) => {
     const lotId = req.params.lot_id;
     // owner id:
