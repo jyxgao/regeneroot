@@ -97,6 +97,7 @@ const LotDetail = (props) => {
       });
   };
 
+  
   const history = useHistory();
 
   function onDelete(id) {
