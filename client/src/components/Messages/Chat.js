@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Pane, Textarea, IconButton, CrossIcon, Button } from "evergreen-ui";
-import axios from "axios";
 
 const Chat = (props) => {
   const [textbody, setTextbody] = useState("");

@@ -3,6 +3,7 @@ import "./LotDetail.css";
 import { Pane, Button, Popover, Position } from "evergreen-ui";
 import LotFormEdit from "components/Lot/LotFormEdit";
 import { useParams, useHistory, Link } from "react-router-dom";
+import ChatBoard from "../components/Messages/ChatBoard";
 import Chat from "../components/Messages/Chat";
 import axios from "axios";
 
@@ -11,6 +12,8 @@ const LotDetail = (props) => {
   const [isEditing, setIsEditing] = React.useState(false);
   const [isDeleting, setIsDeleting] = React.useState(false);
   const [isMessaging, setIsMessaging] = React.useState(false);
+  // for owner:
+  const [isCheckingMsgs, setIsCheckingMsgs] = React.useState(false);
   const params = useParams();
   const currentLotId = Number(params.id);
 
@@ -32,13 +35,8 @@ const LotDetail = (props) => {
   };
 
   const currentLot = findLot(currentLotId);
-  const findLotOwner = (lotId) => {
-    const lots = state.lots;
-    let lot = lots.filter((lot) => lot.id === lotId);
-    return lot;
-  };
 
-  const isOwned = (lotId) => {
+  const isOwner = (lotId) => {
     if (state.lotsOwnerStatus[lotId] === "owned") {
       return true;
     }
@@ -46,7 +44,7 @@ const LotDetail = (props) => {
   };
 
   const getMessages = () => {
-    if (isLoggedIn(state.user)) {
+    if (isLoggedIn(state.user) && !isOwner(currentLotId)) {
       setIsMessaging(true);
       return axios
         .get(`/lots/${currentLotId}/messages/${currentLot.owner_id}`)
@@ -56,6 +54,15 @@ const LotDetail = (props) => {
             messages: response.data,
           }));
         });
+    } else if (isLoggedIn(state.user) && isOwner(currentLotId)) {
+      return axios.get(`/lots/${currentLotId}/messages`)
+      .then((response) => {
+        console.log(response.data);
+        setState((prev) => ({
+          ...prev,
+          messages: response.data,
+        }));
+      });
     } else {
       return null;
     }
@@ -117,10 +124,10 @@ const LotDetail = (props) => {
       flexDirection="column"
     >
       <Link to="/mapview">
-        <Button onClick={() => setIsMessaging(false)}>Back to List</Button>
+        <Button onClick={(event) => setIsMessaging(false)}>Back to List</Button>
       </Link>
-      {/* {isMessaging && (
-        <Chat
+      {isCheckingMsgs && (
+        <ChatBoard
           messages={state.messages}
           user={state.user}
           lotId={currentLotId}
@@ -130,7 +137,7 @@ const LotDetail = (props) => {
           isMessaging={isMessaging}
           setIsMessaging={setIsMessaging}
         />
-      )} */}
+      )}
       {isEditing && (
         <LotFormEdit
           lot={currentLot}
@@ -189,21 +196,21 @@ const LotDetail = (props) => {
               </div>
             </div>
             <div>
-              {isOwned(currentLotId) && (
+              {isOwner(currentLotId) && (
                 <Button onClick={(event) => setIsEditing(!isEditing)}>
                   Edit
                 </Button>
               )}
               {/* {
-            isOwned && (
+            isOwner && (
             <Button onClick={(event) => setIsDeleting(!isDeleting)}>Delete</Button>
              )} */}
-              {!isOwned(currentLotId) &&
+              {!isOwner(currentLotId) &&
                 isLoggedIn(state.user) &&
                 !isMessaging && (
                   <Button onClick={getMessages}>Message Owner</Button>
                 )}
-              {isOwned(currentLotId) && (
+              {isOwner(currentLotId) && (
                 <Popover
                   content={({ close }) => (
                     <Pane
@@ -231,6 +238,11 @@ const LotDetail = (props) => {
                   <Button>Delete</Button>
                 </Popover>
               )}
+              {isOwner(currentLotId) && isLoggedIn(state.user) && (
+                <Button onClick={(event) => setIsCheckingMsgs(true)}>
+                  View my Inbox
+                </Button>
+              )}
               {/* {currentLot.logedin && <Button>Delete</Button>} */}
             </div>
             <div className="LotDetail--description">
@@ -256,7 +268,7 @@ const LotDetail = (props) => {
               );
             })}
           </div>
-          {isMessaging && (
+          {isMessaging && !isOwner(currentLotId) && (
             <Chat
               messages={state.messages}
               user={state.user}
