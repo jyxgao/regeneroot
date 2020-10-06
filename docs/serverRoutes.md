@@ -72,8 +72,8 @@
 ### User Routes
 
 1. #### Login
-    Login with a userId (integer), sets cookie session 
-    > GET  /users/login/${userId}
+    Login with a user email, sets cookie session 
+    > POST /users/login
 
 2. #### Logout
     Logout and remove cookie session

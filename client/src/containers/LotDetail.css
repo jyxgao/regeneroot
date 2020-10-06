@@ -44,6 +44,8 @@
   flex-wrap: wrap;
   padding-top: 20px;
   padding-right: 1vw;
+  height: 30vw;
+  /* padding-top: 5vw; */
 }
 
 .LotDetail--image_list_item {
@@ -62,6 +64,7 @@
   justify-content: space-between;
   margin-top: 15px;
   margin-bottom: 10px;
+  /* font-size: 1em; */
 }
 
 .LotDetail--title {
@@ -80,8 +83,8 @@
 
 .LotDetail--subtitle {
   color: #425A70;
-  font-size:30px;
-  font-weight: 200;
+  font-size: 1.5em;
+  font-weight: 500;
   margin-top: 20px;
   margin-bottom: 10px;
   /* border-bottom: 1px solid #ccc; */
@@ -101,7 +104,7 @@
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 15px;
-  /* border-bottom: 1px solid #ccc; */
+  padding-top: 1em;
 }
 
 .LotDetail--pic_with_titles {
@@ -118,10 +121,9 @@
 
 .LotDetail--edit_buttons {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
-  border: 1px solid #ccc;
-  border-radius: 3%;
+  padding-top: 0.8em;
   overflow: hidden;
   position: relative;
 }
@@ -160,6 +162,64 @@
 
 }
 
+.button--message-owner {
+  color: #FFFFFF;
+  background-color: #D81159;
+  background-image: none;
+}
+
+.button--message-owner:hover {
+  color:#D81159;
+  background-color: #FFFFFF;
+  background-image:none;
+}
+
+.button--edit {
+  color: #FFFFFF;
+  background-color: #D81159;
+  background-image: none;
+}
+
+.button--edit:hover {
+  color:#D81159;
+  background-color: #FFFFFF;
+  background-image:none;
+}
+.button--delete {
+  color: #FFFFFF;
+  background-color: #D81159;
+  background-image: none;
+}
+
+.button--delete:hover {
+  color:#D81159;
+  background-color: #FFFFFF;
+  background-image:none;
+}
+
+.button--owner-inbox {
+  color: #FFFFFF;
+  background-color: #D81159;
+  background-image: none;
+}
+
+.button--owner-inbox:hover {
+  color:#D81159;
+  background-color: #FFFFFF;
+  background-image:none;
+}
+
+.button--back {
+  color: #FFFFFF;
+  background-color: #D81159;
+  background-image: none;
+}
+
+.button--back:hover {
+  color:#D81159;
+  background-color: #FFFFFF;
+  background-image:none;
+}
 /* .hide {
   display:none;
   visibility: hidden;

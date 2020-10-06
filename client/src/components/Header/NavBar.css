@@ -31,3 +31,27 @@
   padding: 0 0.3rem;
   cursor: pointer;
 }
+
+.button--logout {
+  color: #FFFFFF;
+  background-color: #D81159;
+  background-image: none;
+}
+
+.button--logout:hover {
+  color:#D81159;
+  background-color: #FFFFFF;
+  background-image:none;
+}
+
+.button--login {
+  color: #FFFFFF;
+  background-color: #D81159;
+  background-image: none;
+}
+
+.button--login:hover {
+  color:#D81159;
+  background-color: #FFFFFF;
+  background-image:none;
+}

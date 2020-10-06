@@ -19,7 +19,7 @@ exports.convertLotToNested = convertLotToNested;
 
 const addImagesToLot = function (lots) {
   let lotIDs = [];
-
+  console.log("lots", lots)
   for (let lot of lots) {
     const lotId = lot.lot_id;
     lotIDs.push(lotId);
@@ -38,20 +38,22 @@ const addImagesToLot = function (lots) {
       .then((res) => {
         let lotsWithImages = [];
         for (let lot of lots) {
+
           for (let image of res.rows) {
             if (lot.lot_id === image.lot_id) {
               // if lot does not have images key, create
               if (!lot.images) {
                 lot.images = [image.image_url];
-                lotsWithImages.push(lot);
+                // lotsWithImages.push(lot);
               } else {
                 lot.images.push(image.image_url);
-                lotsWithImages.push(lot);
               }
             }
           }
+          lotsWithImages.push(lot);
         }
         lotsWithImages = [...new Set(lotsWithImages)];
+        console.log("lots with images", lotsWithImages)
         return lotsWithImages;
       });
   }

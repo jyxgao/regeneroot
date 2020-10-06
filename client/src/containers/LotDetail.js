@@ -1,7 +1,16 @@
 import React, { useEffect } from "react";
 import classnames from "classnames";
 import "./LotDetail.css";
-import { Pane, Button, Popover, Position, UnorderedList, ConfirmIcon, ListItem, Text } from "evergreen-ui";
+import {
+  Pane,
+  Button,
+  Popover,
+  Position,
+  UnorderedList,
+  ConfirmIcon,
+  ListItem,
+  Text,
+} from "evergreen-ui";
 import LotFormEdit from "components/Lot/LotFormEdit";
 import LotCheckout from "components/Lot/LotCheckout";
 import { useParams, useHistory, Link } from "react-router-dom";
@@ -136,9 +145,15 @@ const LotDetail = (props) => {
       flexDirection="column"
     >
       <div className="LotDetail--backButton">
-      <Link to="/mapview" >
-        <Button  onClick={(event) => setIsMessaging(false)}>Back to List</Button>
-      </Link>
+        <Link to="/mapview">
+          <Button
+            className="button--back"
+            fontFamily="Poppins"
+            onClick={(event) => setIsMessaging(false)}
+          >
+            Back to List
+          </Button>
+        </Link>
       </div>
       {isEditing && (
         <LotFormEdit
@@ -163,72 +178,77 @@ const LotDetail = (props) => {
       {!isEditing && !isLeasing && (
         <section className="LotDetail_layout">
           <div className="LotDetail--detail_group">
-           
-              <div className="LotDetail--confirm_delete">
-                {isDeleting && (
-                  <Popover
-                    content={({ close, destroy }) => (
-                      <Pane
-                        width={320}
-                        height={320}
-                        paddingX={40}
-                        display="flex"
-                        alignItems="center"
-                        justifyContent="center"
-                        flexDirection="column"
+            <div className="LotDetail--confirm_delete">
+              {isDeleting && (
+                <Popover
+                  content={({ close, destroy }) => (
+                    <Pane
+                      width={320}
+                      height={320}
+                      paddingX={40}
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                      flexDirection="column"
+                    >
+                      <Button onClick={close}>Cancel</Button>
+                      <Button
+                        intent="danger"
+                        appearance="primary"
+                        onClick={() => {
+                          onDelete(currentLotId);
+                        }}
                       >
-                        <Button onClick={close}>Cancel</Button>
-                        <Button intent="danger" appearance="primary"
-                          onClick={() => {
-                            onDelete(currentLotId);
-                          }}
-                        >
-                          Confirm
-                        </Button>
-                      </Pane>
-                    )}
-                  >
-                    <Button>Trigger Popover</Button>
-                  </Popover>
-                )}
-              </div>
+                        Confirm
+                      </Button>
+                    </Pane>
+                  )}
+                >
+                  <Button>Trigger Popover</Button>
+                </Popover>
+              )}
+            </div>
 
             <div className={LotDetailClass}>
               <div className="LotDetail--title_block">
-                  <div>
-                    <div className="LotDetail--title">{currentLot.title}</div>
-                  </div>
-                  <div className="LotDetail--price">
-                      {`$${currentLot.cost_per_month}/mo`}
-                  </div>
+                <div>
+                  <div className="LotDetail--title">{currentLot.title}</div>
+                </div>
+                <div className="LotDetail--price">
+                  {`$${currentLot.cost_per_month}/mo`}
+                </div>
               </div>
               <div>
-                  <img
-                    className="LotDetail--main_image"
-                    src={currentLot.images[0]}
-                    alt="lot-img"
-                  ></img>
+                <img
+                  className="LotDetail--main_image"
+                  src={currentLot.images && currentLot.images[0]}
+                  alt="lot-img"
+                ></img>
               </div>
-              {props.lotOwnerStatus === "owned" && (
-                <div className="smallLot--top-right-owned">MY LOT</div>
-               )}
-              {props.lotOwnerStatus === "leased" && (
-                <div className="smallLot--top-right-leased">RENTING</div>
-              )} 
             </div>
 
             <div className="LotDetail--subtitle_group">
               <div className="LotDetail--subtitle">{`${currentLot.size} sf ${currentLot.lot_type} lot`}</div>
-              {/* <div className="LotDetail--edit_buttons"> */}
+              <div className="LotDetail--edit_buttons">
                 {isOwner(currentLotId) && (
-                  <Button onClick={(event) => setIsEditing(!isEditing)}>
+                  <Button
+                    margin={5}
+                    fontFamily="Poppins"
+                    className="button--edit"
+                    onClick={(event) => setIsEditing(!isEditing)}
+                  >
                     Edit
                   </Button>
                 )}
                 {!isOwner(currentLotId) &&
                   isLoggedIn(state.user) &&
                   !isMessaging && (
-                    <Button zIndex={3} onClick={() => setIsMessaging(true)}>
+                    <Button
+                      margin={5}
+                      className="button--message-owner"
+                      fontFamily="Poppins"
+                      onClick={() => setIsMessaging(true)}
+                    >
                       Message Owner
                     </Button>
                   )}
@@ -245,7 +265,9 @@ const LotDetail = (props) => {
                         alignItems="center"
                       >
                         <Text>Are you sure you want to delete?</Text>
-                        <Button intent="danger" appearance="primary"
+                        <Button
+                          intent="danger"
+                          appearance="primary"
                           onClick={() => {
                             onDelete(currentLotId);
                           }}
@@ -258,38 +280,60 @@ const LotDetail = (props) => {
                     shouldCloseOnExternalClick={false}
                     position={Position.TOP_LEFT}
                   >
-                    <Button intent="danger">Delete</Button>
+                    <Button
+                      margin={5}
+                      className="button--delete"
+                      fontFamily="Poppins"
+                      intent="danger"
+                    >
+                      Delete
+                    </Button>
                   </Popover>
                 )}
-              {/* </div> */}
-              {isOwner(currentLotId) && isLoggedIn(state.user) && (
-                <Button onClick={(event) => setIsCheckingMsgs(!isCheckingMsgs)}>
-                  View my Inbox
-                </Button>
-              )}
-              {!isOwner(currentLotId) && (
-                  <Button onClick={(event) => setIsLeasing(!isLeasing)}>
+                {isOwner(currentLotId) && isLoggedIn(state.user) && (
+                  <Button
+                    fontFamily="Poppins"
+                    className="button--owner-inbox"
+                    margin={5}
+                    onClick={(event) => setIsCheckingMsgs(!isCheckingMsgs)}
+                  >
+                    Inbox
+                  </Button>
+                )}
+                {!isOwner(currentLotId) && (
+                  <Button 
+                    fontFamily="Poppins"
+                    className="button--owner-inbox"
+                    margin={5}
+                    onClick={(event) => setIsLeasing(!isLeasing)}
+                  >
                     Lease Now!
                   </Button>
                 )}
-              {/* {currentLot.logedin && <Button>Delete</Button>} */}
+              </div>
             </div>
             <div className="LotDetail--description">
               {currentLot.lot_description}
             </div>
-            <UnorderedList
-              size={300}
-              icon={ConfirmIcon}
-              iconColor="success"  
-            >
-              <ListItem size={300}>{`condition rating: ${currentLot.condition_rating}`}</ListItem>
-              <ListItem size={300}>{currentLot.is_irrigated}</ListItem>
-              <ListItem size={300}>{`Suggested term: ${currentLot.suggested_term} months`}</ListItem>
-              <ListItem size={300}>{`Available date: ${currentLot.available_date}`}</ListItem>
+            <UnorderedList size={300} icon={ConfirmIcon} iconColor="success">
+              <ListItem
+                size={300}
+              >{`condition rating: ${currentLot.condition_rating}`}</ListItem>
+              <ListItem size={300}>
+                {currentLot.is_irrigated
+                  ? `Has Access to Irrigation`
+                  : `Does not have Access to Irrigation`}
+              </ListItem>
+              <ListItem
+                size={300}
+              >{`Suggested term: ${currentLot.suggested_term} months`}</ListItem>
+              <ListItem
+                size={300}
+              >{`Available date: ${currentLot.available_date}`}</ListItem>
             </UnorderedList>
           </div>
           <div className="LotDetail--image_list">
-            {currentLot.images.map((image) => {
+            {currentLot.images && currentLot.images.map((image) => {
               return (
                 <img
                   key={image}
@@ -302,30 +346,30 @@ const LotDetail = (props) => {
           </div>
         </section>
       )}
-            {isCheckingMsgs && (
-              <ChatBoard
-                ownerMessages={state.ownerMessages}
-                user={state.user}
-                lotId={currentLotId}
-                userId={state.user.id}
-                ownerId={currentLot.owner_id}
-                sendMessage={sendMessage}
-                isMessaging={isMessaging}
-                setIsMessaging={setIsMessaging}
-              />
-            )}
-            {isMessaging && !isOwner(currentLotId) && (
-              <Chat
-                messages={state.messages}
-                user={state.user}
-                lotId={currentLotId}
-                userId={state.user.id}
-                ownerId={currentLot.owner_id}
-                sendMessage={sendMessage}
-                isMessaging={isMessaging}
-                setIsMessaging={setIsMessaging}
-              />
-            )}
+      {isCheckingMsgs && (
+        <ChatBoard
+          ownerMessages={state.ownerMessages}
+          user={state.user}
+          lotId={currentLotId}
+          userId={state.user.id}
+          ownerId={currentLot.owner_id}
+          sendMessage={sendMessage}
+          isMessaging={isMessaging}
+          setIsMessaging={setIsMessaging}
+        />
+      )}
+      {isMessaging && !isOwner(currentLotId) && (
+        <Chat
+          messages={state.messages}
+          user={state.user}
+          lotId={currentLotId}
+          userId={state.user.id}
+          ownerId={currentLot.owner_id}
+          sendMessage={sendMessage}
+          isMessaging={isMessaging}
+          setIsMessaging={setIsMessaging}
+        />
+      )}
     </Pane>
   );
 };
