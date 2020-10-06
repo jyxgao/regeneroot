@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  useHistory,
 } from "react-router-dom";
 import axios from "axios";
 import "./App.css";
@@ -92,6 +91,7 @@ const App = () => {
         })
         .catch((err) => console.log(err));
       };
+      
       const login = (email) => {
         return axios
       .post(`/users/login`, { email: email })
@@ -100,17 +100,8 @@ const App = () => {
           setState((prev) => ({
             ...prev,
             loggedin: true,
-
           }));
-
-        
-          // let path = `/`;
-          // history.push(path);
         }
-        // console.log(data);
-      }).then(res => {
-        console.log('state after setState', state.loggedin)
-
       })
       .catch((err) => {
         console.log(err);
@@ -123,7 +114,6 @@ const App = () => {
         <BeatLoader css={override} size={50} color={"#D81159"} loading={true} />
       ) : (
         <Router>
-          {console.log("app level isloggedin",state.loggedin)}
           <NavBar
             user={state.user}
             logout={logout}

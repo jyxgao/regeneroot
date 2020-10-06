@@ -3,10 +3,11 @@ import axios from "axios";
 import MapContainer from "../components/MapContainer";
 import SmallLotItem from "../components/Lot/SmallLotItem";
 import "./MapList.css";
-import { SearchInput, Spinner, Pane } from "evergreen-ui";
+import { SearchInput, Spinner, Pane, Text, TextInput } from "evergreen-ui";
 
 const MapList = (props) => {
   const [enteredCity, setEnteredCity] = useState("");
+  const [enteredCountry, setEnteredCountry] = useState("");
   const [enteredMinSize, setEnteredMinSize] = useState("");
   const [enteredMaxSize, setEnteredMaxSize] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -41,6 +42,10 @@ const MapList = (props) => {
         setIsLoading(true);
         query += `city=${enteredCity}&`;
       }
+      if (enteredCountry.length > 0) {
+        setIsLoading(true);
+        query += `country=${enteredCountry}&`;
+      }
       if (enteredMinSize.length > 0) {
         setIsLoading(true);
         query += `minimum_size=${enteredMinSize}&`;
@@ -61,7 +66,7 @@ const MapList = (props) => {
     return () => {
       clearTimeout(timer);
     };
-  }, [enteredCity, enteredMinSize, enteredMaxSize, inputRef]);
+  }, [enteredCity, enteredCountry, enteredMinSize, enteredMaxSize, inputRef]);
 
   return (
     <main className="maplist-view">
@@ -76,30 +81,42 @@ const MapList = (props) => {
           width="100%"
           backgroundColor="#FFFFFF"
         >
-          <div className="search-item--city">
-            <SearchInput
-              ref={inputRef}
-              placeholder="City name..."
-              value={enteredCity}
-              onChange={(e) => setEnteredCity(e.target.value)}
-            />
-          </div>
-          <div className="search-item--minsize">
-            <SearchInput
-              ref={inputRef}
-              placeholder="Min lot size in sqft"
-              value={enteredMinSize}
-              onChange={(e) => setEnteredMinSize(e.target.value)}
-            />
-          </div>
-          <div className="search-item--maxsize">
-            <SearchInput
-              ref={inputRef}
-              placeholder="Max lot size in sqft"
-              value={enteredMaxSize}
-              onChange={(e) => setEnteredMaxSize(e.target.value)}
-            />
-          </div>
+          <Pane>
+          <SearchInput
+            className="search-item--city"
+            ref={inputRef}
+            placeholder="City name..."
+            value={enteredCity}
+            width={200}
+            onChange={(e) => setEnteredCity(e.target.value)}
+          />
+          <TextInput
+            className="search-item--country"
+            ref={inputRef}
+            placeholder="Country name..."
+            value={enteredCountry}
+            width={150}
+            onChange={(e) => setEnteredCountry(e.target.value)}
+          />
+
+          <TextInput
+            className="search-item--minsize"
+            ref={inputRef}
+            placeholder="Min lot size in sqft"
+            value={enteredMinSize}
+            width={150}
+            onChange={(e) => setEnteredMinSize(e.target.value)}
+          />
+
+          <TextInput
+            className="search-item--maxsize"
+            ref={inputRef}
+            placeholder="Max lot size in sqft"
+            value={enteredMaxSize}
+            width={150}
+            onChange={(e) => setEnteredMaxSize(e.target.value)}
+          />
+        </Pane>
           {isLoading && (
             <Pane
               display="flex"
