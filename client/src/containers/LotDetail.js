@@ -135,7 +135,11 @@ const LotDetail = (props) => {
     >
       <div className="LotDetail--backButton">
         <Link to="/mapview">
-          <Button className="button--back" fontFamily="Poppins" onClick={(event) => setIsMessaging(false)}>
+          <Button
+            className="button--back"
+            fontFamily="Poppins"
+            onClick={(event) => setIsMessaging(false)}
+          >
             Back to List
           </Button>
         </Link>
@@ -196,7 +200,7 @@ const LotDetail = (props) => {
               <div>
                 <img
                   className="LotDetail--main_image"
-                  src={currentLot.images[0]}
+                  src={currentLot.images && currentLot.images[0]}
                   alt="lot-img"
                 ></img>
               </div>
@@ -284,7 +288,11 @@ const LotDetail = (props) => {
               <ListItem
                 size={300}
               >{`condition rating: ${currentLot.condition_rating}`}</ListItem>
-              <ListItem size={300}>{currentLot.is_irrigated}</ListItem>
+              <ListItem size={300}>
+                {currentLot.is_irrigated
+                  ? `Has Access to Irrigation`
+                  : `Does not have Access to Irrigation`}
+              </ListItem>
               <ListItem
                 size={300}
               >{`Suggested term: ${currentLot.suggested_term} months`}</ListItem>
@@ -294,7 +302,7 @@ const LotDetail = (props) => {
             </UnorderedList>
           </div>
           <div className="LotDetail--image_list">
-            {currentLot.images.map((image) => {
+            {currentLot.images && currentLot.images.map((image) => {
               return (
                 <img
                   key={image}

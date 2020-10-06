@@ -21,7 +21,7 @@ const ChatBoard = (props) => {
 
   return (
     <Pane>
-      this is a chatboard
+      Inbox
       {/* {selectedContact && (
         <Chat
           messages={props.messages[selectedContact]}
