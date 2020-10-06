@@ -3,7 +3,7 @@ const router = express.Router();
 
 module.exports = function (router, database) {
   router.post("/login", (req, res) => {
-    console.log("req.body", req.body)
+    console.log("req.body", req.body);
     const email = req.body.email;
     database
       .getUserByEmail(email)
@@ -13,7 +13,10 @@ module.exports = function (router, database) {
           req.session.user_id = data.user_id;
           req.session.isLoggedIn = true;
           // console.log("/login post request", req.session.user_id);
-          res.json({isLoggedIn: true});
+          res.json({
+            user: data,
+            isLoggedIn: true,
+          });
         } else {
           res.send(data);
         }

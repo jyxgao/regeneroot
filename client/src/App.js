@@ -97,9 +97,11 @@ const App = () => {
       .post(`/users/login`, { email: email })
       .then((data) => {
         if (data.data.isLoggedIn) {
+          //set user object
           setState((prev) => ({
             ...prev,
             loggedin: true,
+            user: data.data.user,
           }));
         }
       })
@@ -114,6 +116,7 @@ const App = () => {
         <BeatLoader css={override} size={50} color={"#D81159"} loading={true} />
       ) : (
         <Router>
+          {console.log("test console log")}
           <NavBar
             user={state.user}
             logout={logout}

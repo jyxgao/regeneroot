@@ -374,7 +374,7 @@ const getUserByEmail = function (email) {
   return pool
     .query(
       `
-  SELECT users.id AS user_id
+  SELECT users.id AS user_id, first_name, last_name, username, email, avatar
   FROM users
   WHERE users.email = $1
   `,

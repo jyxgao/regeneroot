@@ -31,7 +31,7 @@ const SmallLotItem = (props) => {
             <Button
               display="flex"
               fontFamily="Poppins"
-              size={20}
+              size={400}
               className="button--details"
               margin={10}
               textDecoration="none"
