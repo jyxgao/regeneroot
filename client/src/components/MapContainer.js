@@ -26,8 +26,8 @@ const MapContainer = (props) => {
 
   //google maps window size
   const mapStyles = {
-    height: "100vh",
-    width: "60vw",
+    height: "95vh",
+    width: "55vw",
   };
 
   const zoomVar = 11;
@@ -38,10 +38,10 @@ const MapContainer = (props) => {
     for (let lot of props.lots) {
       bounds.extend(lot.location);
     }
-    console.log(bounds)
+    // console.log(bounds)
     map.fitBounds(bounds);
     setMap(map);
-    console.log("MAP BOUNDS CALLED")
+    // console.log("MAP BOUNDS CALLED")
   };
 
   const onCenterChanged = function (map) {
@@ -49,11 +49,11 @@ const MapContainer = (props) => {
     for (let lot of props.lots) {
       bounds.extend(lot.location);
     }
-    console.log(bounds)
+    // console.log(bounds)
     map.fitBounds(bounds);
     setMap(map);
     
-    console.log("MAP BOUNDS CALLED")
+    // console.log("MAP BOUNDS CALLED")
   };
 
   const onUnmount = useCallback(function callback(map) {
@@ -70,7 +70,7 @@ const MapContainer = (props) => {
       centerResult.lat = (lot.location.lat + centerResult.lat) / 2;
       centerResult.lng = (lot.location.lng + centerResult.lng) / 2;
     }
-    console.log("MAP CENTER CALLED!")
+    // console.log("MAP CENTER CALLED!")
     // setZoom(11);
     return centerResult;
   };
