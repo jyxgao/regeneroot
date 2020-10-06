@@ -132,6 +132,36 @@
   margin-left: 15px;
 }
 
+.LotDetail--owned {
+  border: 2px solid #D81159;
+}
+
+.LotDetail--top-right-owned {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  color: #FFFFFF;
+  background: #D81159;
+  font-weight: bolder;
+  border: 15px solid #D81159;
+
+}
+
+.LotDetail--leased {
+  border: 2px solid #D81159;
+}
+
+.LotDetail--top-right-leased {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  color: #FFFFFF;
+  background: #D81159;
+  font-weight: bolder;
+  border: 15px solid #D81159;
+
+}
+
 .button--message-owner {
   color: #FFFFFF;
   background-color: #D81159;

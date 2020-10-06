@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import classnames from "classnames";
 import "./LotDetail.css";
 import {
   Pane,
@@ -11,21 +12,31 @@ import {
   Text,
 } from "evergreen-ui";
 import LotFormEdit from "components/Lot/LotFormEdit";
+import LotCheckout from "components/Lot/LotCheckout";
 import { useParams, useHistory, Link } from "react-router-dom";
 import ChatBoard from "../components/Messages/ChatBoard";
 import Chat from "../components/Messages/Chat";
 import axios from "axios";
 
 const LotDetail = (props) => {
+
   const { state, setState } = props;
   const [isEditing, setIsEditing] = React.useState(false);
+  const [isLeasing, setIsLeasing] = React.useState(false);
   const [isDeleting, setIsDeleting] = React.useState(false);
   const [isMessaging, setIsMessaging] = React.useState(false);
   // for owner:
   const [isCheckingMsgs, setIsCheckingMsgs] = React.useState(false);
   const params = useParams();
   const currentLotId = Number(params.id);
+  const lotOwnerStatus = state.lotsOwnerStatus[currentLotId];
 
+  const LotDetailClass = classnames("LotDetail--pic_with_titles", {
+    "LotDetail--owned": props.lotOwnerStatus === "owned",
+    "LotDetail--leased": props.lotOwnerStatus === "leased",
+  });
+
+  //get the lot object for this page
   const findLot = function (lotId) {
     let lots = state.lots;
     for (let lot of lots) {
@@ -35,6 +46,8 @@ const LotDetail = (props) => {
     }
   };
 
+  const currentLot = findLot(currentLotId);
+
   // check if user logged in with email key
   const isLoggedIn = (obj) => {
     if (obj.email) {
@@ -42,8 +55,6 @@ const LotDetail = (props) => {
     }
     return false;
   };
-
-  const currentLot = findLot(currentLotId);
 
   const isOwner = (lotId) => {
     if (state.lotsOwnerStatus[lotId] === "owned") {
@@ -151,10 +162,20 @@ const LotDetail = (props) => {
           isEditing={isEditing}
           state={state}
           setState={setState}
-          id={currentLotId}
+          currentLotId={currentLotId}
         />
       )}
-      {!isEditing && (
+      {isLeasing && (
+        <LotCheckout
+          lot={currentLot}
+          setIsLeasing={setIsLeasing}
+          isLeasing={isLeasing}
+          state={state}
+          setState={setState}
+          currentLotId={currentLotId}
+        />
+      )}
+      {!isEditing && !isLeasing && (
         <section className="LotDetail_layout">
           <div className="LotDetail--detail_group">
             <div className="LotDetail--confirm_delete">
@@ -188,7 +209,7 @@ const LotDetail = (props) => {
               )}
             </div>
 
-            <div className="LotDetail--pic_with_titles">
+            <div className={LotDetailClass}>
               <div className="LotDetail--title_block">
                 <div>
                   <div className="LotDetail--title">{currentLot.title}</div>
@@ -277,6 +298,16 @@ const LotDetail = (props) => {
                     onClick={(event) => setIsCheckingMsgs(!isCheckingMsgs)}
                   >
                     Inbox
+                  </Button>
+                )}
+                {!isOwner(currentLotId) && (
+                  <Button 
+                    fontFamily="Poppins"
+                    className="button--owner-inbox"
+                    margin={5}
+                    onClick={(event) => setIsLeasing(!isLeasing)}
+                  >
+                    Lease Now!
                   </Button>
                 )}
               </div>
