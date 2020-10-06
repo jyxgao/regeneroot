@@ -55,7 +55,7 @@ const Home = (props) => {
         padding={50}
         paddingTop={150}
         paddingLeft="10%"
-        height={400}
+        height={450}
         position="fixed"
         zIndex={1}
         width="100%"
@@ -63,7 +63,7 @@ const Home = (props) => {
         // backgroundColor="#FFFFFF"
         // borderBottom={10}
       >
-        <Text paddingBottom={10}>Build your food garden at...</Text>
+        <Text fontFamily="Poppins" color="#FFFFFF" fontSize={25} paddingBottom={15}>Build your next food garden at...</Text>
         <Pane>
           <SearchInput
             className="search-item--city"
