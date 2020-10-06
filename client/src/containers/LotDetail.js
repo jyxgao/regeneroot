@@ -272,7 +272,7 @@ const LotDetail = (props) => {
                     margin={5}
                     onClick={(event) => setIsCheckingMsgs(!isCheckingMsgs)}
                   >
-                    View my Inbox
+                    Inbox
                   </Button>
                 )}
               </div>
