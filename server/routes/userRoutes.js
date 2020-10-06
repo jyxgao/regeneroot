@@ -12,7 +12,7 @@ module.exports = function (router, database) {
         if (data.user_id) {
           req.session.user_id = data.user_id;
           req.session.isLoggedIn = true;
-          console.log("/login post request", req.session.user_id);
+          // console.log("/login post request", req.session.user_id);
           res.json({isLoggedIn: true});
         } else {
           res.send(data);

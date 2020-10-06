@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Pane, Button, TextInput, Heading } from "evergreen-ui";
-import {useHistory} from 'react-router-dom';
-import './LoginForm.css'
+import { useHistory } from "react-router-dom";
+import "./LoginForm.css";
 
 const LoginForm = (props) => {
   const [email, setEmail] = useState("");
@@ -11,9 +11,8 @@ const LoginForm = (props) => {
 
   const handleLogin = (email) => {
     props.login(email);
-      history.push('/mapview')
+    history.push("/mapview");
   };
-
 
   return (
     <Pane display="flex" flexDirection="column" paddingLeft={200}>
@@ -33,7 +32,12 @@ const LoginForm = (props) => {
         placeholder="Enter your password"
         onChange={(e) => setPassword(e.target.value)}
       ></TextInput>
-      <Button className="button--login" fontFamily="Poppins" width={70} onClick={() => handleLogin(email)}>
+      <Button
+        className="button--login"
+        fontFamily="Poppins"
+        width={70}
+        onClick={() => handleLogin(email)}
+      >
         Login
       </Button>
     </Pane>

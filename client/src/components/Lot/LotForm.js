@@ -144,14 +144,6 @@ const LotForm = (props) => {
           value={costPerMonth}
           onChange={(event) => setCostPerMonth(event.target.value)}
         />
-        {/* <br />
-        <label>Is it irrigated: </label>
-        <Checkbox
-          name="is_irrigated"
-          type="checkbox"
-          checked={isIrrigated}
-          onChange={(e) => setIsIrrigated(e.target.checked)}
-        /> */}
         <br />
         <label>Term in Months: </label>
         <TextInput

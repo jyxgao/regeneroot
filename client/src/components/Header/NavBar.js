@@ -10,18 +10,16 @@ import {
   Avatar,
   Button,
 } from "evergreen-ui";
-import { Link, Redirect } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "./NavBar.css";
 import Logo from "../../assets/logo_color.png";
 
 const NavBar = (props) => {
-  // check if user logged in with email key
-  // const isLoggedIn = (obj) => {
-  //   if (obj.email) {
-  //     return true;
-  //   }
-  //   return false;
-  // };
+  let history = useHistory();
+  const handleLogout = () => {
+    props.logout();
+    history.push("/");
+  };
 
   return (
     <Pane
@@ -60,7 +58,7 @@ const NavBar = (props) => {
                     Resources
                   </Menu.Item>
                   <Menu.Item
-                    // onSelect={() => toaster.notify("Rename")}
+                  // onSelect={() => toaster.notify("Rename")}
                   >
                     About
                   </Menu.Item>
@@ -111,16 +109,9 @@ const NavBar = (props) => {
             >
               Become a host
             </Tab>
-            {/* {["Home", "About"].map((tab, index) => (
-              <Tab fontSize={16} fontFamily="Poppins" fontColor="#D81159" key={tab} is="a" href="#" id={tab} isSelected={index === 0}>
-                {tab}
-              </Tab>
-            ))} */}
           </TabNavigation>
         </Pane>
       </Pane>
-      {/* {console.log("navbar user", props.user)}
-      {console.log("isLoggedIn state", props.loggedin)} */}
       {props.loggedin && (
         <Pane display="flex" paddingTop={8}>
           <Popover
@@ -147,14 +138,25 @@ const NavBar = (props) => {
           <Pane paddingLeft={12} paddingTop={12}>
             {props.user.first_name}
           </Pane>
-          <Button className="button--logout" fontFamily="Poppins" marginLeft={10} marginTop={5} onClick={props.logout}>
+          <Button
+            className="button--logout"
+            fontFamily="Poppins"
+            marginLeft={10}
+            marginTop={5}
+            onClick={handleLogout}
+          >
             Logout
           </Button>
         </Pane>
       )}
       {!props.loggedin && (
         <Link to="/login">
-          <Button className="button--login" fontFamily="Poppins" marginLeft={10} marginTop={5}>
+          <Button
+            className="button--login"
+            fontFamily="Poppins"
+            marginLeft={10}
+            marginTop={5}
+          >
             Login
           </Button>
         </Link>

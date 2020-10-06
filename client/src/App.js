@@ -36,8 +36,7 @@ const App = () => {
     loggedin: false,
   });
 
-  const history = useHistory();
-
+  
   useEffect(() => {
     setState({ isLoading: true });
     Promise.all([
@@ -46,30 +45,30 @@ const App = () => {
       axios.get("/api/lots/owned"),
       axios.get("/api/lots/leased"),
     ])
-      .then(
-        ([
-          { data: lots },
-          { data: user },
-          { data: owned },
-          { data: leased },
-        ]) => {
-          let lotsOwnerStatus = {};
-          if (lots) {
-            lots.forEach((lot) => {
-              lotsOwnerStatus[lot.id] = null;
+    .then(
+      ([
+        { data: lots },
+        { data: user },
+        { data: owned },
+        { data: leased },
+      ]) => {
+        let lotsOwnerStatus = {};
+        if (lots) {
+          lots.forEach((lot) => {
+            lotsOwnerStatus[lot.id] = null;
+          });
+        }
+        if (owned) {
+          owned.forEach((lot) => {
+            lotsOwnerStatus[lot.id] = "owned";
+          });
+        }
+        if (leased) {
+          leased.forEach((lot) => {
+            lotsOwnerStatus[lot.id] = "leased";
             });
           }
-          if (owned) {
-            owned.forEach((lot) => {
-              lotsOwnerStatus[lot.id] = "owned";
-            });
-          }
-          if (leased) {
-            leased.forEach((lot) => {
-              lotsOwnerStatus[lot.id] = "leased";
-            });
-          }
-
+          
           setState((prev) => ({
             ...prev,
             lots,
@@ -81,20 +80,20 @@ const App = () => {
             loggedin: user.email ? true : false,
           }));
         }
-      )
-      .catch((err) => console.log(err));
-  }, []);
-
-  const logout = () => {
-    axios
-      .post("/users/logout")
-      .then((resolve) => {
-        setState((prev) => ({ ...prev, user: {}, loggedin: false }));
-      })
-      .catch((err) => console.log(err));
-  };
-  const login = (email) => {
-    return axios
+        )
+        .catch((err) => console.log(err));
+      }, []);
+      
+      const logout = () => {
+        axios
+        .post("/users/logout")
+        .then((resolve) => {
+          setState((prev) => ({ ...prev, user: {}, loggedin: false }));
+        })
+        .catch((err) => console.log(err));
+      };
+      const login = (email) => {
+        return axios
       .post(`/users/login`, { email: email })
       .then((data) => {
         if (data.data.isLoggedIn) {
