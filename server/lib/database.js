@@ -564,3 +564,57 @@ const addNewMessage = function (lotId, userId, otherId, text) {
     });
 };
 exports.addNewMessage = addNewMessage;
+
+const getAllLeasesByMostRecent = function (limit = 10) {
+  const queryParams = [limit];
+
+  return pool
+    .query(
+      `
+      SELECT *, leases.id AS lease_id
+      FROM leases
+      ORDER BY created_at DESC
+      LIMIT $1;
+      `,
+      queryParams
+    )
+    .then((res) => {
+      return res.rows;
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+}
+
+exports.getAllLeasesByMostRecent = getAllLeasesByMostRecent;
+
+const addNewLease = function(leaseInfo, renterId) {
+  const lotId = leaseInfo.lot_id
+  console.log("leaseInfo IN DATABASE", leaseInfo)
+  console.log("LOT ID IN DATABASE", lotId)
+  const ownerId = leaseInfo.owner_id
+  const termLength = leaseInfo.term_length
+  const totalCost = leaseInfo.total_cost
+  const queryParams = [lotId, ownerId, renterId, termLength, totalCost]
+  return pool
+    .query(
+      `INSERT INTO leases (
+        lot_id,
+        owner_id,
+        renter_id,
+        term_length,
+        total_cost
+      )
+      VALUES ($1, $2, $3, $4, $5)
+      RETURNING *, id AS lease_id;
+      `, queryParams
+      )
+      .then((res) => {
+        console.log("Purchase successful.")
+        return res.rows;
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+};
+exports.addNewLease = addNewLease;

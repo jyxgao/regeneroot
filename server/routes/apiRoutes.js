@@ -153,5 +153,34 @@ module.exports = function (router, database) {
       });
   });
 
+    //get all leases
+    router.get("/leases", (req,res) => {
+    database
+      .getAllLeasesByMostRecent()
+      .then((data) => {
+        // if frontend wants data:
+        res.send(data);
+      })
+      .catch((err) => {
+        res.json({ error: err.message });
+      });
+    })
+
+    //create new lease - purchase
+    router.post("/leases", (req,res) => {
+    const renterId = req.session.user_id;
+    const leaseInfo = {...req.body, renter_id: renterId}
+
+    database
+      .addNewLease(leaseInfo, renterId)
+      .then((data) => {
+        // if frontend wants data:
+        res.send(data);
+      })
+      .catch((err) => {
+        res.json({ error: err.message });
+      });
+    })
+
   return router;
 };
