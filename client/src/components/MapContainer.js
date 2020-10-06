@@ -26,8 +26,8 @@ const MapContainer = (props) => {
 
   //google maps window size
   const mapStyles = {
-    height: "100vh",
-    width: "60vw",
+    height: "95vh",
+    width: "55vw",
   };
 
   const zoomVar = 11;
