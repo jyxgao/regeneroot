@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Pane, Table, Avatar, IconButton, CrossIcon } from "evergreen-ui";
+import { Pane, Table, Avatar } from "evergreen-ui";
 import Chat from "./Chat";
 
 const ChatBoard = (props) => {
@@ -16,7 +16,6 @@ const ChatBoard = (props) => {
   // console.log(selectedContact)
   const onSelect = (renterId) => {
     setSelectedContact(renterId);
-    console.log(selectedContact)
     props.setIsMessaging(true)
   };
 

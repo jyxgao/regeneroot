@@ -29,7 +29,6 @@
 
 }
 
-
 .smallLot--leased {
   border: 2px solid #D81159;
 }
@@ -43,4 +42,16 @@
   font-weight: bolder;
   border: 15px solid #D81159;
 
+}
+
+.button--details {
+  color: #FFFFFF;
+  background-color: #D81159;
+  background-image: none;
+}
+
+.button--details:hover {
+  color:#D81159;
+  background-color: #FFFFFF;
+  background-image:none;
 }

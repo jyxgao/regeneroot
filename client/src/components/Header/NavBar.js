@@ -10,19 +10,17 @@ import {
   Avatar,
   Button,
 } from "evergreen-ui";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "./NavBar.css";
 import Logo from "../../assets/logo_color.png";
 
 const NavBar = (props) => {
-  // check if user logged in with email key
-  const isLoggedIn = (obj) => {
-    if (obj.email) {
-      return true;
-    }
-    return false;
+  let history = useHistory();
+  const handleLogout = () => {
+    props.logout();
+    history.push("/");
   };
-
+  
   return (
     <Pane
       display="flex"
@@ -52,27 +50,17 @@ const NavBar = (props) => {
                   <Menu.Item
                   // onSelect={() => toaster.notify("Share")}
                   >
-                    Share...
+                    Featured Lots
                   </Menu.Item>
                   <Menu.Item
                   // onSelect={() => toaster.notify("Move")}
                   >
-                    Move...
+                    Resources
                   </Menu.Item>
                   <Menu.Item
-                    // onSelect={() => toaster.notify("Rename")}
-                    secondaryText="⌘R"
+                  // onSelect={() => toaster.notify("Rename")}
                   >
-                    Rename...
-                  </Menu.Item>
-                </Menu.Group>
-                <Menu.Divider />
-                <Menu.Group>
-                  <Menu.Item
-                    // onSelect={() => toaster.danger("Delete")}
-                    intent="danger"
-                  >
-                    Delete...
+                    About
                   </Menu.Item>
                 </Menu.Group>
               </Menu>
@@ -121,15 +109,10 @@ const NavBar = (props) => {
             >
               Become a host
             </Tab>
-            {/* {["Home", "About"].map((tab, index) => (
-              <Tab fontSize={16} fontFamily="Poppins" fontColor="#D81159" key={tab} is="a" href="#" id={tab} isSelected={index === 0}>
-                {tab}
-              </Tab>
-            ))} */}
           </TabNavigation>
         </Pane>
       </Pane>
-      {isLoggedIn(props.user) && (
+      {props.loggedin && (
         <Pane display="flex" paddingTop={8}>
           <Popover
             trigger="click"
@@ -139,12 +122,12 @@ const NavBar = (props) => {
                   <Menu.Item
                   // onSelect={() => toaster.notify("Share")}
                   >
-                    Share...
+                    Add a Listing
                   </Menu.Item>
                   <Menu.Item
                   // onSelect={() => toaster.notify("Move")}
                   >
-                    Move...
+                    Check my Messages
                   </Menu.Item>
                 </Menu.Group>
               </Menu>
@@ -155,10 +138,29 @@ const NavBar = (props) => {
           <Pane paddingLeft={12} paddingTop={12}>
             {props.user.first_name}
           </Pane>
-          <Button marginLeft={10} marginTop={5} onClick={props.logout}>Logout</Button>
+          <Button
+            className="button--logout"
+            fontFamily="Poppins"
+            marginLeft={10}
+            marginTop={5}
+            onClick={handleLogout}
+          >
+            Logout
+          </Button>
         </Pane>
       )}
-      {!isLoggedIn(props.user) && <Button marginLeft={10} marginTop={5} onClick={props.login(1)}>Login</Button>}
+      {!props.loggedin && (
+        <Link to="/login">
+          <Button
+            className="button--login"
+            fontFamily="Poppins"
+            marginLeft={10}
+            marginTop={5}
+          >
+            Login
+          </Button>
+        </Link>
+      )}
     </Pane>
   );
 };

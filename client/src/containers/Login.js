@@ -14,7 +14,7 @@ const Login = (props) => {
     <Pane>
       {isEmpty(props.user) && (
         <Pane paddingTop={200}>
-          <LoginForm />
+          <LoginForm login={props.login}/>
         </Pane>
       )}
     </Pane>

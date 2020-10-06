@@ -370,6 +370,31 @@ const getUserById = function (userId) {
 
 exports.getUserById = getUserById;
 
+const getUserByEmail = function (email) {
+  return pool
+    .query(
+      `
+  SELECT users.id AS user_id, first_name, last_name, username, email, avatar
+  FROM users
+  WHERE users.email = $1
+  `,
+      [email]
+    )
+    .then((res) => {
+      if (res.rows[0]) {
+        // console.log(res.rows[0])
+        return res.rows[0];
+      } else {
+        return ({ message: "User is not registered" });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+exports.getUserByEmail = getUserByEmail;
+
 // search API
 const getAllLotsByQuery = function (options, limit = 10) {
   const queryParams = [];
