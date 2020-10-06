@@ -3,7 +3,7 @@ import axios from "axios";
 import MapContainer from "../components/MapContainer";
 import SmallLotItem from "../components/Lot/SmallLotItem";
 import "./MapList.css";
-import { SearchInput, Spinner, Pane, Text, TextInput } from "evergreen-ui";
+import { SearchInput, Spinner, Pane, TextInput } from "evergreen-ui";
 
 const MapList = (props) => {
   const [enteredCity, setEnteredCity] = useState("");
@@ -15,13 +15,6 @@ const MapList = (props) => {
   const inputRef = useRef("");
   const { state, setState } = props;
 
-  // const setLot = (lot) => {
-  //   setState((prev) => ({
-  //     ...prev,
-  //     lot: lot,
-  //   }));
-  //   console.log(state.lot);
-  // };
   const isEmpty = (obj) => {
     for (const lot in obj) {
       if (obj.hasOwnProperty(lot)) return false;

@@ -116,7 +116,6 @@ const App = () => {
         <BeatLoader css={override} size={50} color={"#D81159"} loading={true} />
       ) : (
         <Router>
-          {console.log("test console log")}
           <NavBar
             user={state.user}
             logout={logout}

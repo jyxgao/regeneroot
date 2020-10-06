@@ -20,9 +20,7 @@ const NavBar = (props) => {
     props.logout();
     history.push("/");
   };
-  console.log("Navbar props.loggedin", props.loggedin)
-  console.log("Navbar all props", props)
-
+  
   return (
     <Pane
       display="flex"

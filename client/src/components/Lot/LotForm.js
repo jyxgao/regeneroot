@@ -8,7 +8,6 @@ import {
   Textarea,
   Checkbox,
   Select,
-  Heading,
 } from "evergreen-ui";
 import "./LotForm.css";
 
