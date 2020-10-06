@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import { Pane, Button, TextInput, Heading } from "evergreen-ui";
+import {useHistory} from 'react-router-dom';
 
 const LoginForm = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  let history = useHistory();
+
   const handleLogin = (email) => {
     props.login(email);
+      history.push('/mapview')
   };
+
 
   return (
     <Pane display="flex" flexDirection="column" paddingLeft={200}>

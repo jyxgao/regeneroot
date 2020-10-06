@@ -3,12 +3,12 @@
   /* position: fixed; */
 }
 
-.home--layout {
-  /* background-image: url(../assets/home1.jpg); */
+.home--search {
+  background-image: url(../assets/background2.jpg);
   /* -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover; */
-  /* background-size: cover; */
+  background-size: cover;
   background-repeat: no-repeat;
   /* width: 100%; */
 }

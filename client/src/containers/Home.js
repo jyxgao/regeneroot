@@ -4,6 +4,7 @@ import LotTile from "../components/Lot/LotTile";
 // import MapContainer from "../components/MapContainer";
 import { SearchInput, Text, TextInput, Spinner, Pane } from "evergreen-ui";
 // import { Redirect } from "react-router-dom";
+import './Home.css';
 
 const Home = (props) => {
   const [enteredCity, setEnteredCity] = useState("");
@@ -53,11 +54,13 @@ const Home = (props) => {
         justifyContent="center"
         padding={50}
         paddingTop={150}
+        paddingLeft="10%"
         height={400}
         position="fixed"
         zIndex={1}
         width="100%"
-        backgroundColor="#FFFFFF"
+        className="home--search"
+        // backgroundColor="#FFFFFF"
         // borderBottom={10}
       >
         <Text paddingBottom={10}>Build your food garden at...</Text>
