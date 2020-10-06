@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Pane, Button, TextInput, Heading } from "evergreen-ui";
 import {useHistory} from 'react-router-dom';
+import './LoginForm.css'
 
 const LoginForm = (props) => {
   const [email, setEmail] = useState("");
@@ -32,7 +33,7 @@ const LoginForm = (props) => {
         placeholder="Enter your password"
         onChange={(e) => setPassword(e.target.value)}
       ></TextInput>
-      <Button width={70} onClick={() => handleLogin(email)}>
+      <Button className="button--login" fontFamily="Poppins" width={70} onClick={() => handleLogin(email)}>
         Login
       </Button>
     </Pane>

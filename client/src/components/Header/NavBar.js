@@ -52,27 +52,17 @@ const NavBar = (props) => {
                   <Menu.Item
                   // onSelect={() => toaster.notify("Share")}
                   >
-                    Share...
+                    Featured Lots
                   </Menu.Item>
                   <Menu.Item
                   // onSelect={() => toaster.notify("Move")}
                   >
-                    Move...
+                    Resources
                   </Menu.Item>
                   <Menu.Item
                     // onSelect={() => toaster.notify("Rename")}
-                    secondaryText="⌘R"
                   >
-                    Rename...
-                  </Menu.Item>
-                </Menu.Group>
-                <Menu.Divider />
-                <Menu.Group>
-                  <Menu.Item
-                    // onSelect={() => toaster.danger("Delete")}
-                    intent="danger"
-                  >
-                    Delete...
+                    About
                   </Menu.Item>
                 </Menu.Group>
               </Menu>
@@ -129,8 +119,8 @@ const NavBar = (props) => {
           </TabNavigation>
         </Pane>
       </Pane>
-      {console.log("navbar user", props.user)}
-      {console.log("isLoggedIn state", props.loggedin)}
+      {/* {console.log("navbar user", props.user)}
+      {console.log("isLoggedIn state", props.loggedin)} */}
       {props.loggedin && (
         <Pane display="flex" paddingTop={8}>
           <Popover
@@ -141,12 +131,12 @@ const NavBar = (props) => {
                   <Menu.Item
                   // onSelect={() => toaster.notify("Share")}
                   >
-                    Share...
+                    Add a Listing
                   </Menu.Item>
                   <Menu.Item
                   // onSelect={() => toaster.notify("Move")}
                   >
-                    Move...
+                    Check my Messages
                   </Menu.Item>
                 </Menu.Group>
               </Menu>
@@ -157,14 +147,14 @@ const NavBar = (props) => {
           <Pane paddingLeft={12} paddingTop={12}>
             {props.user.first_name}
           </Pane>
-          <Button marginLeft={10} marginTop={5} onClick={props.logout}>
+          <Button className="button--logout" fontFamily="Poppins" marginLeft={10} marginTop={5} onClick={props.logout}>
             Logout
           </Button>
         </Pane>
       )}
       {!props.loggedin && (
         <Link to="/login">
-          <Button marginLeft={10} marginTop={5}>
+          <Button className="button--login" fontFamily="Poppins" marginLeft={10} marginTop={5}>
             Login
           </Button>
         </Link>

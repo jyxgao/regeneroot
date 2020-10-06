@@ -4,7 +4,7 @@
 
 .lot-form--new {
   width: 100%;
-  padding: 60px 50px;
+  padding: 8% 10% 5% 15%;
   display: inline-block;
   border-radius: 4px;
   box-sizing: border-box;
@@ -14,4 +14,30 @@ input[type=submit]:hover {
   background-color: #45a049;
 }
 
+.heading--post-lot {
+  size: 3em;
+}
 
+.button--submit {
+  color: #FFFFFF;
+  background-color: #D81159;
+  background-image: none;
+}
+
+.button--submit:hover {
+  color:#D81159;
+  background-color: #FFFFFF;
+  background-image:none;
+}
+
+.button--add-image {
+  color: #FFFFFF;
+  background-color: #D81159;
+  background-image: none;
+}
+
+.button--add-image:hover {
+  color:#D81159;
+  background-color: #FFFFFF;
+  background-image:none;
+}

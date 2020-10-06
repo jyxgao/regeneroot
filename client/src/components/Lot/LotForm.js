@@ -1,7 +1,16 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useHistory} from "react-router-dom";
-import { Button, Pane, TextInput, Textarea, Checkbox, Select } from "evergreen-ui";
+import { useHistory } from "react-router-dom";
+import {
+  Button,
+  Pane,
+  TextInput,
+  Textarea,
+  Checkbox,
+  Select,
+  Heading,
+} from "evergreen-ui";
+import "./LotForm.css";
 
 const APIkey = process.env.REACT_APP_GOOGLE_API_KEY;
 
@@ -95,23 +104,23 @@ const LotForm = (props) => {
             setPostCode("");
             setImage("");
             setImages([]);
-            
           });
-          let path = `/`;
-          history.push(path);
+        let path = `/`;
+        history.push(path);
       })
       .catch((error) => console.log(error));
-     
 
     event.preventDefault();
   };
 
   return (
-    <Pane className="lot-form--new" paddingTop={100} display="flex">
+    <Pane className="lot-form--new" display="flex">
       <Pane display="flex" flexDirection="column" justifyContent="center">
-        <h1>Add New Lot</h1>
+        <h2 className="heading--post-lot">Post Your Vacant Lot</h2>
         <label>Title: </label>
-        <TextInput label="Title: "
+        <TextInput
+          marginTop={10}
+          label="Title: "
           name="title"
           type="text"
           value={title}
@@ -120,6 +129,7 @@ const LotForm = (props) => {
         <br />
         <label>Size: </label>
         <TextInput
+          marginTop={10}
           name="size"
           type="text"
           value={size}
@@ -128,6 +138,7 @@ const LotForm = (props) => {
         <br />
         <label>Cost Per Month: </label>
         <TextInput
+          marginTop={10}
           name="cost_per_month"
           type="text"
           value={costPerMonth}
@@ -144,6 +155,7 @@ const LotForm = (props) => {
         <br />
         <label>Term in Months: </label>
         <TextInput
+          marginTop={10}
           name="term"
           type="text"
           value={term}
@@ -152,6 +164,7 @@ const LotForm = (props) => {
         <br />
         <label>Rating: </label>
         <TextInput
+          marginTop={10}
           name="term"
           type="text"
           value={rating}
@@ -160,6 +173,7 @@ const LotForm = (props) => {
         <br />
         <label>Lot Type: </label>
         <Select
+          marginTop={10}
           width="40%"
           name="lot_type"
           value={type}
@@ -169,9 +183,17 @@ const LotForm = (props) => {
           <option value="Commercial">Commercial</option>
           <option value="Residential">Residential</option>
         </Select>
+          <Checkbox
+            label="Is it irrigated"
+            name="is_irrigated"
+            type="checkbox"
+            checked={isIrrigated}
+            onChange={(e) => setIsIrrigated(e.target.checked)}
+          />
         <br />
         <label>Lot Description: </label>
         <Textarea
+          marginTop={10}
           name="description"
           placeholder="Write a description for your lot..."
           width={750}
@@ -181,6 +203,7 @@ const LotForm = (props) => {
         <br />
         <label>Street: </label>
         <TextInput
+          marginTop={10}
           name="street"
           type="text"
           value={street}
@@ -189,6 +212,7 @@ const LotForm = (props) => {
         <br />
         <label>City: </label>
         <TextInput
+          marginTop={10}
           name="city"
           type="text"
           value={city}
@@ -197,6 +221,7 @@ const LotForm = (props) => {
         <br />
         <label>country: </label>
         <TextInput
+          marginTop={10}
           name="country"
           type="text"
           value={country}
@@ -205,6 +230,7 @@ const LotForm = (props) => {
         <br />
         <label>Post Code: </label>
         <TextInput
+          marginTop={10}
           name="post_code"
           type="text"
           value={postCode}
@@ -214,6 +240,7 @@ const LotForm = (props) => {
         <br />
         <label>Available Date: </label>
         <TextInput
+          marginTop={10}
           name="available_date"
           type="date"
           value={availableDate}
@@ -224,24 +251,28 @@ const LotForm = (props) => {
           <label>Add an image url: </label>
           <br />
           <TextInput
+            marginTop={10}
             name="image_url"
             type="text"
             value={image}
             onChange={(event) => setImage(event.target.value)}
           />
-          <Button margin={5} onClick={handleImages}>
+          <Button
+            className="button--add-image"
+            fontFamily="Poppins"
+            margin={5}
+            onClick={handleImages}
+          >
             add image
           </Button>
         </div>
-        <Checkbox
-          label="Is it irrigated"
-          name="is_irrigated"
-          type="checkbox"
-          checked={isIrrigated}
-          onChange={(e) => setIsIrrigated(e.target.checked)}
-        />
         <div>
-          <Button type="submit" onClick={handleSubmit}>
+          <Button
+            className="button--submit"
+            fontFamily="Poppins"
+            type="submit"
+            onClick={handleSubmit}
+          >
             Submit
           </Button>
         </div>
