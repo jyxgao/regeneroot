@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-
+import { useHistory} from "react-router-dom";
 import { Button, Pane, TextInput, Textarea, Checkbox, Select } from "evergreen-ui";
 
 const APIkey = process.env.REACT_APP_GOOGLE_API_KEY;
@@ -44,7 +44,7 @@ const LotForm = (props) => {
     setImages(images);
     setImage("");
   };
-
+  const history = useHistory();
   const handleSubmit = (event) => {
     axios
       .get(
@@ -95,9 +95,13 @@ const LotForm = (props) => {
             setPostCode("");
             setImage("");
             setImages([]);
+            
           });
+          let path = `/`;
+          history.push(path);
       })
       .catch((error) => console.log(error));
+     
 
     event.preventDefault();
   };
@@ -129,14 +133,14 @@ const LotForm = (props) => {
           value={costPerMonth}
           onChange={(event) => setCostPerMonth(event.target.value)}
         />
-        <br />
+        {/* <br />
         <label>Is it irrigated: </label>
         <Checkbox
           name="is_irrigated"
           type="checkbox"
           checked={isIrrigated}
           onChange={(e) => setIsIrrigated(e.target.checked)}
-        />
+        /> */}
         <br />
         <label>Term in Months: </label>
         <TextInput
@@ -156,6 +160,7 @@ const LotForm = (props) => {
         <br />
         <label>Lot Type: </label>
         <Select
+          width="40%"
           name="lot_type"
           value={type}
           onChange={(event) => setType(event.target.value)}
@@ -217,6 +222,7 @@ const LotForm = (props) => {
         <br />
         <div className="lot-form--add-img">
           <label>Add an image url: </label>
+          <br />
           <TextInput
             name="image_url"
             type="text"
@@ -227,6 +233,13 @@ const LotForm = (props) => {
             add image
           </Button>
         </div>
+        <Checkbox
+          label="Is it irrigated"
+          name="is_irrigated"
+          type="checkbox"
+          checked={isIrrigated}
+          onChange={(e) => setIsIrrigated(e.target.checked)}
+        />
         <div>
           <Button type="submit" onClick={handleSubmit}>
             Submit
