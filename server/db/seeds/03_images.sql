@@ -1,13 +1,30 @@
 -- Widgets table seeds here (Example)
 insert into images (lot_id, image_url, created_at) values (1, 'https://images.unsplash.com/photo-1553524808-eef8eb03cf29?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80', '2020-03-06');
-insert into images (lot_id, image_url, created_at) values (2, 'https://i.imgur.com/HMZjZxk.jpg', '2020-05-30');
+-- insert into images (lot_id, image_url, created_at) values (2, 'https://i.imgur.com/HMZjZxk.jpg', '2020-05-30');
 insert into images (lot_id, image_url, created_at) values (3, 'https://i.imgur.com/tvzECw3.jpeg', '2019-10-15');
-insert into images (lot_id, image_url, created_at) values (3, 'https://i.imgur.com/aF6xc5H.jpg', '2019-10-15');
-insert into images (lot_id, image_url, created_at) values (4, 'https://i.imgur.com/OkZLghB.jpeg', '2019-12-08');
+-- insert into images (lot_id, image_url, created_at) values (3, 'https://i.imgur.com/aF6xc5H.jpg', '2019-10-15');
+-- insert into images (lot_id, image_url, created_at) values (4, 'https://i.imgur.com/OkZLghB.jpeg', '2019-12-08');
 insert into images (lot_id, image_url, created_at) values (5, 'https://i.imgur.com/48YC1sP.jpg', '2020-07-10');
 insert into images (lot_id, image_url, created_at) values (5, 'https://i.imgur.com/Bdq1ZdX.jpeg', '2020-07-10');
-insert into images (lot_id, image_url, created_at) values (6, 'https://mrp-listings.myrealpage.com/5/3/0/91137035/65b62611c6737487f13b1b4c6386e15b.jpeg', '2020-06-08');
--- insert into images (id, lot_id, image_url) values (7, 3, 'http://dummyimage.com/239x116.png/cc0000/ffffff');
--- insert into images (id, lot_id, image_url) values (8, 4, 'http://dummyimage.com/163x151.jpg/ff4444/ffffff');
--- insert into images (id, lot_id, image_url) values (9, 5, 'http://dummyimage.com/195x193.png/ff4444/ffffff');
--- insert into images (id, lot_id, image_url) values (10, 9, 'http://dummyimage.com/177x147.png/5fa2dd/ffffff');
+-- insert into images (lot_id, image_url, created_at) values (6, 'https://mrp-listings.myrealpage.com/5/3/0/91137035/65b62611c6737487f13b1b4c6386e15b.jpeg', '2020-06-08');
+-- change from the below line, if the below does not work just uncommand out the above two lines
+insert into images (lot_id, image_url, created_at) values (5, 'https://4.bp.blogspot.com/-nU8y9luYyIc/WaxjB0XiX1I/AAAAAAAAIX0/RBzwUAnZ3hgtAo2iEhLzoTeHCLrY4ehKwCLcBGAs/s1600/Box%2Bof%2Bflowers.jpg', '2020-07-10');
+insert into images (lot_id, image_url, created_at) values (5, 'https://img1.wsimg.com/isteam/ip/33714638-f0a6-48d0-98c7-bef6e6411c21/_DSC0263-Edit.jpg', '2020-07-10');
+insert into images (lot_id, image_url, created_at) values (3, 'https://i.ytimg.com/vi/Bc4ecvD_rMM/maxresdefault.jpg', '2019-10-15');
+insert into images (lot_id, image_url, created_at) values (3, 'https://www.elyons.com/wp-content/uploads/2017/04/SQUARE-FOOT-GARDEN.jpg', '2019-10-15');
+insert into images (lot_id, image_url, created_at) values (3, 'https://i.imgur.com/HMZjZxk.jpg', '2019-10-15');
+insert into images (lot_id, image_url, created_at) values (2, 'https://canoladigest.ca/wp-content/uploads/2019/02/42-incorporate-farm-feature-min.jpg', '2020-05-30');
+insert into images (lot_id, image_url, created_at) values (2, 'https://wqkt.com/wp-content/uploads/2020/07/farm.jpg', '2020-05-30');
+insert into images (lot_id, image_url, created_at) values (2, 'https://www.porkbusiness.com/sites/default/files/styles/featured_banner/public/Farm-redbarn_1.jpg?itok=fkIoj_b5', '2020-05-30');
+insert into images (lot_id, image_url, created_at) values (2, 'https://api.time.com/wp-content/uploads/2018/04/farm-museum-viral-memes.jpg', '2020-05-30');
+insert into images (lot_id, image_url, created_at) values (1, 'https://i.imgur.com/OkZLghB.jpeg', '2020-03-06');
+insert into images (lot_id, image_url, created_at) values (1, 'https://mrp-listings.myrealpage.com/5/3/0/91137035/65b62611c6737487f13b1b4c6386e15b.jpeg', '2020-03-06');
+insert into images (lot_id, image_url, created_at) values (1, 'https://sustainablecapitolhill.org/wp-content/uploads/2015/12/SeattleUrbanFarmCo_RaisedBeds.jpg', '2020-03-06');
+insert into images (lot_id, image_url, created_at) values (4, 'https://www.pymnts.com/wp-content/uploads/2019/07/farm-big-bank-lending.jpg', '2019-12-08');
+insert into images (lot_id, image_url, created_at) values (4, 'https://d2u4q3iydaupsp.cloudfront.net/lCHmeNg0pEFvmhV2Z9NzulcPJcvH4sjBbuMIid2kSQ29kilo31JZDhYPMKur4gndC2skJjiUIJfCH9V6Fryq3E9YJLgb6u3Cd0YpguatUcFUN5kxqcyXpPPpBhdFzT4X', '2019-12-08');
+insert into images (lot_id, image_url, created_at) values (4, 'https://itbrief.co.nz/uploads/story/2014/12/05/farm_field.jpeg', '2019-12-08');
+insert into images (lot_id, image_url, created_at) values (4, 'https://www.uwa.edu.au/science/-/media/Faculties/Science/Primary-images/Disciplines/AgSci-Header-2000_x_1000.jpg?w=1230&ch=675&h=675&cw=1230&la=en&hash=61AB00AF95757E66D28247795F0967D9', '2019-12-08');
+insert into images (lot_id, image_url, created_at) values (6, 'https://www.ft.com/__origami/service/image/v2/images/raw/https://d1e00ek4ebabms.cloudfront.net/production/09ee3665-fc2b-4e6f-8e41-1d6af2490f2a.jpg?source=next&fit=scale-down&quality=highest&width=1440', '2020-06-08');
+insert into images (lot_id, image_url, created_at) values (6, 'https://www.gardeningknowhow.com/wp-content/uploads/2007/03/flowers-1.jpg', '2020-06-08');
+insert into images (lot_id, image_url, created_at) values (6, 'https://dmgupcwbwy0wl.cloudfront.net/system/images/000/414/391/eabf75ec5fa662b579b27308079624c1/x1000gt/pow-golden-arches-in-singapore-s-botanical-gardens.jpg?1593189797', '2020-06-08');
+insert into images (lot_id, image_url, created_at) values (6, 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Flower_garden%2C_Botanic_Gardens%2C_Churchtown_2.JPG/1200px-Flower_garden%2C_Botanic_Gardens%2C_Churchtown_2.JPG', '2020-06-08');

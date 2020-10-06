@@ -44,6 +44,8 @@
   flex-wrap: wrap;
   padding-top: 20px;
   padding-right: 1vw;
+  height: 30vw;
+  /* padding-top: 5vw; */
 }
 
 .LotDetail--image_list_item {
