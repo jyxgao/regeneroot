@@ -62,13 +62,11 @@ const MapContainer = (props) => {
 
   //centers map on list of queried lots
   const mapCenter = function (lots) {
-    console.log(lots)
     const centerResult = {
       lat: lots[0].location.lat,
       lng: lots[0].location.lng,
     };
     for (let lot of lots) {
-      console.log(lot)
       centerResult.lat = (lot.location.lat + centerResult.lat) / 2;
       centerResult.lng = (lot.location.lng + centerResult.lng) / 2;
     }
