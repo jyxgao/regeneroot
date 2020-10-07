@@ -149,7 +149,10 @@ const LotDetail = (props) => {
           <Button
             className="button--back"
             fontFamily="Poppins"
-            onClick={(event) => setIsMessaging(false)}
+            onClick={(event) => {
+              console.log("STATE WHEN /MAPVIEW CLICKED", state);
+              setIsMessaging(false)
+            }}
           >
             Back to List
           </Button>
@@ -225,6 +228,12 @@ const LotDetail = (props) => {
                   alt="lot-img"
                 ></img>
               </div>
+              {props.lotOwnerStatus === "owned" && (
+                <div className="LotDetail--top-right-owned">MY LOT</div>
+              )}
+              {props.lotOwnerStatus === "leased" && (
+                <div className="LotDetail--top-right-leased">RENTING</div>
+              )}
             </div>
 
             <div className="LotDetail--subtitle_group">
