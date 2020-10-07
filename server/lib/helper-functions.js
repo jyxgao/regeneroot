@@ -19,7 +19,6 @@ exports.convertLotToNested = convertLotToNested;
 
 const addImagesToLot = function (lots) {
   let lotIDs = [];
-  console.log("lots", lots)
   for (let lot of lots) {
     const lotId = lot.lot_id;
     lotIDs.push(lotId);
@@ -53,7 +52,6 @@ const addImagesToLot = function (lots) {
           lotsWithImages.push(lot);
         }
         lotsWithImages = [...new Set(lotsWithImages)];
-        console.log("lots with images", lotsWithImages)
         return lotsWithImages;
       });
   }
