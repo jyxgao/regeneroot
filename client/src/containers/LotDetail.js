@@ -29,12 +29,16 @@ const LotDetail = (props) => {
   const [isCheckingMsgs, setIsCheckingMsgs] = React.useState(false);
   const params = useParams();
   const currentLotId = Number(params.id);
-  const lotOwnerStatus = state.lotsOwnerStatus[currentLotId];
+  const lotsOwnerStatus = state.lotsOwnerStatus[currentLotId];
 
   const LotDetailClass = classnames("LotDetail--pic_with_titles", {
-    "LotDetail--owned": props.lotOwnerStatus === "owned",
-    "LotDetail--leased": props.lotOwnerStatus === "leased",
+    "LotDetail--owned": lotsOwnerStatus === "owned",
+    "LotDetail--leased": lotsOwnerStatus === "leased",
   });
+
+  // console.log("PROPS:", props);
+  // console.log("LOT OWNER STATUS:", lotsOwnerStatus);
+
 
   //get the lot object for this page
   const findLot = function (lotId) {
@@ -176,6 +180,7 @@ const LotDetail = (props) => {
           state={state}
           setState={setState}
           currentLotId={currentLotId}
+          lotsOwnerStatus={lotsOwnerStatus}
         />
       )}
       {!isEditing && !isLeasing && (
@@ -228,10 +233,10 @@ const LotDetail = (props) => {
                   alt="lot-img"
                 ></img>
               </div>
-              {props.lotOwnerStatus === "owned" && (
+              {lotsOwnerStatus === "owned" && (
                 <div className="LotDetail--top-right-owned">MY LOT</div>
               )}
-              {props.lotOwnerStatus === "leased" && (
+              {lotsOwnerStatus === "leased" && (
                 <div className="LotDetail--top-right-leased">RENTING</div>
               )}
             </div>

@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, { useState, setState } from "react";
 import axios from "axios";
 import "./LotForm.css";
 import { Button, TextInput, Textarea, Checkbox, Select, Pane, Table } from "evergreen-ui";
@@ -13,6 +13,8 @@ const LotCheckout = (props) => {
   const taxCost = subtotalCost * taxRate;
   const totalCost = subtotalCost + taxCost;
 
+  const currentLotId = props.currentLotId
+
   const [name, setName] = useState("");
   const [cardNum, setCardNum] = useState("");
   const [expirDate, setExpirDate] = useState("");
@@ -23,19 +25,6 @@ const LotCheckout = (props) => {
   const [billingZip, setBillingZip] = useState("");
   const [isAgreeing, setIsAgreeing] = useState("");
 
-
-  // CREATE TABLE leases
-  // (
-  //   id SERIAL PRIMARY KEY NOT NULL,
-  //   lot_id INTEGER REFERENCES lots(id) ON DELETE CASCADE NOT NULL,
-  //   owner_id INTEGER REFERENCES users(id) ON DELETE CASCADE NOT NULL,
-  //   renter_id INTEGER REFERENCES users(id) ON DELETE CASCADE NOT NULL,
-  //   created_at TIMESTAMP DEFAULT current_timestamp,
-  //   term_length INTEGER NOT NULL,
-  //   total_cost NUMERIC(12, 2) NOT NULL DEFAULT 0.00
-  // );
-  console.log("props.currentLotId IN LOTCHECKOUT", props.currentLotId)
-
   const handleSubmit = (event) => {
     axios
       .post(`/api/leases`, {
@@ -45,7 +34,12 @@ const LotCheckout = (props) => {
         total_cost: totalCost
       })
       .then(()=> {
-        // console.log("this is state after setState", props.state);
+        const currentLotsOwnerStatus = {...props.state.lotsOwnerStatus, [currentLotId]: "leased"};
+        props.setState((prev) => ({
+          ...prev,
+          lotsOwnerStatus: currentLotsOwnerStatus,
+        }));
+        
         props.setIsLeasing(!props.isLeasing);
       }
     )
