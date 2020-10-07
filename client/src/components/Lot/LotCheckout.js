@@ -16,11 +16,11 @@ const LotCheckout = (props) => {
   const [name, setName] = useState("");
   const [cardNum, setCardNum] = useState("");
   const [expirDate, setExpirDate] = useState("");
-  // const [cvcCode, setCvcCode] = useState("");
-  // const [billingStreet, setBillingStreet] = useState("");
-  // const [billingCity, setBillingCity] = useState("");
-  // const [billingProvince, setBillingProvince] = useState("");
-  // const [billingZip, setBillingZip] = useState("");
+  const [cvcCode, setCvcCode] = useState("");
+  const [billingStreet, setBillingStreet] = useState("");
+  const [billingCity, setBillingCity] = useState("");
+  const [billingProvince, setBillingProvince] = useState("");
+  const [billingZip, setBillingZip] = useState("");
 
 
   // CREATE TABLE leases
