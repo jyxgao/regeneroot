@@ -15,13 +15,13 @@ insert into images (lot_id, image_url, created_at) values (4, 'https://i.imgur.c
 insert into images (lot_id, image_url, created_at) values (4, 'https://i.imgur.com/kZdOv6E.jpg', '2019-12-08');
 insert into images (lot_id, image_url, created_at) values (4, 'https://i.imgur.com/24wV0jA.jpg', '2019-12-08');
 insert into images (lot_id, image_url, created_at) values (5, 'https://i.imgur.com/YPA6NxU.jpg', '2018-09-10');
-insert into images (lot_id, image_url, created_at) values (5, 'https://i.imgur.com/VF4qeEX.jpg', '2018-07-10');
-insert into images (lot_id, image_url, created_at) values (5, 'https://i.imgur.com/48YC1sP.jpg', '2020-07-10');
 insert into images (lot_id, image_url, created_at) values (5, 'https://i.imgur.com/Bdq1ZdX.jpeg', '2020-07-10');
+insert into images (lot_id, image_url, created_at) values (5, 'https://i.imgur.com/48YC1sP.jpg', '2020-07-10');
+insert into images (lot_id, image_url, created_at) values (5, 'https://i.imgur.com/VF4qeEX.jpg', '2018-07-10');
+insert into images (lot_id, image_url, created_at) values (6, 'https://upload.wikimedia.org/wikipedia/commons/3/3d/New_crops-Chicago_urban_farm.jpg', '2018-07-10');
 insert into images (lot_id, image_url, created_at) values (6, 'https://static.producer.com/wp-content/uploads/2019/11/21130707/41_2-col_IMG_0241-707.jpg', '2018-06-08');
 insert into images (lot_id, image_url, created_at) values (6, 'https://mrp-listings.myrealpage.com/5/3/0/91137035/65b62611c6737487f13b1b4c6386e15b.jpeg', '2018-06-08');
 insert into images (lot_id, image_url, created_at) values (6, 'https://i.imgur.com/AQIQO8b.png', '2018-06-08');
-insert into images (lot_id, image_url, created_at) values (6, 'https://upload.wikimedia.org/wikipedia/commons/3/3d/New_crops-Chicago_urban_farm.jpg', '2018-07-10');
 -- insert into images (lot_id, image_url, created_at) values (7, 'https://i.imgur.com/YPA6NxU.jpg', '2018-09-10');
 -- insert into images (lot_id, image_url, created_at) values (7, 'https://i.imgur.com/VF4qeEX.jpg', '2018-07-10');
 -- insert into images (lot_id, image_url, created_at) values (7, 'https://i.imgur.com/48YC1sP.jpg', '2020-07-10');
