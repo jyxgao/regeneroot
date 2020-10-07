@@ -2,7 +2,7 @@ import React, {useState } from "react";
 import axios from "axios";
 import "./LotForm.css";
 import { Button, TextInput, Textarea, Checkbox, Select, Pane, Table } from "evergreen-ui";
-import { useParams, useHistory, Link } from "react-router-dom";
+// import { useParams, useHistory, Link } from "react-router-dom";
 
 const LotCheckout = (props) => {
 

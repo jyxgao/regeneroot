@@ -329,14 +329,34 @@ const updateLotById = function (lotId, lot, imageArr) {
 
 exports.updateLotById = updateLotById;
 
+// const updateImage = function (lotId, imageUrl) {
+//   return pool
+//     .query(
+//       `
+//   UPDATE images
+//   SET
+//   image_url = $1
+//   WHERE lot_id = $2
+//   RETURNING *;
+// `,
+//       [imageUrl, lotId]
+//     )
+//     .then((res) => {
+//       return res.rows;
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// };
 const updateImage = function (lotId, imageUrl) {
+  // console.log("TEst ",lotId,imageUrl);
   return pool
     .query(
       `
   UPDATE images
   SET
   image_url = $1
-  WHERE lot_id = $2
+  WHERE lot_id = $2 and Id = (select id from images where lot_id = $2 and image_url=$1)
   RETURNING *;
 `,
       [imageUrl, lotId]
@@ -348,7 +368,6 @@ const updateImage = function (lotId, imageUrl) {
       console.log(err);
     });
 };
-
 exports.updateImage = updateImage;
 
 const getUserById = function (userId) {
