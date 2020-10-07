@@ -21,6 +21,7 @@ const LotCheckout = (props) => {
   const [billingCity, setBillingCity] = useState("");
   const [billingProvince, setBillingProvince] = useState("");
   const [billingZip, setBillingZip] = useState("");
+  const [isAgreeing, setIsAgreeing] = useState("");
 
 
   // CREATE TABLE leases
@@ -116,6 +117,8 @@ const LotCheckout = (props) => {
           label="I have read and agree to the Terms of Agreement"
           name="Terms_of_agreement"
           type="checkbox"
+          checked={isAgreeing}
+          onChange={(e) => setIsAgreeing(e.target.checked)}
         />
         <div>
           <Button type="submit" onClick={handleSubmit}>
