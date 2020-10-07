@@ -329,7 +329,7 @@ const LotDetail = (props) => {
               >{`Suggested term: ${currentLot.suggested_term} months`}</ListItem>
               <ListItem
                 size={300}
-              >{`Available date: ${currentLot.available_date}`}</ListItem>
+              >{`Available date: ${currentLot.available_date.slice(0, 10)}`}</ListItem>
             </UnorderedList>
           </div>
           <div className="LotDetail--image_list">

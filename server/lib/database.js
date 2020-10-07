@@ -349,7 +349,7 @@ exports.updateLotById = updateLotById;
 //     });
 // };
 const updateImage = function (lotId, imageUrl) {
-  console.log("TEst ",lotId,imageUrl);
+  // console.log("TEst ",lotId,imageUrl);
   return pool
     .query(
       `

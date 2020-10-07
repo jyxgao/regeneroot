@@ -188,7 +188,7 @@ const LotFormEdit = (props) => {
           onChange={(event) => setCity(event.target.value)}
         />
         <br />
-        <label>country: </label>
+        <label>Country: </label>
         <TextInput
           name="country"
           type="text"

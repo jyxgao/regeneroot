@@ -2,7 +2,7 @@ import React, {useState } from "react";
 import axios from "axios";
 import "./LotForm.css";
 import { Button, TextInput, Textarea, Checkbox, Select, Pane, Table } from "evergreen-ui";
-import { useParams, useHistory, Link } from "react-router-dom";
+// import { useParams, useHistory, Link } from "react-router-dom";
 
 const LotCheckout = (props) => {
 
@@ -16,11 +16,11 @@ const LotCheckout = (props) => {
   const [name, setName] = useState("");
   const [cardNum, setCardNum] = useState("");
   const [expirDate, setExpirDate] = useState("");
-  const [cvcCode, setCvcCode] = useState("");
-  const [billingStreet, setBillingStreet] = useState("");
-  const [billingCity, setBillingCity] = useState("");
-  const [billingProvince, setBillingProvince] = useState("");
-  const [billingZip, setBillingZip] = useState("");
+  // const [cvcCode, setCvcCode] = useState("");
+  // const [billingStreet, setBillingStreet] = useState("");
+  // const [billingCity, setBillingCity] = useState("");
+  // const [billingProvince, setBillingProvince] = useState("");
+  // const [billingZip, setBillingZip] = useState("");
 
 
   // CREATE TABLE leases
