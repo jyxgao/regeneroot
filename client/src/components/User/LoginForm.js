@@ -11,7 +11,7 @@ const LoginForm = (props) => {
 
   const handleLogin = (email) => {
     props.login(email);
-    history.push("/mapview");
+    history.push("/");
   };
 
   return (
