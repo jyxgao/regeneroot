@@ -1,19 +1,20 @@
 # Regeneroot
 
-#### A full-stack app that helps gardeners and urban farmers who may not have access to vacant land in their area connect with land owners who would like to lease their land (such as yards or vacant lots).
+##### A full-stack app that helps gardeners and urban farmers who may not have access to vacant land in their area connect with land owners who would like to lease their land (such as yards or vacant lots).
 
-#### Anyone can browse and use the search function to search lots by city, country, and lot sizes.
+##### Anyone can browse and use the search function to search lots by city, country, and lot sizes.
 
-#### Users can login and create new lots they own and then edit or delete their owned lots. 
+##### Users can login and create new lots they own and then edit or delete their owned lots. 
 
-#### Gardeners/farmers can login and message owner with questions about the listings, choose to lease a listed lot they are interested in.
+##### Gardeners/farmers can login and message owner with questions about the listings, choose to lease a listed lot they are interested in.
 
 ## Motivation
 ---
 
 ## Screenshots
 ---
-
+#### Google Map Search
+![Map Search](https://github.com/jyxgao/regeneroot/blob/master/docs/search_map.gif?raw=true)
 
 ## Tech/Framework
 ---
