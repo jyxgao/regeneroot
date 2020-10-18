@@ -13,10 +13,16 @@
 
 ## Screenshots
 #### Google Map Search
-![Map Search](https://github.com/jyxgao/regeneroot/blob/master/docs/search_map.gif?raw=true)
+![Map Search](https://github.com/jyxgao/regeneroot/blob/master/docs/screenshots/search_map.gif?raw=true)
+
+#### Message Owner
+![Message Owner](https://github.com/jyxgao/regeneroot/blob/master/docs/screenshots/message_owner.gif?raw=true)
 
 #### Edit owned lot when logged in
-![Edit Lot](https://github.com/jyxgao/regeneroot/blob/master/docs/Edit_lot.gif?raw=true)
+![Edit Lot](https://github.com/jyxgao/regeneroot/blob/master/docs/screenshots/Edit_lot.gif?raw=true)
+
+#### Lease lot when logged in
+![Lease Lot](https://github.com/jyxgao/regeneroot/blob/master/docs/screenshots/lease_lot.gif?raw=true)
 
 ## Tech/Framework
 ---
