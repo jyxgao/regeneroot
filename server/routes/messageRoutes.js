@@ -7,9 +7,7 @@ module.exports = function (router, database) {
     const lotId = req.params.lot_id;
     const userId = req.session.user_id;
     const otherId = req.params.other_id;
-    // console.log("lotid", lotId)
-    // console.log("userid", userId);
-    // console.log("otheruserid", otherId)
+
     if (!userId) {
       res.send({ message: "You are not logged in" });
       return;
