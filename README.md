@@ -16,6 +16,9 @@
 #### Google Map Search
 ![Map Search](https://github.com/jyxgao/regeneroot/blob/master/docs/search_map.gif?raw=true)
 
+#### Edit owned lot when logged in
+![Edit Lot](https://github.com/jyxgao/regeneroot/blob/master/docs/Edit_lot.gif?raw=true)
+
 ## Tech/Framework
 ---
 * Front End: React.js, Google Maps API, CSS, Evergreen-ui Library, JSX
