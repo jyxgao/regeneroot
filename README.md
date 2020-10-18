@@ -9,10 +9,9 @@
 ##### Gardeners/farmers can login and message owner with questions about the listings, choose to lease a listed lot they are interested in.
 
 ## Motivation
----
+
 
 ## Screenshots
----
 #### Google Map Search
 ![Map Search](https://github.com/jyxgao/regeneroot/blob/master/docs/search_map.gif?raw=true)
 
@@ -27,7 +26,7 @@
 
 
 ## Installation
-___
+
 
 ## API Reference
 [API Doc](https://github.com/jyxgao/regeneroot/blob/master/docs/serverRoutes.md)
